@@ -8,34 +8,34 @@ function cancelarAlta() {
 
 // Guardar alta
 function guardarAlta() {
-  // Obtener productos
-  let productos = JSON.parse(localStorage.getItem("productos")) || [];
+  // Obtener ordenesCompra
+  let ordenesCompra = JSON.parse(localStorage.getItem("ordenesCompra")) || [];
 
   // Seleccionar formulario
-  const formulario = document.getElementById("altaProductoForm");
+  const formulario = document.getElementById("altaOrdenCompraForm");
 
-  // Crear producto
-  const nuevoProducto = {};
+  // Crear ordenCompra
+  const nuevoOrdenCompra = {};
 
-  // Asignar código de producto
+  // Asignar código de ordenCompra
   let nuevoNumero = 1;
-  if (productos.length > 0) {
-    nuevoNumero = parseInt(productos[productos.length - 1].numero) + 1;
+  if (ordenesCompra.length > 0) {
+    nuevoNumero = parseInt(ordenesCompra[ordenesCompra.length - 1].numero) + 1;
   }
-  nuevoProducto.numero = nuevoNumero;
+  nuevoOrdenCompra.numero = nuevoNumero;
 
   // Recorrer campos del formulario
   for (const element of formulario.elements) {
     console.log(element.id, element.value);
     if (element.tagName === "INPUT") {
-      nuevoProducto[element.id] = element.value;
+      nuevoOrdenCompra[element.id] = element.value;
     }
   }
 
-  // Agregar nuevo producto
-  productos.push(nuevoProducto);
-  localStorage.setItem("productos", JSON.stringify(productos));
+  // Agregar nuevo ordenCompra
+  ordenesCompra.push(nuevoOrdenCompra);
+  localStorage.setItem("ordenesCompra", JSON.stringify(ordenesCompra));
 
-  alert("Producto dado de alta correctamente.");
+  alert("Orden de compra generada correctamente.");
   window.location.href = "index.html";
 }

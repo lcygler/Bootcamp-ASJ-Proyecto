@@ -3,9 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
   let ordenesCompra = JSON.parse(localStorage.getItem("ordenesCompra"));
 
   if (!ordenesCompra) {
-    const ordenesCompra = [
+    ordenesCompra = [
       {
-        numero: 1,
+        numero: "1",
         fechaEmision: "2023-01-01",
         fechaEntrega: "2023-01-10",
         direccion: "Calle A, N° 123",
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         total: 72.95,
       },
       {
-        numero: 2,
+        numero: "2",
         fechaEmision: "2023-02-05",
         fechaEntrega: "2023-02-15",
         direccion: "Calle B, N° 456",
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         total: 105.75,
       },
       {
-        numero: 3,
+        numero: "3",
         fechaEmision: "2023-03-12",
         fechaEntrega: "2023-03-22",
         direccion: "Calle C, N° 789",
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         total: 54.2,
       },
       {
-        numero: 4,
+        numero: "4",
         fechaEmision: "2023-04-18",
         fechaEntrega: "2023-04-28",
         direccion: "Calle D, N° 1011",
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         total: 91.4,
       },
       {
-        numero: 5,
+        numero: "5",
         fechaEmision: "2023-05-24",
         fechaEntrega: "2023-06-03",
         direccion: "Calle E, N° 1213",
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
         total: 67.8,
       },
       {
-        numero: 6,
+        numero: "6",
         fechaEmision: "2023-06-30",
         fechaEntrega: "2023-07-10",
         direccion: "Calle F, N° 1415",
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
         total: 89.6,
       },
       {
-        numero: 7,
+        numero: "7",
         fechaEmision: "2023-07-15",
         fechaEntrega: "2023-07-25",
         direccion: "Calle G, N° 1617",
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
         total: 76.45,
       },
       {
-        numero: 8,
+        numero: "8",
         fechaEmision: "2023-08-20",
         fechaEntrega: "2023-08-30",
         direccion: "Calle H, N° 1819",
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
         total: 112.3,
       },
       {
-        numero: 9,
+        numero: "9",
         fechaEmision: "2023-09-25",
         fechaEntrega: "2023-10-05",
         direccion: "Calle I, N° 2021",
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
         total: 59.1,
       },
       {
-        numero: 10,
+        numero: "10",
         fechaEmision: "2023-10-31",
         fechaEntrega: "2023-11-10",
         direccion: "Calle J, N° 2223",

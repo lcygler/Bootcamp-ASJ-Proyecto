@@ -7,8 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let ordenesCompra = JSON.parse(localStorage.getItem("ordenesCompra")) || [];
 
   // Buscar ordenCompra
-  const ordenCompra = ordenesCompra.find((p) => p.numero === numeroOrdenCompra);
-
+  const ordenCompra = ordenesCompra.find((o) => o.numero === numeroOrdenCompra);
   // Rellenar formulario
   if (ordenCompra) {
     // Rellenar código (readonly)
@@ -45,7 +44,7 @@ function guardarCambios() {
   let ordenesCompra = JSON.parse(localStorage.getItem("ordenesCompra")) || [];
 
   // Buscar ordenCompra
-  const indice = ordenesCompra.findIndex((p) => p.numero === numeroOrdenCompra);
+  const indice = ordenesCompra.findIndex((o) => o.numero === numeroOrdenCompra);
 
   // Actualizar valores
   const propiedades = Object.keys(ordenesCompra[indice]);
@@ -59,6 +58,6 @@ function guardarCambios() {
   }
 
   localStorage.setItem("ordenesCompra", JSON.stringify(ordenesCompra));
-  alert("El ordenCompra se modificó correctamente.");
+  alert("La orden de compra se modificó correctamente.");
   window.location.href = "index.html";
 }
