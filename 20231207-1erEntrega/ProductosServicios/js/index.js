@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const actionsCell = document.createElement("td");
 
       const editButton = document.createElement("button");
-      editButton.classList.add("btn", "btn-primary");
+      editButton.classList.add("btn", "btn-primary", "mx-2");
       editButton.textContent = "Editar";
       editButton.addEventListener("click", () => editarProducto(producto));
 

@@ -56,9 +56,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Crear celda para acciones
       const actionsCell = document.createElement("td");
+      actionsCell.classList.add("d-flex");
 
       const editButton = document.createElement("button");
-      editButton.classList.add("btn", "btn-primary");
+      editButton.classList.add("btn", "btn-primary", "mx-2");
       editButton.textContent = "Editar";
       editButton.addEventListener("click", () => editarProveedor(proveedor));
 
