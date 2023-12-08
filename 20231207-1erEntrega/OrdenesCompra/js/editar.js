@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Buscar ordenCompra
   const ordenCompra = ordenesCompra.find((o) => o.numero === numeroOrdenCompra);
+
   // Rellenar formulario
   if (ordenCompra) {
     // Rellenar código (readonly)
