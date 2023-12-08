@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Obtener código del ordenCompra de la URL
+  // Obtener número de la orden de compra de la URL
   const params = new URLSearchParams(window.location.search);
   const numeroOrdenCompra = params.get("numero");
 
-  // Obtener ordenesCompra
+  // Obtener ordenes de compra
   let ordenesCompra = JSON.parse(localStorage.getItem("ordenesCompra")) || [];
 
-  // Buscar ordenCompra
+  // Buscar orden de compra
   const ordenCompra = ordenesCompra.find((o) => o.numero === numeroOrdenCompra);
 
   // Rellenar formulario
@@ -37,14 +37,14 @@ function cancelarEdicion() {
 
 // Guardar cambios
 function guardarCambios() {
-  // Obtener código del ordenCompra de la URL
+  // Obtener número de la orden de compra de la URL
   const params = new URLSearchParams(window.location.search);
   const numeroOrdenCompra = params.get("numero");
 
-  // Obtener ordenesCompra
+  // Obtener ordenes de compra
   let ordenesCompra = JSON.parse(localStorage.getItem("ordenesCompra")) || [];
 
-  // Buscar ordenCompra
+  // Buscar orden de compra
   const indice = ordenesCompra.findIndex((o) => o.numero === numeroOrdenCompra);
 
   // Actualizar valores
