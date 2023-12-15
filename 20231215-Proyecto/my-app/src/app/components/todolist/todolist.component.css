@@ -1,0 +1,30 @@
+.task-list {
+  max-height: 300px;
+  overflow-y: auto;
+  width: 350px;
+}
+
+.completed-task {
+  background-color: #e6f7ff;
+  text-decoration: line-through;
+}
+
+.deleted-task {
+  background-color: #ffe6e6;
+}
+
+.task-description {
+  max-width: 12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.task-date {
+  font-size: 0.8em;
+}
+
+.btn-actions {
+  position: absolute;
+  right: 0.8rem;
+}

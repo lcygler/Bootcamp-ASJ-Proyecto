@@ -1,0 +1,113 @@
+<div class="container m-4" style="width: 100vw">
+  <div class="row d-flex align-items-center">
+    <div class="col-10">
+      <h5 class="card-title py-2">Listado de Proveedores</h5>
+    </div>
+    <div class="col-2 d-flex">
+      <div class="btn-group my-2 btn-actions">
+        <button
+          class="btn btn-outline-secondary"
+          [ngClass]="{ disabled: proveedores.length < 1 || paginaActual === 1 }"
+          (click)="actualizarPagina('primera')"
+        >
+          «
+        </button>
+        <button
+          class="btn btn-outline-secondary"
+          [ngClass]="{ disabled: proveedores.length < 1 || paginaActual === 1 }"
+          (click)="actualizarPagina('anterior')"
+        >
+          ‹
+        </button>
+        <button
+          class="btn btn-outline-secondary"
+          [ngClass]="{ disabled: proveedores.length < 1 || !hayMasElementos() }"
+          (click)="actualizarPagina('siguiente')"
+        >
+          ›
+        </button>
+        <button
+          class="btn btn-outline-secondary"
+          [ngClass]="{
+            disabled: proveedores.length < 1 || paginaActual === totalPaginas
+          }"
+          (click)="actualizarPagina('ultima')"
+        >
+          »
+        </button>
+      </div>
+
+      <button class="btn btn-success m-2" routerLink="/proveedores/alta">
+        Agregar
+      </button>
+    </div>
+  </div>
+
+  <div class="row overflow-x-auto">
+    <table class="table table-bordered table-striped text-center">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Razón Social</th>
+          <th>Rubro</th>
+          <th>Sitio web</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Calle</th>
+          <th>N°</th>
+          <th>CP</th>
+          <th>Localidad</th>
+          <th>Provincia</th>
+          <th>País</th>
+          <th>CUIT</th>
+          <th>Condición IVA</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Teléfono</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let proveedor of proveedoresVisibles">
+          <td>{{ proveedor.codigo }}</td>
+          <td>{{ proveedor.razonSocial }}</td>
+          <td>{{ proveedor.rubro }}</td>
+          <td>{{ proveedor.sitioWeb }}</td>
+          <td>{{ proveedor.email }}</td>
+          <td>{{ proveedor.telefono }}</td>
+          <td>{{ proveedor.calle }}</td>
+          <td>{{ proveedor.numero }}</td>
+          <td>{{ proveedor.codigoPostal }}</td>
+          <td>{{ proveedor.localidad }}</td>
+          <td>{{ proveedor.provincia }}</td>
+          <td>{{ proveedor.pais }}</td>
+          <td>{{ proveedor.cuit }}</td>
+          <td>{{ proveedor.condicionIva }}</td>
+          <td>{{ proveedor.nombreContacto }}</td>
+          <td>{{ proveedor.apellidoContacto }}</td>
+          <td>{{ proveedor.telefonoContacto }}</td>
+          <td>{{ proveedor.emailContacto }}</td>
+          <td>{{ proveedor.rolContacto }}</td>
+          <td>
+            <div class="btn-group my-2 btn-actions">
+              <button
+                class="btn btn-outline-primary"
+                routerLink="/proveedores/editar/:{{ proveedor.codigo }}"
+              >
+                Editar
+              </button>
+              <button
+                class="btn btn-outline-danger"
+                (click)="actualizarPagina('anterior')"
+              >
+                Eliminar
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
