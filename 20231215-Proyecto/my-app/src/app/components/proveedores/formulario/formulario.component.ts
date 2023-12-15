@@ -9,6 +9,4 @@ export class FormularioComponent {
   nuevoProveedor: any = {};
 
   guardar() {}
-
-  cancelar() {}
 }
