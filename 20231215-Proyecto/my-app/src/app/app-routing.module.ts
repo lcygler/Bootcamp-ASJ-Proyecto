@@ -8,8 +8,6 @@ import { FormularioComponent as ProductosFormularioComponent } from './component
 import { ProductosComponent } from './components/productos/productos.component';
 import { FormularioComponent as ProveedoresFormularioComponent } from './components/proveedores/formulario/formulario.component';
 import { ProveedoresComponent } from './components/proveedores/proveedores.component';
-import { SimpsonsComponent } from './components/simpsons/simpsons.component';
-import { TodolistComponent } from './components/todolist/todolist.component';
 
 const routes: Routes = [
   { path: 'proveedores', component: ProveedoresComponent },
@@ -25,8 +23,6 @@ const routes: Routes = [
   // { path: 'proveedores/editar/:idOrdenes', component: OrdenesFormularioComponent },
 
   { path: 'projects', pathMatch: 'full', redirectTo: 'projects/todolist' },
-  { path: 'projects/todolist', component: TodolistComponent },
-  { path: 'projects/simpsons', component: SimpsonsComponent },
   { path: 'about', component: AboutComponent },
 ];
 

@@ -19,8 +19,6 @@ import { FormularioComponent as ProveedoresFormularioComponent } from './compone
 import { ListadoComponent as ProveedoresListadoComponent } from './components/proveedores/listado/listado.component';
 import { ProveedoresComponent } from './components/proveedores/proveedores.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { SimpsonsComponent } from './components/simpsons/simpsons.component';
-import { TodolistComponent } from './components/todolist/todolist.component';
 
 @NgModule({
   declarations: [
@@ -29,9 +27,7 @@ import { TodolistComponent } from './components/todolist/todolist.component';
     NavbarComponent,
     FooterComponent,
     SidebarComponent,
-    TodolistComponent,
     AboutComponent,
-    SimpsonsComponent,
     ProveedoresFormularioComponent,
     ProveedoresListadoComponent,
     ProductosFormularioComponent,
