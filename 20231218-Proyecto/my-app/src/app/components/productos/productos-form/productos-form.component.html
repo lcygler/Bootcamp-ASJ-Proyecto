@@ -1,0 +1,73 @@
+<div class="container my-4">
+  <div class="row">
+    <div class="col-md-12" style="max-height: 500px; overflow-y: auto">
+      <h4 class="mb-4">Producto</h4>
+
+      <form id="altaProductoForm" style="width: 500px">
+        <div class="mb-3">
+          <label for="proveedor" class="form-label">Proveedor</label>
+          <input
+            type="text"
+            class="form-control"
+            id="proveedor"
+            name="proveedor"
+            [(ngModel)]="producto.proveedor"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="categoria" class="form-label">Categoría</label>
+          <input
+            type="text"
+            class="form-control"
+            id="categoria"
+            name="categoria"
+            [(ngModel)]="producto.categoria"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nombre"
+            name="nombre"
+            [(ngModel)]="producto.nombre"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="descripcion" class="form-label">Descripción</label>
+          <input
+            type="text"
+            class="form-control"
+            id="descripcion"
+            name="descripcion"
+            [(ngModel)]="producto.descripcion"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="precio" class="form-label">Precio</label>
+          <input
+            type="text"
+            class="form-control"
+            id="precio"
+            name="precio"
+            [(ngModel)]="producto.precio"
+          />
+        </div>
+      </form>
+
+      <div class="mt-4 d-flex justify-content-center">
+        <button class="btn btn-outline-secondary" routerLink="/productos">
+          Cancelar
+        </button>
+        <button class="btn btn-primary ms-2" (click)="guardarProducto()">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

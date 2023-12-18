@@ -1,0 +1,95 @@
+<div class="container my-4">
+  <div class="row">
+    <div class="col-md-12" style="max-height: 500px; overflow-y: auto">
+      <h4 class="mb-4">Orden</h4>
+
+      <form id="altaOrdenForm" style="width: 500px">
+        <div class="mb-3">
+          <label for="fecha-emision" class="form-label">Fecha de emisión</label>
+          <input
+            type="text"
+            class="form-control"
+            id="fecha-emision"
+            name="fecha-emision"
+            [(ngModel)]="orden.fechaEmision"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="fecha-entrega" class="form-label">Fecha de entrega</label>
+          <input
+            type="text"
+            class="form-control"
+            id="fecha-entrega"
+            name="fecha-entrega"
+            [(ngModel)]="orden.fechaEntrega"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="direccion" class="form-label">Dirección</label>
+          <input
+            type="text"
+            class="form-control"
+            id="direccion"
+            name="direccion"
+            [(ngModel)]="orden.direccion"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="proveedor" class="form-label">Proveedor</label>
+          <input
+            type="text"
+            class="form-control"
+            id="proveedor"
+            name="proveedor"
+            [(ngModel)]="orden.proveedor"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="productos" class="form-label">Productos</label>
+          <input
+            type="text"
+            class="form-control"
+            id="productos"
+            name="productos"
+            [(ngModel)]="orden.productos"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="cantidad" class="form-label">Cantidad</label>
+          <input
+            type="text"
+            class="form-control"
+            id="cantidad"
+            name="cantidad"
+            [(ngModel)]="orden.cantidad"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="total" class="form-label">Total</label>
+          <input
+            type="text"
+            class="form-control"
+            id="total"
+            name="total"
+            [(ngModel)]="orden.total"
+          />
+        </div>
+      </form>
+
+      <div class="mt-4 d-flex justify-content-center">
+        <button class="btn btn-outline-secondary" routerLink="/ordenes">
+          Cancelar
+        </button>
+        <button class="btn btn-primary ms-2" (click)="guardarOrden()">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
