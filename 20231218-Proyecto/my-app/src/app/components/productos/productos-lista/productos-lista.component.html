@@ -1,9 +1,9 @@
 <div class="container m-4" style="width: 100vw">
   <div class="row d-flex align-items-center">
-    <div class="col-10">
+    <div class="col-9">
       <h5 class="card-title py-2">Listado de Productos</h5>
     </div>
-    <div class="col-2 d-flex">
+    <div class="col-3 d-flex justify-content-end">
       <div class="btn-group my-2 btn-actions">
         <button
           class="btn btn-outline-secondary"
@@ -37,8 +37,14 @@
         </button>
       </div>
 
-      <button class="btn btn-success m-2" (click)="agregarProducto()">
-        <span class="material-icons" style="font-size: 16px">add</span>
+      <button
+        class="btn btn-success m-2 d-flex justify-content-center align-items-center"
+        (click)="agregarProducto()"
+      >
+        <span class="material-icons" style="font-size: 16px; margin-right: 4px"
+          >add</span
+        >
+        Nuevo
       </button>
     </div>
   </div>
