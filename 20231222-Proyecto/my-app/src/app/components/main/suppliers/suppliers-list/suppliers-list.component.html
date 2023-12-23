@@ -1,0 +1,121 @@
+<div class="container m-4" style="width: 100vw">
+  <div class="row d-flex align-items-center">
+    <div class="col-9">
+      <h5 class="card-title py-2">Lista de Proveedores</h5>
+    </div>
+    <div class="col-3 d-flex justify-content-end">
+      <div class="btn-group my-2 btn-actions">
+        <button
+          class="btn btn-outline-secondary"
+          [disabled]="supplierList.length < 1 || currentPage === 1"
+          (click)="updatePage('first')"
+        >
+          «
+        </button>
+        <button
+          class="btn btn-outline-secondary"
+          [disabled]="supplierList.length < 1 || currentPage === 1"
+          (click)="updatePage('prev')"
+        >
+          ‹
+        </button>
+        <button
+          class="btn btn-outline-secondary"
+          [disabled]="supplierList.length < 1 || !hasMoreItems()"
+          (click)="updatePage('next')"
+        >
+          ›
+        </button>
+        <button
+          class="btn btn-outline-secondary"
+          [disabled]="supplierList.length < 1 || currentPage === totalPages"
+          (click)="updatePage('last')"
+        >
+          »
+        </button>
+      </div>
+
+      <button
+        class="btn btn-success m-2 d-flex justify-content-center align-items-center"
+        (click)="addSupplier()"
+      >
+        <span class="material-icons" style="font-size: 16px; margin-right: 4px"
+          >add</span
+        >
+        Nuevo
+      </button>
+    </div>
+  </div>
+
+  <div class="row overflow-x-auto">
+    <table
+      class="table table-bordered table-striped table-hover text-center text-nowrap align-middle"
+    >
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Razón Social</th>
+          <th>Rubro</th>
+          <th>Sitio web</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Calle</th>
+          <th>N°</th>
+          <th>CP</th>
+          <th>Localidad</th>
+          <th>Provincia</th>
+          <th>País</th>
+          <th>CUIT</th>
+          <th>Condición IVA</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Teléfono</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let supplier of displayedSuppliers">
+          <td class="px-4">{{ supplier.id }}</td>
+          <td class="px-4">{{ supplier.razonSocial }}</td>
+          <td class="px-4">{{ supplier.rubro }}</td>
+          <td class="px-4">{{ supplier.sitioWeb }}</td>
+          <td class="px-4">{{ supplier.email }}</td>
+          <td class="px-4">{{ supplier.telefono }}</td>
+          <td class="px-4">{{ supplier.calle }}</td>
+          <td class="px-4">{{ supplier.numero }}</td>
+          <td class="px-4">{{ supplier.codigoPostal }}</td>
+          <td class="px-4">{{ supplier.localidad }}</td>
+          <td class="px-4">{{ supplier.provincia }}</td>
+          <td class="px-4">{{ supplier.pais }}</td>
+          <td class="px-4">{{ supplier.cuit }}</td>
+          <td class="px-4">{{ supplier.condicionIva }}</td>
+          <td class="px-4">{{ supplier.nombreContacto }}</td>
+          <td class="px-4">{{ supplier.apellidoContacto }}</td>
+          <td class="px-4">{{ supplier.telefonoContacto }}</td>
+          <td class="px-4">{{ supplier.emailContacto }}</td>
+          <td class="px-4">{{ supplier.rolContacto }}</td>
+          <td class="px-4">
+            <div class="btn-group my-2 btn-actions">
+              <button
+                class="btn btn-outline-primary"
+                (click)="editSupplier(supplier.id)"
+              >
+                <span class="material-icons" style="font-size: 16px">edit</span>
+              </button>
+              <button
+                class="btn btn-outline-danger"
+                (click)="deleteSupplier(supplier)"
+              >
+                <span class="material-icons" style="font-size: 16px"
+                  >delete</span
+                >
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
