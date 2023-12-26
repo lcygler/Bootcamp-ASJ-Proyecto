@@ -1,0 +1,216 @@
+<div class="container my-4">
+  <div class="row">
+    <div class="col-md-12" style="max-height: 500px; overflow-y: auto">
+      <h4 class="mb-4">Proveedor</h4>
+
+      <form id="altasupplierForm" style="width: 500px">
+        <div class="mb-3">
+          <label for="razon-social" class="form-label">Razón Social</label>
+          <input
+            type="text"
+            class="form-control"
+            id="razon-social"
+            name="razonSocial"
+            [(ngModel)]="supplier.razonSocial"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="rubro" class="form-label">Rubro</label>
+          <input
+            type="text"
+            class="form-control"
+            id="rubro"
+            name="rubro"
+            [(ngModel)]="supplier.rubro"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="sitio-web" class="form-label">Sitio Web</label>
+          <input
+            type="text"
+            class="form-control"
+            id="sitio-web"
+            name="sitioWeb"
+            [(ngModel)]="supplier.sitioWeb"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            name="email"
+            [(ngModel)]="supplier.email"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="telefono" class="form-label">Teléfono</label>
+          <input
+            type="text"
+            class="form-control"
+            id="telefono"
+            name="telefono"
+            [(ngModel)]="supplier.telefono"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="calle" class="form-label">Calle</label>
+          <input
+            type="text"
+            class="form-control"
+            id="calle"
+            name="calle"
+            [(ngModel)]="supplier.calle"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="numero" class="form-label">Número</label>
+          <input
+            type="text"
+            class="form-control"
+            id="numero"
+            name="numero"
+            [(ngModel)]="supplier.numero"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="codigo-postal" class="form-label">Código Postal</label>
+          <input
+            type="text"
+            class="form-control"
+            id="codigo-postal"
+            name="codigoPostal"
+            [(ngModel)]="supplier.codigoPostal"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="localidad" class="form-label">Localidad</label>
+          <input
+            type="text"
+            class="form-control"
+            id="localidad"
+            name="localidad"
+            [(ngModel)]="supplier.localidad"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="provincia" class="form-label">Provincia</label>
+          <input
+            type="text"
+            class="form-control"
+            id="provincia"
+            name="provincia"
+            [(ngModel)]="supplier.provincia"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="pais" class="form-label">País</label>
+          <input
+            type="text"
+            class="form-control"
+            id="pais"
+            name="pais"
+            [(ngModel)]="supplier.pais"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="cuit" class="form-label">CUIT</label>
+          <input
+            type="text"
+            class="form-control"
+            id="cuit"
+            name="cuit"
+            [(ngModel)]="supplier.cuit"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="condicion-iva" class="form-label">Condición IVA</label>
+          <input
+            type="text"
+            class="form-control"
+            id="condicion-iva"
+            name="condicionIva"
+            [(ngModel)]="supplier.condicionIva"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="nombre-contacto" class="form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nombre-contacto"
+            name="nombreContacto"
+            [(ngModel)]="supplier.nombreContacto"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="apellido-contacto" class="form-label">Apellido</label>
+          <input
+            type="text"
+            class="form-control"
+            id="apellido-contacto"
+            name="apellidoContacto"
+            [(ngModel)]="supplier.apellidoContacto"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="telefono-contacto" class="form-label">Teléfono</label>
+          <input
+            type="text"
+            class="form-control"
+            id="telefono-contacto"
+            name="telefonoContacto"
+            [(ngModel)]="supplier.telefonoContacto"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="email-contacto" class="form-label">Email</label>
+          <input
+            type="text"
+            class="form-control"
+            id="email-contacto"
+            name="emailContacto"
+            [(ngModel)]="supplier.emailContacto"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="rol-contacto" class="form-label">Rol</label>
+          <input
+            type="text"
+            class="form-control"
+            id="rol-contacto"
+            name="rolContacto"
+            [(ngModel)]="supplier.rolContacto"
+          />
+        </div>
+      </form>
+
+      <div class="mt-4 d-flex justify-content-center">
+        <button class="btn btn-outline-secondary" routerLink="/suppliers">
+          Cancelar
+        </button>
+        <button class="btn btn-primary ms-2" (click)="saveChanges()">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
