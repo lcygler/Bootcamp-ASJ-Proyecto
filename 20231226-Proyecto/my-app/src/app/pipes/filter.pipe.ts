@@ -6,6 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FilterPipe implements PipeTransform {
   transform(array: any[], searchTerm: any): any {
     if (!searchTerm) {
+      console.error('FilterPipe: searchTerm must be defined.');
       return array;
     }
 
