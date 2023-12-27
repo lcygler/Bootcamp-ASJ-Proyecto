@@ -17,7 +17,7 @@
         "country": "United States"
       },
       "taxInformation": {
-        "cuit": "98765432109",
+        "cuit": "98-76543210-9",
         "vatCondition": "IVA Responsable Inscripto"
       },
       "contactDetails": {
@@ -46,7 +46,7 @@
         "country": "France"
       },
       "taxInformation": {
-        "cuit": "34567890123",
+        "cuit": "34-56789012-3",
         "vatCondition": "IVA Responsable Inscripto"
       },
       "contactDetails": {
@@ -75,7 +75,7 @@
         "country": "Japan"
       },
       "taxInformation": {
-        "cuit": "45678901234",
+        "cuit": "45-67890123-4",
         "vatCondition": "IVA Responsable Inscripto"
       },
       "contactDetails": {
@@ -104,7 +104,7 @@
         "country": "Australia"
       },
       "taxInformation": {
-        "cuit": "56789012345",
+        "cuit": "56-78901234-5",
         "vatCondition": "IVA Responsable Inscripto"
       },
       "contactDetails": {
@@ -133,7 +133,7 @@
         "country": "United States"
       },
       "taxInformation": {
-        "cuit": "67890123456",
+        "cuit": "67-89012345-6",
         "vatCondition": "IVA Responsable Inscripto"
       },
       "contactDetails": {
@@ -162,7 +162,7 @@
         "country": "Germany"
       },
       "taxInformation": {
-        "cuit": "78901234567",
+        "cuit": "78-90123456-7",
         "vatCondition": "IVA Responsable Inscripto"
       },
       "contactDetails": {
@@ -191,7 +191,7 @@
         "country": "Italy"
       },
       "taxInformation": {
-        "cuit": "89012345678",
+        "cuit": "89-01234567-8",
         "vatCondition": "IVA Responsable Inscripto"
       },
       "contactDetails": {
@@ -220,7 +220,7 @@
         "country": "South Korea"
       },
       "taxInformation": {
-        "cuit": "90123456789",
+        "cuit": "90-12345678-9",
         "vatCondition": "IVA Responsable Inscripto"
       },
       "contactDetails": {
@@ -249,7 +249,7 @@
         "country": "Norway"
       },
       "taxInformation": {
-        "cuit": "12345678901",
+        "cuit": "12-34567890-1",
         "vatCondition": "IVA Responsable Inscripto"
       },
       "contactDetails": {
@@ -278,7 +278,7 @@
         "country": "Australia"
       },
       "taxInformation": {
-        "cuit": "23456789012",
+        "cuit": "23-45678901-2",
         "vatCondition": "IVA Responsable Inscripto"
       },
       "contactDetails": {
