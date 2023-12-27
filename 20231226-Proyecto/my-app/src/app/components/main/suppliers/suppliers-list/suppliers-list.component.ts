@@ -10,7 +10,6 @@ import { SupplierService } from 'src/app/services/supplier.service';
 export class SuppliersListComponent implements OnInit {
   supplierList: any[] = [];
   filteredSuppliers: any[] = [];
-  // displayedSuppliers: any[] = [];
   searchTerm: string = '';
 
   itemsPerPage: number = 5;
@@ -55,8 +54,6 @@ export class SuppliersListComponent implements OnInit {
   }
 
   filterSuppliers() {
-    // const start = (this.currentPage - 1) * this.itemsPerPage;
-    // const end = start + this.itemsPerPage;
     this.currentPage = 1;
 
     if (this.searchTerm != '') {
@@ -67,16 +64,10 @@ export class SuppliersListComponent implements OnInit {
       );
 
       this.updateTotalPages();
-      // this.filteredSuppliers = this.filteredSuppliers.slice(start, end);
-      // this.displayedSuppliers = this.filteredSuppliers.slice(start, end);
     } else {
       this.filteredSuppliers = [...this.supplierList];
       this.updateTotalPages();
-      // this.filteredSuppliers = this.supplierList.slice(start, end);
-      // this.displayedSuppliers = this.supplierList.slice(start, end);
     }
-
-    // return this.filteredSuppliers.slice(start, end);
   }
 
   updatePage(navigation: 'prev' | 'next' | 'first' | 'last'): void {
@@ -98,34 +89,19 @@ export class SuppliersListComponent implements OnInit {
         this.currentPage = this.totalPages;
         break;
     }
-
-    // this.filterSuppliers();
   }
 
   updateTotalPages(): void {
-    // this.totalPages = Math.ceil(this.supplierList.length / this.itemsPerPage);
+    const minPages = 1;
 
-    this.totalPages = Math.ceil(
-      this.filteredSuppliers.length / this.itemsPerPage
+    this.totalPages = Math.max(
+      minPages,
+      Math.ceil(this.filteredSuppliers.length / this.itemsPerPage)
     );
-
-    // this.totalPages = Math.max(
-    //   1,
-    //   Math.ceil(this.filteredSuppliers.length / this.itemsPerPage)
-    // );
   }
 
   hasMoreItems(): boolean {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     return start + this.itemsPerPage < this.filteredSuppliers.length;
-    // return start + this.itemsPerPage < this.supplierList.length;
   }
-
-  // hasMoreItems(): boolean {
-  //   const start = (this.currentPage - 1) * this.itemsPerPage;
-  //   // Calculate the end index based on the current page and items per page
-  //   const end = start + this.itemsPerPage;
-  //   // Check if there are more items in the current page
-  //   return end < this.supplierList | paginate: this.currentPage:this.itemsPerPage:this.searchTerm?.length;
-  // }
 }
