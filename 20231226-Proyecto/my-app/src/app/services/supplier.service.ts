@@ -22,7 +22,7 @@ export class SupplierService {
     );
   }
 
-  public getSupplierById2(id: number): Observable<any> {
+  public getSupplierById(id: number): Observable<any> {
     return this.http.get(`${this.API_URL}/${id}`).pipe(
       catchError((error) => {
         console.error('Error fetching supplier by ID:', error);
@@ -40,7 +40,7 @@ export class SupplierService {
     );
   }
 
-  public createSupplier2(supplier: any) {
+  public createSupplier(supplier: any) {
     return this.http.post(`${this.API_URL}`, supplier).pipe(
       catchError((error) => {
         console.error('Error creating supplier:', error);
@@ -49,7 +49,7 @@ export class SupplierService {
     );
   }
 
-  public updateSupplier2(id: number, data: any) {
+  public updateSupplier(id: number, data: any) {
     return this.http.patch(`${this.API_URL}/${id}`, data).pipe(
       catchError((error) => {
         console.error('Error updating supplier:', error);
@@ -72,12 +72,12 @@ export class SupplierService {
     return this.suppliers;
   }
 
-  public getSupplierById(id: string): any | undefined {
+  public getSupplierById2(id: string): any | undefined {
     const supplier = this.suppliers.find((s) => s.id === id);
     return supplier;
   }
 
-  public createSupplier(supplier: any) {
+  public createSupplier2(supplier: any) {
     if (supplier) {
       const lastSupplier = this.suppliers[this.suppliers.length - 1];
       const newId = lastSupplier ? parseInt(lastSupplier.id) + 1 : 1;
@@ -86,7 +86,7 @@ export class SupplierService {
     }
   }
 
-  public updateSupplier(supplier: any): boolean {
+  public updateSupplier2(supplier: any): boolean {
     let isUpdated = false;
     const index = this.suppliers.indexOf(supplier);
 

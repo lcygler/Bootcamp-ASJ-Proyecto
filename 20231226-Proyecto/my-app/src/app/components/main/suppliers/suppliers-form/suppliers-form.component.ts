@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SupplierService } from 'src/app/services/supplier.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-suppliers-form',
@@ -8,37 +9,63 @@ import { SupplierService } from 'src/app/services/supplier.service';
   styleUrls: ['./suppliers-form.component.css'],
 })
 export class SuppliersFormComponent implements OnInit {
-  supplier: any = {};
+  supplier: any = {
+    address: {},
+    taxInformation: {},
+    contactDetails: {},
+  };
+  editSupplier: boolean = false;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private supplierService: SupplierService
+    private supplierService: SupplierService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('supplierId');
 
     if (id) {
-      this.supplier = this.supplierService.getSupplierById(id);
+      this.getSupplierById(parseInt(id));
+      this.editSupplier = this.isEditRoute();
     }
   }
 
-  saveChanges() {
-    if (this.supplier) {
-      const route = this.router.url;
+  getSupplierById(id: number): void {
+    if (id) {
+      this.supplierService.getSupplierById(id).subscribe((res) => {
+        this.supplier = res;
+      });
+    }
+  }
 
-      if (route.includes('/suppliers/add')) {
-        // Add a new supplier
-        this.supplierService.createSupplier(this.supplier);
-        alert('Supplier added successfully.');
-      } else if (route.includes('/suppliers/edit')) {
+  saveChanges(): void {
+    if (this.supplier) {
+      if (this.isEditRoute()) {
         // Update existing supplier
-        this.supplierService.updateSupplier(this.supplier);
-        alert('Changes saved successfully.');
+        this.supplierService
+          .updateSupplier(this.supplier.id, this.supplier)
+          .subscribe((res) => {
+            this.toastService.showSuccessToast(
+              'Proveedor modificado correctamente!'
+            );
+          });
+      } else {
+        // Add new supplier
+        this.supplierService.createSupplier(this.supplier).subscribe((res) => {
+          this.toastService.showSuccessToast(
+            'Proveedor agregado correctamente!'
+          );
+        });
       }
 
       this.router.navigate(['/suppliers']);
     }
+  }
+
+  isEditRoute(): boolean {
+    const route = this.router.url;
+    return route.includes('/suppliers/edit');
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SupplierService } from 'src/app/services/supplier.service';
+import { ToastService } from 'src/app/services/toast.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-suppliers-list',
@@ -20,7 +22,8 @@ export class SuppliersListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private supplierService: SupplierService
+    private supplierService: SupplierService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit() {
@@ -55,6 +58,9 @@ export class SuppliersListComponent implements OnInit {
         .subscribe((res) => {
           this.getSuppliers();
           this.supplierToDeleteId = null;
+          this.toastService.showSuccessToast(
+            'Proveedor eliminado correctamente!'
+          );
         });
     }
   }
@@ -108,5 +114,14 @@ export class SuppliersListComponent implements OnInit {
   hasMoreItems(): boolean {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     return start + this.itemsPerPage < this.filteredSuppliers.length;
+  }
+
+  calculateRange(): string {
+    const start = (this.currentPage - 1) * this.itemsPerPage + 1;
+    const end = Math.min(
+      this.currentPage * this.itemsPerPage,
+      this.filteredSuppliers.length
+    );
+    return `Mostrando ${start} - ${end} de ${this.filteredSuppliers.length} proveedores`;
   }
 }

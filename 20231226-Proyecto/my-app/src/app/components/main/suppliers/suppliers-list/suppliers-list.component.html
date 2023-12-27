@@ -27,34 +27,42 @@
       <!-- Pagination -->
       <div class="btn-group my-2 btn-actions">
         <button
-          class="btn btn-outline-secondary"
+          class="btn btn-outline-secondary d-flex align-items-center"
           [disabled]="filteredSuppliers.length < 1 || currentPage === 1"
           (click)="updatePage('first')"
         >
-          «
+          <span class="material-icons" style="font-size: 16px">
+            keyboard_double_arrow_left
+          </span>
         </button>
         <button
-          class="btn btn-outline-secondary"
+          class="btn btn-outline-secondary d-flex align-items-center"
           [disabled]="filteredSuppliers.length < 1 || currentPage === 1"
           (click)="updatePage('prev')"
         >
-          ‹
+          <span class="material-icons" style="font-size: 16px">
+            keyboard_arrow_left
+          </span>
         </button>
         <button
-          class="btn btn-outline-secondary"
+          class="btn btn-outline-secondary d-flex align-items-center"
           [disabled]="filteredSuppliers.length < 1 || !hasMoreItems()"
           (click)="updatePage('next')"
         >
-          ›
+          <span class="material-icons" style="font-size: 16px">
+            keyboard_arrow_right
+          </span>
         </button>
         <button
-          class="btn btn-outline-secondary"
+          class="btn btn-outline-secondary d-flex align-items-center"
           [disabled]="
             filteredSuppliers.length < 1 || currentPage === totalPages
           "
           (click)="updatePage('last')"
         >
-          »
+          <span class="material-icons" style="font-size: 16px">
+            keyboard_double_arrow_right
+          </span>
         </button>
       </div>
 
@@ -71,8 +79,8 @@
     </div>
   </div>
 
+  <!-- Supplier List -->
   <div class="row overflow-x-auto">
-    <!-- Supplier List -->
     <table
       class="table table-bordered table-striped table-hover text-center text-nowrap align-middle"
     >
@@ -80,8 +88,8 @@
         <tr>
           <th>ID</th>
           <th>Razón Social</th>
-          <th>Información de Contacto</th>
-          <!-- <th colspan="3">Información de Contacto</th> -->
+          <!-- <th>Información de Contacto</th> -->
+          <th colspan="3">Información de Contacto</th>
           <th>Nombre</th>
           <th>Acciones</th>
         </tr>
@@ -97,14 +105,14 @@
           <!-- Supplier -->
           <td class="px-4">{{ supplier.id }}</td>
           <td class="px-4">{{ supplier.businessName }}</td>
-          <!-- <td class="px-4">{{ supplier.website }}</td>
+          <td class="px-4">{{ supplier.website }}</td>
           <td class="px-4">{{ supplier.email }}</td>
-          <td class="px-4">{{ supplier.phone }}</td> -->
-          <td class="px-4">
+          <td class="px-4">{{ supplier.phone }}</td>
+          <!-- <td class="px-4">
             {{ supplier.website }} <br />
             {{ supplier.email }} <br />
             {{ supplier.phone }}
-          </td>
+          </td> -->
           <td class="px-4">
             {{
               supplier.contactDetails.firstName +
@@ -135,6 +143,13 @@
           </td>
         </tr>
       </tbody>
+      <tfoot *ngIf="filteredSuppliers.length > 0" class="no-border">
+        <tr class="no-border">
+          <td colspan="12" class="text-muted text-center small no-border">
+            {{ calculateRange() }}
+          </td>
+        </tr>
+      </tfoot>
     </table>
   </div>
 

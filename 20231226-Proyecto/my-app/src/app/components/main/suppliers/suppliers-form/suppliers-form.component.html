@@ -1,39 +1,53 @@
 <div class="container my-4">
   <div class="row">
     <div class="col-md-12" style="max-height: 500px; overflow-y: auto">
-      <h4 class="mb-4">Proveedor</h4>
+      <h4 class="mb-4">
+        {{ editSupplier ? "Editar Proveedor" : "Alta de Proveedor" }}
+      </h4>
 
-      <form id="altasupplierForm" style="width: 500px">
-        <div class="mb-3">
-          <label for="razon-social" class="form-label">Razón Social</label>
+      <form id="SupplierForm" style="width: 500px">
+        <div class="mb-3" *ngIf="editSupplier">
+          <label for="id" class="form-label">ID</label>
           <input
             type="text"
             class="form-control"
-            id="razon-social"
-            name="razonSocial"
-            [(ngModel)]="supplier.razonSocial"
+            id="id"
+            name="idd"
+            [(ngModel)]="supplier.id"
+            disabled
           />
         </div>
 
         <div class="mb-3">
-          <label for="rubro" class="form-label">Rubro</label>
+          <label for="business-name" class="form-label">Razón Social</label>
           <input
             type="text"
             class="form-control"
-            id="rubro"
-            name="rubro"
-            [(ngModel)]="supplier.rubro"
+            id="business-name"
+            name="businessName"
+            [(ngModel)]="supplier.businessName"
           />
         </div>
 
         <div class="mb-3">
-          <label for="sitio-web" class="form-label">Sitio Web</label>
+          <label for="industry" class="form-label">Rubro</label>
           <input
             type="text"
             class="form-control"
-            id="sitio-web"
-            name="sitioWeb"
-            [(ngModel)]="supplier.sitioWeb"
+            id="industry"
+            name="industry"
+            [(ngModel)]="supplier.industry"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="website" class="form-label">Sitio Web</label>
+          <input
+            type="text"
+            class="form-control"
+            id="website"
+            name="website"
+            [(ngModel)]="supplier.website"
           />
         </div>
 
@@ -49,79 +63,79 @@
         </div>
 
         <div class="mb-3">
-          <label for="telefono" class="form-label">Teléfono</label>
+          <label for="phone" class="form-label">Teléfono</label>
           <input
             type="text"
             class="form-control"
-            id="telefono"
-            name="telefono"
-            [(ngModel)]="supplier.telefono"
+            id="phone"
+            name="phone"
+            [(ngModel)]="supplier.phone"
           />
         </div>
 
         <div class="mb-3">
-          <label for="calle" class="form-label">Calle</label>
+          <label for="street" class="form-label">Calle</label>
           <input
             type="text"
             class="form-control"
-            id="calle"
-            name="calle"
-            [(ngModel)]="supplier.calle"
+            id="street"
+            name="street"
+            [(ngModel)]="supplier.address.street"
           />
         </div>
 
         <div class="mb-3">
-          <label for="numero" class="form-label">Número</label>
+          <label for="number" class="form-label">Número</label>
           <input
             type="text"
             class="form-control"
-            id="numero"
-            name="numero"
-            [(ngModel)]="supplier.numero"
+            id="number"
+            name="number"
+            [(ngModel)]="supplier.address.number"
           />
         </div>
 
         <div class="mb-3">
-          <label for="codigo-postal" class="form-label">Código Postal</label>
+          <label for="postal-code" class="form-label">Código Postal</label>
           <input
             type="text"
             class="form-control"
-            id="codigo-postal"
-            name="codigoPostal"
-            [(ngModel)]="supplier.codigoPostal"
+            id="postal-code"
+            name="postalCode"
+            [(ngModel)]="supplier.address.postalCode"
           />
         </div>
 
         <div class="mb-3">
-          <label for="localidad" class="form-label">Localidad</label>
+          <label for="city" class="form-label">Localidad</label>
           <input
             type="text"
             class="form-control"
-            id="localidad"
-            name="localidad"
-            [(ngModel)]="supplier.localidad"
+            id="city"
+            name="city"
+            [(ngModel)]="supplier.address.city"
           />
         </div>
 
         <div class="mb-3">
-          <label for="provincia" class="form-label">Provincia</label>
+          <label for="state" class="form-label">Provincia</label>
           <input
             type="text"
             class="form-control"
-            id="provincia"
-            name="provincia"
-            [(ngModel)]="supplier.provincia"
+            id="state"
+            name="state"
+            [(ngModel)]="supplier.address.state"
           />
         </div>
 
         <div class="mb-3">
-          <label for="pais" class="form-label">País</label>
+          <label for="country" class="form-label">País</label>
           <input
             type="text"
             class="form-control"
-            id="pais"
-            name="pais"
-            [(ngModel)]="supplier.pais"
+            id="country"
+            name="country"
+            [(ngModel)]="supplier.address.country"
           />
         </div>
 
@@ -132,73 +146,74 @@
             class="form-control"
             id="cuit"
             name="cuit"
-            [(ngModel)]="supplier.cuit"
+            [(ngModel)]="supplier.taxInformation.cuit"
+            [disabled]="editSupplier"
           />
         </div>
 
         <div class="mb-3">
-          <label for="condicion-iva" class="form-label">Condición IVA</label>
+          <label for="vat-condition" class="form-label">Condición IVA</label>
           <input
             type="text"
             class="form-control"
-            id="condicion-iva"
-            name="condicionIva"
-            [(ngModel)]="supplier.condicionIva"
+            id="vat-condition"
+            name="vatCondition"
+            [(ngModel)]="supplier.taxInformation.vatCondition"
           />
         </div>
 
         <div class="mb-3">
-          <label for="nombre-contacto" class="form-label">Nombre</label>
+          <label for="firstname" class="form-label">Nombre</label>
           <input
             type="text"
             class="form-control"
-            id="nombre-contacto"
-            name="nombreContacto"
-            [(ngModel)]="supplier.nombreContacto"
+            id="firstname"
+            name="firstName"
+            [(ngModel)]="supplier.contactDetails.firstName"
           />
         </div>
 
         <div class="mb-3">
-          <label for="apellido-contacto" class="form-label">Apellido</label>
+          <label for="lastname" class="form-label">Apellido</label>
           <input
             type="text"
             class="form-control"
-            id="apellido-contacto"
-            name="apellidoContacto"
-            [(ngModel)]="supplier.apellidoContacto"
+            id="lastname"
+            name="lastName"
+            [(ngModel)]="supplier.contactDetails.lastName"
           />
         </div>
 
         <div class="mb-3">
-          <label for="telefono-contacto" class="form-label">Teléfono</label>
+          <label for="contac-phone" class="form-label">Teléfono</label>
           <input
             type="text"
             class="form-control"
-            id="telefono-contacto"
-            name="telefonoContacto"
-            [(ngModel)]="supplier.telefonoContacto"
+            id="contac-phone"
+            name="contacPhone"
+            [(ngModel)]="supplier.contactDetails.phone"
           />
         </div>
 
         <div class="mb-3">
-          <label for="email-contacto" class="form-label">Email</label>
+          <label for="contact-email" class="form-label">Email</label>
           <input
             type="text"
             class="form-control"
-            id="email-contacto"
-            name="emailContacto"
-            [(ngModel)]="supplier.emailContacto"
+            id="contact-email"
+            name="contactEmail"
+            [(ngModel)]="supplier.contactDetails.email"
           />
         </div>
 
         <div class="mb-3">
-          <label for="rol-contacto" class="form-label">Rol</label>
+          <label for="role" class="form-label">Rol</label>
           <input
             type="text"
             class="form-control"
-            id="rol-contacto"
-            name="rolContacto"
-            [(ngModel)]="supplier.rolContacto"
+            id="role"
+            name="role"
+            [(ngModel)]="supplier.contactDetails.role"
           />
         </div>
       </form>
