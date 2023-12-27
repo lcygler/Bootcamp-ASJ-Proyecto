@@ -5,7 +5,12 @@
         {{ editSupplier ? "Editar Proveedor" : "Alta de Proveedor" }}
       </h4>
 
-      <form id="SupplierForm" style="width: 500px">
+      <!-- <form id="SupplierForm" style="width: 500px"> -->
+      <form
+        #SupplierForm="ngForm"
+        (ngSubmit)="onSubmit(SupplierForm)"
+        style="width: 500px"
+      >
         <div class="mb-3" *ngIf="editSupplier">
           <label for="id" class="form-label">ID</label>
           <input
@@ -216,16 +221,21 @@
             [(ngModel)]="supplier.contactDetails.role"
           />
         </div>
-      </form>
 
-      <div class="mt-4 d-flex justify-content-center">
-        <button class="btn btn-outline-secondary" routerLink="/suppliers">
-          Cancelar
-        </button>
-        <button class="btn btn-primary ms-2" (click)="saveChanges()">
-          Guardar
-        </button>
-      </div>
+        <div class="mt-4 d-flex justify-content-center">
+          <button class="btn btn-outline-secondary" routerLink="/suppliers">
+            Cancelar
+          </button>
+          <!-- <button class="btn btn-primary ms-2" (click)="saveChanges()"> -->
+          <button
+            type="submit"
+            class="btn btn-primary ms-2"
+            [disabled]="!SupplierForm.valid"
+          >
+            Guardar
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

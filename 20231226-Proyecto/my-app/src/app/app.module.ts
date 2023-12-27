@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -35,9 +35,9 @@ import { SlicePipe } from './pipes/slice.pipe';
     ProductsListComponent,
     OrdersFormComponent,
     OrdersListComponent,
+    DeleteModalComponent,
     FilterPipe,
     SlicePipe,
-    DeleteModalComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -45,7 +45,6 @@ import { SlicePipe } from './pipes/slice.pipe';
     NgbModule,
     FormsModule,
     HttpClientModule,
-    NgbModalModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

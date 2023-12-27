@@ -1,25 +1,27 @@
-export interface ISupplier {
-  id: number;
-  razonSocial: string;
-  rubro: string;
-  sitioWeb: string;
+export interface Supplier {
+  id?: number;
+  businessName: string;
+  industry: string;
+  website: string;
   email: string;
-  telefono: string;
-  direccion: {
-    calle: string;
-    numero: string;
-    codigoPostal: string;
-    localidad: string;
-    provincia: string;
-    pais: string;
+  phone: string;
+  address: {
+    street: string;
+    number: string;
+    postalCode: string;
+    city: string;
+    state: string;
+    country: string;
   };
-  cuit: string;
-  condicionIva: string;
-  contacto: {
-    nombre: string;
-    apellido: string;
-    telefono: string;
+  taxInformation: {
+    cuit: string;
+    vatCondition: string;
+  };
+  contactDetails: {
+    firstName: string;
+    lastName: string;
+    phone: string;
     email: string;
-    rol: string;
+    role: string;
   };
 }
