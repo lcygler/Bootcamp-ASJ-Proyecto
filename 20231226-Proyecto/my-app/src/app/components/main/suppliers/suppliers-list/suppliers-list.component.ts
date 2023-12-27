@@ -11,6 +11,8 @@ export class SuppliersListComponent implements OnInit {
   supplierList: any[] = [];
   filteredSuppliers: any[] = [];
   searchTerm: string = '';
+  supplierToDeleteId: number | null = null;
+  deleteMessage: string = '';
 
   itemsPerPage: number = 5;
   totalPages: number = 1;
@@ -41,28 +43,31 @@ export class SuppliersListComponent implements OnInit {
     this.router.navigate([`/suppliers/edit/${id}`]);
   }
 
-  deleteSupplier(id: number) {
-    const confirmDelete = confirm(
-      'Are you sure you want to delete this supplier?'
-    );
+  confirmDelete(id: number) {
+    this.deleteMessage = `¿Está seguro de que desea eliminar al proveedor #${id}?`;
+    this.supplierToDeleteId = id;
+  }
 
-    if (confirmDelete) {
-      this.supplierService.deleteSupplier(id).subscribe((res) => {
-        this.getSuppliers();
-      });
+  deleteSupplier() {
+    if (this.supplierToDeleteId) {
+      this.supplierService
+        .deleteSupplier(this.supplierToDeleteId)
+        .subscribe((res) => {
+          this.getSuppliers();
+          this.supplierToDeleteId = null;
+        });
     }
   }
 
   filterSuppliers() {
     this.currentPage = 1;
 
-    if (this.searchTerm != '') {
+    if (this.searchTerm) {
       this.filteredSuppliers = this.supplierList.filter((item) =>
         JSON.stringify(item)
           .toLowerCase()
           .includes(this.searchTerm.toLowerCase())
       );
-
       this.updateTotalPages();
     } else {
       this.filteredSuppliers = [...this.supplierList];
