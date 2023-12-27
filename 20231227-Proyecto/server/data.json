@@ -1,0 +1,560 @@
+{
+  "suppliers": [
+    {
+      "id": 1,
+      "code": "PROV-1",
+      "businessName": "Tech Solutions LLC",
+      "industry": "Technology",
+      "website": "www.techsolutions.com",
+      "email": "info@techsolutions.com",
+      "phone": "123-456-7890",
+      "address": {
+        "street": "Tech Blvd",
+        "number": "789",
+        "postalCode": "54321",
+        "city": "San Francisco",
+        "state": "California",
+        "country": "United States"
+      },
+      "taxInformation": {
+        "cuit": "98765432109",
+        "vatCondition": "IVA Responsable Inscripto"
+      },
+      "contactDetails": {
+        "firstName": "Michael",
+        "lastName": "Johnson",
+        "phone": "987-654-3210",
+        "email": "michael.johnson@email.com",
+        "role": "General Manager"
+      },
+      "isDeleted": false
+    },
+    {
+      "id": 2,
+      "code": "PROV-2",
+      "businessName": "Fashion World Ltd",
+      "industry": "Fashion",
+      "website": "www.fashionworld.com",
+      "email": "info@fashionworld.com",
+      "phone": "234-567-8901",
+      "address": {
+        "street": "Fashion Street",
+        "number": "456",
+        "postalCode": "23456",
+        "city": "Paris",
+        "state": "Île-de-France",
+        "country": "France"
+      },
+      "taxInformation": {
+        "cuit": "34567890123",
+        "vatCondition": "IVA Responsable Inscripto"
+      },
+      "contactDetails": {
+        "firstName": "Emma",
+        "lastName": "Taylor",
+        "phone": "876-543-2109",
+        "email": "emma.taylor@email.com",
+        "role": "Sales Coordinator"
+      },
+      "isDeleted": false
+    },
+    {
+      "id": 3,
+      "code": "PROV-3",
+      "businessName": "ElectroTech Solutions",
+      "industry": "Electronics",
+      "website": "www.electrotech.com",
+      "email": "info@electrotech.com",
+      "phone": "345-678-9012",
+      "address": {
+        "street": "Electro Street",
+        "number": "789",
+        "postalCode": "34567",
+        "city": "Tokyo",
+        "state": "Tokyo",
+        "country": "Japan"
+      },
+      "taxInformation": {
+        "cuit": "45678901234",
+        "vatCondition": "IVA Responsable Inscripto"
+      },
+      "contactDetails": {
+        "firstName": "Alex",
+        "lastName": "Clark",
+        "phone": "765-432-1098",
+        "email": "alex.clark@email.com",
+        "role": "Sales Director"
+      },
+      "isDeleted": false
+    },
+    {
+      "id": 4,
+      "code": "PROV-4",
+      "businessName": "GreenTech Innovations",
+      "industry": "Renewable Energy",
+      "website": "www.greentechinnovations.com",
+      "email": "info@greentechinnovations.com",
+      "phone": "456-789-0123",
+      "address": {
+        "street": "Green Avenue",
+        "number": "101",
+        "postalCode": "67890",
+        "city": "Sydney",
+        "state": "New South Wales",
+        "country": "Australia"
+      },
+      "taxInformation": {
+        "cuit": "56789012345",
+        "vatCondition": "IVA Responsable Inscripto"
+      },
+      "contactDetails": {
+        "firstName": "Sophie",
+        "lastName": "Johnson",
+        "phone": "876-543-2109",
+        "email": "sophie.johnson@email.com",
+        "role": "Operations Manager"
+      },
+      "isDeleted": false
+    },
+    {
+      "id": 5,
+      "code": "PROV-5",
+      "businessName": "FoodDelight Distributors",
+      "industry": "Food",
+      "website": "www.fooddelight.com",
+      "email": "info@fooddelight.com",
+      "phone": "789-012-3456",
+      "address": {
+        "street": "Food Street",
+        "number": "202",
+        "postalCode": "78901",
+        "city": "New York",
+        "state": "New York",
+        "country": "United States"
+      },
+      "taxInformation": {
+        "cuit": "67890123456",
+        "vatCondition": "IVA Responsable Inscripto"
+      },
+      "contactDetails": {
+        "firstName": "David",
+        "lastName": "Smith",
+        "phone": "765-432-1098",
+        "email": "david.smith@email.com",
+        "role": "Sales Director"
+      },
+      "isDeleted": false
+    },
+    {
+      "id": 6,
+      "code": "PROV-6",
+      "businessName": "Tech Innovate Solutions",
+      "industry": "Technology",
+      "website": "www.techinnovate.com",
+      "email": "info@techinnovate.com",
+      "phone": "345-678-9012",
+      "address": {
+        "street": "Innovation Street",
+        "number": "123",
+        "postalCode": "45678",
+        "city": "Berlin",
+        "state": "Berlin",
+        "country": "Germany"
+      },
+      "taxInformation": {
+        "cuit": "78901234567",
+        "vatCondition": "IVA Responsable Inscripto"
+      },
+      "contactDetails": {
+        "firstName": "Sophia",
+        "lastName": "Wong",
+        "phone": "876-543-2109",
+        "email": "sophia.wong@email.com",
+        "role": "Technology Director"
+      },
+      "isDeleted": false
+    },
+    {
+      "id": 7,
+      "code": "PROV-7",
+      "businessName": "Fashion Trends Inc",
+      "industry": "Fashion",
+      "website": "www.fashiontrends.com",
+      "email": "info@fashiontrends.com",
+      "phone": "567-890-1234",
+      "address": {
+        "street": "Trendy Street",
+        "number": "789",
+        "postalCode": "89012",
+        "city": "Milan",
+        "state": "Lombardy",
+        "country": "Italy"
+      },
+      "taxInformation": {
+        "cuit": "89012345678",
+        "vatCondition": "IVA Responsable Inscripto"
+      },
+      "contactDetails": {
+        "firstName": "Oliver",
+        "lastName": "Williams",
+        "phone": "765-432-1098",
+        "email": "oliver.williams@email.com",
+        "role": "Marketing Manager"
+      },
+      "isDeleted": false
+    },
+    {
+      "id": 8,
+      "code": "PROV-8",
+      "businessName": "Smart Electronics Ltd",
+      "industry": "Electronics",
+      "website": "www.smartelectronics.com",
+      "email": "info@smartelectronics.com",
+      "phone": "678-901-2345",
+      "address": {
+        "street": "Smart Street",
+        "number": "456",
+        "postalCode": "90123",
+        "city": "Seoul",
+        "state": "Seoul",
+        "country": "South Korea"
+      },
+      "taxInformation": {
+        "cuit": "90123456789",
+        "vatCondition": "IVA Responsable Inscripto"
+      },
+      "contactDetails": {
+        "firstName": "Sophie",
+        "lastName": "Morgan",
+        "phone": "876-543-2109",
+        "email": "sophie.morgan@email.com",
+        "role": "Sales Director"
+      },
+      "isDeleted": false
+    },
+    {
+      "id": 9,
+      "code": "PROV-9",
+      "businessName": "Green Energy Solutions",
+      "industry": "Renewable Energy",
+      "website": "www.greenenergy.com",
+      "email": "info@greenenergy.com",
+      "phone": "789-012-3456",
+      "address": {
+        "street": "Renewable Avenue",
+        "number": "202",
+        "postalCode": "12345",
+        "city": "Oslo",
+        "state": "Oslo",
+        "country": "Norway"
+      },
+      "taxInformation": {
+        "cuit": "12345678901",
+        "vatCondition": "IVA Responsable Inscripto"
+      },
+      "contactDetails": {
+        "firstName": "Ethan",
+        "lastName": "Green",
+        "phone": "765-432-1098",
+        "email": "ethan.green@email.com",
+        "role": "Operations Manager"
+      },
+      "isDeleted": false
+    },
+    {
+      "id": 10,
+      "code": "PROV-10",
+      "businessName": "FreshDelight Distributors",
+      "industry": "Food",
+      "website": "www.freshdelight.com",
+      "email": "info@freshdelight.com",
+      "phone": "890-123-4567",
+      "address": {
+        "street": "Fresh Street",
+        "number": "303",
+        "postalCode": "23456",
+        "city": "Sydney",
+        "state": "New South Wales",
+        "country": "Australia"
+      },
+      "taxInformation": {
+        "cuit": "23456789012",
+        "vatCondition": "IVA Responsable Inscripto"
+      },
+      "contactDetails": {
+        "firstName": "Sophia",
+        "lastName": "Miller",
+        "phone": "876-543-2109",
+        "email": "sophia.miller@email.com",
+        "role": "Marketing Director"
+      },
+      "isDeleted": false
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "sku": "TECN-1",
+      "category": "Tecnología",
+      "name": "Smartphone X1",
+      "description": "Smartphone de última generación con funciones avanzadas",
+      "price": 799.99,
+      "supplierId": 1,
+      "isDeleted": false
+    },
+    {
+      "id": 2,
+      "sku": "MODA-2",
+      "category": "Moda",
+      "name": "Vestido Elegante",
+      "description": "Vestido elegante para ocasiones especiales",
+      "price": 129.99,
+      "supplierId": 2,
+      "isDeleted": false
+    },
+    {
+      "id": 3,
+      "sku": "ELEC-3",
+      "category": "Electrónica",
+      "name": "Auriculares Bluetooth",
+      "description": "Auriculares inalámbricos con cancelación de ruido",
+      "price": 89.99,
+      "supplierId": 3,
+      "isDeleted": false
+    },
+    {
+      "id": 4,
+      "sku": "ENER-4",
+      "category": "Energías Renovables",
+      "name": "Panel Solar Residencial",
+      "description": "Panel solar para uso en el hogar",
+      "price": 499.99,
+      "supplierId": 4,
+      "isDeleted": false
+    },
+    {
+      "id": 5,
+      "sku": "ALIM-5",
+      "category": "Alimentación",
+      "name": "Caja de Frutas Frescas",
+      "description": "Variedad de frutas frescas y saludables",
+      "price": 39.99,
+      "supplierId": 5,
+      "isDeleted": false
+    },
+    {
+      "id": 6,
+      "sku": "TECN-6",
+      "category": "Tecnología",
+      "name": "Tablet Pro",
+      "description": "Tableta profesional con pantalla de alta resolución",
+      "price": 599.99,
+      "supplierId": 6,
+      "isDeleted": false
+    },
+    {
+      "id": 7,
+      "sku": "MODA-7",
+      "category": "Moda",
+      "name": "Zapatos de Diseñador",
+      "description": "Zapatos de diseñador para hombres",
+      "price": 199.99,
+      "supplierId": 7,
+      "isDeleted": false
+    },
+    {
+      "id": 8,
+      "sku": "ELEC-8",
+      "category": "Electrónica",
+      "name": "Cámara de Seguridad Inteligente",
+      "description": "Cámara de seguridad con detección de movimiento",
+      "price": 129.99,
+      "supplierId": 8,
+      "isDeleted": false
+    },
+    {
+      "id": 9,
+      "sku": "ENER-9",
+      "category": "Energías Renovables",
+      "name": "Batería Solar Portátil",
+      "description": "Batería solar recargable para dispositivos móviles",
+      "price": 79.99,
+      "supplierId": 9,
+      "isDeleted": false
+    },
+    {
+      "id": 10,
+      "sku": "ALIM-10",
+      "category": "Alimentación",
+      "name": "Caja de Verduras Orgánicas",
+      "description": "Variedad de verduras frescas y orgánicas",
+      "price": 49.99,
+      "supplierId": 10,
+      "isDeleted": false
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "issueDate": "2023-01-01",
+      "deliveryDate": "2023-01-10",
+      "address": "123 Tech St",
+      "total": 1499.99,
+      "status": "active",
+      "supplierId": 1
+    },
+    {
+      "id": 2,
+      "issueDate": "2023-02-05",
+      "deliveryDate": "2023-02-15",
+      "address": "456 Fashion Ave",
+      "total": 259.99,
+      "status": "active",
+      "supplierId": 2
+    },
+    {
+      "id": 3,
+      "issueDate": "2023-03-10",
+      "deliveryDate": "2023-03-20",
+      "address": "789 Electro Road",
+      "total": 799.98,
+      "status": "active",
+      "supplierId": 3
+    },
+    {
+      "id": 4,
+      "issueDate": "2023-04-15",
+      "deliveryDate": "2023-04-25",
+      "address": "101 Green Blvd",
+      "total": 1249.99,
+      "status": "cancelled",
+      "supplierId": 4
+    },
+    {
+      "id": 5,
+      "issueDate": "2023-05-20",
+      "deliveryDate": "2023-05-30",
+      "address": "202 Food Lane",
+      "total": 399.99,
+      "status": "active",
+      "supplierId": 5
+    },
+    {
+      "id": 6,
+      "issueDate": "2023-06-25",
+      "deliveryDate": "2023-07-05",
+      "address": "123 Tech St",
+      "total": 699.99,
+      "status": "cancelled",
+      "supplierId": 6
+    },
+    {
+      "id": 7,
+      "issueDate": "2023-08-01",
+      "deliveryDate": "2023-08-11",
+      "address": "456 Trendy Lane",
+      "total": 379.99,
+      "status": "active",
+      "supplierId": 7
+    },
+    {
+      "id": 8,
+      "issueDate": "2023-09-15",
+      "deliveryDate": "2023-09-25",
+      "address": "789 Smart Road",
+      "total": 849.99,
+      "status": "cancelled",
+      "supplierId": 8
+    },
+    {
+      "id": 9,
+      "issueDate": "2023-10-20",
+      "deliveryDate": "2023-10-30",
+      "address": "101 Renewable Ave",
+      "total": 599.99,
+      "status": "active",
+      "supplierId": 9
+    },
+    {
+      "id": 10,
+      "issueDate": "2023-11-25",
+      "deliveryDate": "2023-12-05",
+      "address": "202 Fresh Lane",
+      "total": 459.99,
+      "status": "active",
+      "supplierId": 10
+    }
+  ],
+  "order-items": [
+    {
+      "id": 1,
+      "orderId": 1,
+      "productId": 1,
+      "quantity": 2,
+      "subtotal": 1599.98
+    },
+    {
+      "id": 2,
+      "orderId": 2,
+      "productId": 2,
+      "quantity": 1,
+      "subtotal": 129.99
+    },
+    {
+      "id": 3,
+      "orderId": 3,
+      "productId": 3,
+      "quantity": 3,
+      "subtotal": 269.97
+    },
+    {
+      "id": 4,
+      "orderId": 4,
+      "productId": 4,
+      "quantity": 1,
+      "subtotal": 499.99
+    },
+    {
+      "id": 5,
+      "orderId": 5,
+      "productId": 5,
+      "quantity": 2,
+      "subtotal": 79.98
+    },
+    {
+      "id": 6,
+      "orderId": 6,
+      "productId": 6,
+      "quantity": 1,
+      "subtotal": 599.99
+    },
+    {
+      "id": 7,
+      "orderId": 7,
+      "productId": 7,
+      "quantity": 1,
+      "subtotal": 199.99
+    },
+    {
+      "id": 8,
+      "orderId": 8,
+      "productId": 8,
+      "quantity": 2,
+      "subtotal": 259.98
+    },
+    {
+      "id": 9,
+      "orderId": 9,
+      "productId": 9,
+      "quantity": 1,
+      "subtotal": 79.99
+    },
+    {
+      "id": 10,
+      "orderId": 10,
+      "productId": 10,
+      "quantity": 3,
+      "subtotal": 149.97
+    }
+  ]
+}

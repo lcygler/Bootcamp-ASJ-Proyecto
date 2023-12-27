@@ -1,0 +1,200 @@
+<div class="container m-4" style="width: 100vw">
+  <div class="row d-flex align-items-center">
+    <div class="col-9">
+      <h5 class="card-title py-2">Listado de Proveedores</h5>
+    </div>
+    <div class="col-3 d-flex justify-content-end">
+      <!-- Search -->
+      <div class="d-flex my-2 me-2" role="search">
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Buscar"
+          aria-label="Buscar"
+          [(ngModel)]="searchTerm"
+          style="min-width: 200px"
+          (keyup)="filterSuppliers()"
+        />
+        <!-- <button
+          class="btn btn-outline-success"
+          type="button"
+          (click)="filterSuppliers()"
+        >
+          Search
+        </button> -->
+      </div>
+
+      <!-- Pagination -->
+      <div class="btn-group my-2 btn-actions">
+        <button
+          class="btn btn-outline-secondary d-flex align-items-center"
+          [disabled]="filteredSuppliers.length < 1 || currentPage === 1"
+          (click)="updatePage('first')"
+        >
+          <span class="material-icons" style="font-size: 16px">
+            keyboard_double_arrow_left
+          </span>
+        </button>
+        <button
+          class="btn btn-outline-secondary d-flex align-items-center"
+          [disabled]="filteredSuppliers.length < 1 || currentPage === 1"
+          (click)="updatePage('prev')"
+        >
+          <span class="material-icons" style="font-size: 16px">
+            keyboard_arrow_left
+          </span>
+        </button>
+        <button
+          class="btn btn-outline-secondary d-flex align-items-center"
+          [disabled]="filteredSuppliers.length < 1 || !hasMoreItems()"
+          (click)="updatePage('next')"
+        >
+          <span class="material-icons" style="font-size: 16px">
+            keyboard_arrow_right
+          </span>
+        </button>
+        <button
+          class="btn btn-outline-secondary d-flex align-items-center"
+          [disabled]="
+            filteredSuppliers.length < 1 || currentPage === totalPages
+          "
+          (click)="updatePage('last')"
+        >
+          <span class="material-icons" style="font-size: 16px">
+            keyboard_double_arrow_right
+          </span>
+        </button>
+      </div>
+
+      <!-- Add Supplier -->
+      <button
+        class="btn btn-success m-2 d-flex justify-content-center align-items-center"
+        (click)="addSupplier()"
+      >
+        <span class="material-icons" style="font-size: 16px; margin-right: 4px"
+          >add</span
+        >
+        Nuevo
+      </button>
+    </div>
+  </div>
+
+  <!-- Supplier List -->
+  <div class="row overflow-x-auto">
+    <table
+      class="table table-bordered table-striped table-hover text-center text-nowrap align-middle"
+    >
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Razón Social</th>
+          <!-- <th>Información de Contacto</th> -->
+          <th colspan="3">Información de Contacto</th>
+          <th>Nombre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let supplier of supplierList
+              | filter : searchTerm
+              | slice : currentPage : itemsPerPage
+          "
+        >
+          <!-- Supplier -->
+          <td class="px-4">{{ supplier.code }}</td>
+          <td class="px-4">{{ supplier.businessName }}</td>
+          <td class="px-4">{{ supplier.website }}</td>
+          <td class="px-4">{{ supplier.email }}</td>
+          <td class="px-4">{{ supplier.phone }}</td>
+          <!-- <td class="px-4">
+            {{ supplier.website }} <br />
+            {{ supplier.email }} <br />
+            {{ supplier.phone }}
+          </td> -->
+          <td class="px-4">
+            {{
+              supplier.contactDetails.firstName +
+                " " +
+                supplier.contactDetails.lastName
+            }}
+          </td>
+          <td class="px-4">
+            <!-- Actions -->
+            <div class="btn-group my-2 btn-actions">
+              <button
+                class="btn btn-outline-secondary btn-edit"
+                (click)="editSupplier(supplier.id)"
+              >
+                <span class="material-icons" style="font-size: 16px">edit</span>
+              </button>
+              <button
+                class="btn btn-outline-danger"
+                (click)="confirmDelete(supplier.id)"
+                data-bs-toggle="modal"
+                data-bs-target="#deleteModal"
+              >
+                <span class="material-icons" style="font-size: 16px">
+                  delete
+                </span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot *ngIf="filteredSuppliers.length > 0" class="no-border">
+        <tr class="no-border">
+          <td colspan="12" class="text-muted text-center small no-border">
+            {{ calculateRange() }}
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- Delete Modal -->
+  <div
+    class="modal fade"
+    id="deleteModal"
+    tabindex="-1"
+    aria-labelledby="deleteModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteModalLabel">
+            Eliminar Proveedor
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          {{ deleteMessage }}
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+            (click)="deleteSupplier()"
+          >
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
