@@ -63,21 +63,22 @@ export class SuppliersFormComponent implements OnInit {
       this.supplierId = parseInt(id);
       this.getSupplierById(this.supplierId);
       this.editSupplier = this.isEditRoute();
-      // this.filteredStates.push({ name: this.supplier.address.state });
-      // this.filteredCities.push({ name: this.supplier.address.city });
     }
 
     this.vatConditions = this.supplierService.getVatConditions();
     this.countryList = this.locationService.getCountries();
-    // this.filteredStates = this.locationService.getStates();
-    // this.filteredCities = this.locationService.getCities() as any[];
   }
 
   getSupplierById(id: number): void {
     if (id) {
       this.supplierService.getSupplierById(id).subscribe((res) => {
         this.supplier = res;
-        console.log(this.supplier);
+
+        const country = this.supplier.address?.country;
+        this.filteredStates = this.locationService.getStatesByCountry(country);
+
+        const state = this.supplier.address?.state;
+        this.filteredCities = this.locationService.getCitiesByState(state);
       });
     }
   }
