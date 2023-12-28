@@ -1,3 +1,8 @@
+/* .my-navbar {
+  position: fixed;
+  width: 100vw;
+} */
+
 .nav-link {
   border-radius: 0.375rem;
 }
@@ -6,7 +11,7 @@
   border: 1px solid #393e46;
 }
 
-.hover-effect:hover {
-  /* background-color: #393e46; */
-  /* color: #fff !important; */
-}
+/* .hover-effect:hover {
+  background-color: #393e46;
+  color: #fff !important;
+} */

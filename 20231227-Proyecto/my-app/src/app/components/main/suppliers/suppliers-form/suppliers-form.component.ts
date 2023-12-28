@@ -108,7 +108,7 @@ export class SuppliersFormComponent implements OnInit {
           country: formData.country,
         },
         taxInformation: {
-          cuit: formData.cuit,
+          cuit: this.supplier.taxInformation.cuit,
           vatCondition: formData.vatCondition,
         },
         contactDetails: {

@@ -1,743 +1,799 @@
 <div class="container my-4">
-  <div class="row">
-    <div class="col-md-12" style="max-height: 500px; overflow-y: auto">
+  <div class="row-md-12">
+    <div class="col-md-12">
       <h2 class="mb-4">
         {{ editSupplier ? "Editar Proveedor" : "Alta de Proveedor" }}
       </h2>
 
-      <form
-        class="row"
-        #SupplierForm="ngForm"
-        (ngSubmit)="onSubmit(SupplierForm)"
-      >
-        <fieldset class="mb-4">
-          <legend>Datos del Proveedor</legend>
-          <div class="mb-3" *ngIf="editSupplier">
-            <label for="code" class="form-label">Código</label>
-            <input
-              type="text"
-              class="form-control"
-              id="code"
-              name="code"
-              [(ngModel)]="supplier.code"
-              disabled
-            />
-          </div>
+      <form #SupplierForm="ngForm" (ngSubmit)="onSubmit(SupplierForm)">
+        <div class="row">
+          <div class="col-md-6">
+            <fieldset class="mb-4">
+              <legend>Datos Comerciales</legend>
+              <div class="mb-3" *ngIf="editSupplier">
+                <label for="code" class="form-label">Código</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="code"
+                  name="code"
+                  [(ngModel)]="supplier.code"
+                  disabled
+                />
+              </div>
 
-          <!-- Razón Social -->
-          <div class="mb-3">
-            <label for="business-name" class="form-label">Razón Social</label>
-            <input
-              type="text"
-              class="form-control"
-              id="business-name"
-              name="businessName"
-              [ngClass]="{
+              <!-- Razón Social -->
+              <div class="mb-3">
+                <label for="business-name" class="form-label"
+                  >Razón Social</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="business-name"
+                  name="businessName"
+                  [ngClass]="{
                 'is-invalid': businessName.touched && businessName.errors,
                 'is-valid': businessName.touched && !businessName.errors,
               }"
-              [(ngModel)]="supplier.businessName"
-              #businessName="ngModel"
-              required
-              minlength="4"
-              maxlength="30"
-            />
-            <div
-              *ngIf="businessName.touched && businessName.errors?.['required'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >Ingrese una razón social</span
-              >
-            </div>
-            <div
-              *ngIf="businessName.touched && businessName.errors?.['minlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >La razón social debe tener al menos 4 caracteres</span
-              >
-            </div>
-            <div
-              *ngIf="businessName.touched && businessName.errors?.['maxlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >La razón social no debe superar los 30 caracteres</span
-              >
-            </div>
-          </div>
+                  [(ngModel)]="supplier.businessName"
+                  #businessName="ngModel"
+                  required
+                  minlength="4"
+                  maxlength="30"
+                />
+                <div
+                  *ngIf="businessName.touched && businessName.errors?.['required'] "
+                  class="col-auto"
+                >
+                  <span class="form-text text-danger"
+                    >Ingrese una razón social</span
+                  >
+                </div>
+                <div
+                  *ngIf="businessName.touched && businessName.errors?.['minlength'] "
+                  class="col-auto"
+                >
+                  <span class="form-text text-danger"
+                    >La razón social debe tener al menos 4 caracteres</span
+                  >
+                </div>
+                <div
+                  *ngIf="businessName.touched && businessName.errors?.['maxlength'] "
+                  class="col-auto"
+                >
+                  <span class="form-text text-danger"
+                    >La razón social no debe superar los 30 caracteres</span
+                  >
+                </div>
+              </div>
 
-          <!-- Rubro -->
-          <div class="mb-3">
-            <label for="industry" class="form-label">Rubro</label>
-            <input
-              type="text"
-              class="form-control"
-              id="industry"
-              name="industry"
-              [ngClass]="{
+              <!-- Rubro -->
+              <div class="mb-3">
+                <label for="industry" class="form-label">Rubro</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="industry"
+                  name="industry"
+                  [ngClass]="{
                 'is-invalid': industry.touched && industry.errors,
                 'is-valid': industry.touched && !industry.errors,
               }"
-              [(ngModel)]="supplier.industry"
-              #industry="ngModel"
-              required
-              minlength="4"
-              maxlength="20"
-            />
-            <div
-              *ngIf="industry.touched && industry.errors?.['required'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Ingrese un rubro</span>
-            </div>
-            <div
-              *ngIf="industry.touched && industry.errors?.['minlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >El rubro debe tener al menos 4 caracteres</span
-              >
-            </div>
-            <div
-              *ngIf="industry.touched && industry.errors?.['maxlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >El rubro no debe superar los 20 caracteres</span
-              >
-            </div>
+                  [(ngModel)]="supplier.industry"
+                  #industry="ngModel"
+                  required
+                  minlength="4"
+                  maxlength="20"
+                />
+                <div
+                  *ngIf="industry.touched && industry.errors?.['required'] "
+                  class="col-auto"
+                >
+                  <span class="form-text text-danger">Ingrese un rubro</span>
+                </div>
+                <div
+                  *ngIf="industry.touched && industry.errors?.['minlength'] "
+                  class="col-auto"
+                >
+                  <span class="form-text text-danger"
+                    >El rubro debe tener al menos 4 caracteres</span
+                  >
+                </div>
+                <div
+                  *ngIf="industry.touched && industry.errors?.['maxlength'] "
+                  class="col-auto"
+                >
+                  <span class="form-text text-danger"
+                    >El rubro no debe superar los 20 caracteres</span
+                  >
+                </div>
+              </div>
+            </fieldset>
           </div>
-        </fieldset>
 
-        <fieldset class="mb-4">
-          <legend>Información de Contacto</legend>
-          <!-- Sitio Web -->
-          <div class="mb-3">
-            <label for="website" class="form-label">Sitio Web</label>
-            <input
-              type="text"
-              class="form-control"
-              id="website"
-              name="website"
-              [ngClass]="{
+          <div class="col-md-6">
+            <fieldset class="mb-4">
+              <legend>Datos de Contacto</legend>
+              <!-- Sitio Web -->
+              <div class="mb-3">
+                <label for="website" class="form-label">Sitio Web</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="website"
+                  name="website"
+                  [ngClass]="{
                 'is-invalid': website.touched && website.errors,
                 'is-valid': website.touched && !website.errors,
               }"
-              [(ngModel)]="supplier.website"
-              #website="ngModel"
-              required
-              pattern="(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,})?"
-            />
-            <div
-              *ngIf="website.touched && website.errors?.['required'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Ingrese un sitio web</span>
-            </div>
-            <div
-              *ngIf="website.touched && website.errors?.['pattern'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >Ingrese un sitio web válido</span
-              >
-            </div>
-          </div>
+                  [(ngModel)]="supplier.website"
+                  #website="ngModel"
+                  required
+                  pattern="(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,})?"
+                />
+                <div
+                  *ngIf="website.touched && website.errors?.['required'] "
+                  class="col-auto"
+                >
+                  <span class="form-text text-danger"
+                    >Ingrese un sitio web</span
+                  >
+                </div>
+                <div
+                  *ngIf="website.touched && website.errors?.['pattern'] "
+                  class="col-auto"
+                >
+                  <span class="form-text text-danger"
+                    >Ingrese un sitio web válido</span
+                  >
+                </div>
+              </div>
 
-          <!-- Email -->
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input
-              type="text"
-              class="form-control"
-              id="email"
-              name="email"
-              [ngClass]="{
+              <!-- Email -->
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  [ngClass]="{
                 'is-invalid': email.touched && email.errors,
                 'is-valid': email.touched && !email.errors,
               }"
-              [(ngModel)]="supplier.email"
-              #email="ngModel"
-              required
-              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-            />
-            <div
-              *ngIf="email.touched && email.errors?.['required'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Ingrese un email</span>
-            </div>
-            <div
-              *ngIf="email.touched && email.errors?.['pattern'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Ingrese un email válido</span>
-            </div>
-          </div>
+                  [(ngModel)]="supplier.email"
+                  #email="ngModel"
+                  required
+                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                />
+                <div
+                  *ngIf="email.touched && email.errors?.['required'] "
+                  class="col-auto"
+                >
+                  <span class="form-text text-danger">Ingrese un email</span>
+                </div>
+                <div
+                  *ngIf="email.touched && email.errors?.['pattern'] "
+                  class="col-auto"
+                >
+                  <span class="form-text text-danger"
+                    >Ingrese un email válido</span
+                  >
+                </div>
+              </div>
 
-          <!-- Teléfono -->
-          <div class="mb-3">
-            <label for="phone" class="form-label">Teléfono</label>
-            <input
-              type="text"
-              class="form-control"
-              id="phone"
-              name="phone"
-              [ngClass]="{
+              <!-- Teléfono -->
+              <div class="mb-3">
+                <label for="phone" class="form-label">Teléfono</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="phone"
+                  name="phone"
+                  [ngClass]="{
                 'is-invalid': phone.touched && phone.errors,
                 'is-valid': phone.touched && !phone.errors,
               }"
-              [(ngModel)]="supplier.phone"
-              #phone="ngModel"
-              required
-              minlength="8"
-              maxlength="20"
-            />
-            <div
-              *ngIf="phone.touched && phone.errors?.['required'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Ingrese un télefono</span>
-            </div>
-            <div
-              *ngIf="phone.touched && phone.errors?.['minlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >El télefono debe tener al menos 8 caracteres</span
-              >
-            </div>
-            <div
-              *ngIf="phone.touched && phone.errors?.['maxlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >El télefono no debe superar los 20 caracteres</span
-              >
-            </div>
+                  [(ngModel)]="supplier.phone"
+                  #phone="ngModel"
+                  required
+                  minlength="8"
+                  maxlength="20"
+                />
+                <div
+                  *ngIf="phone.touched && phone.errors?.['required'] "
+                  class="col-auto"
+                >
+                  <span class="form-text text-danger">Ingrese un télefono</span>
+                </div>
+                <div
+                  *ngIf="phone.touched && phone.errors?.['minlength'] "
+                  class="col-auto"
+                >
+                  <span class="form-text text-danger"
+                    >El télefono debe tener al menos 8 caracteres</span
+                  >
+                </div>
+                <div
+                  *ngIf="phone.touched && phone.errors?.['maxlength'] "
+                  class="col-auto"
+                >
+                  <span class="form-text text-danger"
+                    >El télefono no debe superar los 20 caracteres</span
+                  >
+                </div>
+              </div>
+            </fieldset>
           </div>
-        </fieldset>
+        </div>
 
-        <fieldset class="mb-4">
-          <legend>Dirección</legend>
-          <!-- Calle -->
-          <div class="mb-3">
-            <label for="street" class="form-label">Calle</label>
-            <input
-              type="text"
-              class="form-control"
-              id="street"
-              name="street"
-              [ngClass]="{
+        <div class="row">
+          <div class="col-md-12">
+            <fieldset class="mb-4">
+              <legend>Datos Fiscales</legend>
+              <!-- CUIT -->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="cuit" class="form-label">CUIT</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cuit"
+                      name="cuit"
+                      [ngClass]="{
+                        'is-invalid': cuit.touched && cuit.errors,
+                        'is-valid': cuit.touched && !cuit.errors,
+                      }"
+                      [(ngModel)]="supplier.taxInformation.cuit"
+                      [disabled]="editSupplier"
+                      (input)="formatCuit($event)"
+                      #cuit="ngModel"
+                      required
+                      pattern="^\d{2}-\d{8}-\d{1}$"
+                      maxlength="13"
+                    />
+                    <div
+                      *ngIf="cuit.touched && cuit.errors?.['required'] "
+                      class="col-auto"
+                    >
+                      <span class="form-text text-danger">Ingrese un CUIT</span>
+                    </div>
+                    <div
+                      *ngIf="cuit.touched && cuit.errors?.['pattern'] "
+                      class="col-auto"
+                    >
+                      <span class="form-text text-danger"
+                        >Ingrese un CUIT válido</span
+                      >
+                    </div>
+                    <div
+                      *ngIf="cuit.touched && cuit.errors?.['maxlength'] "
+                      class="col-auto"
+                    >
+                      <span class="form-text text-danger"
+                        >El CUIT no debe superar los 11 dígitos</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <!-- Condición IVA -->
+                  <div class="mb-3">
+                    <label for="vat-condition" class="form-label"
+                      >Condición IVA</label
+                    >
+                    <select
+                      class="form-select"
+                      id="vat-condition"
+                      name="vatCondition"
+                      [ngClass]="{
+                        'is-invalid': vatCondition.touched && vatCondition.errors,
+                        'is-valid': vatCondition.touched && !vatCondition.errors,
+                      }"
+                      [(ngModel)]="supplier.taxInformation.vatCondition"
+                      #vatCondition="ngModel"
+                      required
+                    >
+                      <option value="" disabled selected>Seleccionar</option>
+                      <option
+                        *ngFor="let vatCondition of vatConditions"
+                        [value]="vatCondition.name"
+                      >
+                        {{ vatCondition.name }}
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="vatCondition.touched && vatCondition.errors?.['required'] "
+                      class="col-auto"
+                    >
+                      <span class="form-text text-danger"
+                        >Seleccione una condición fiscal</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="row">
+          <fieldset class="mb-4">
+            <legend>Dirección</legend>
+            <div class="row">
+              <div class="col-md-6">
+                <!-- Calle -->
+                <div class="mb-3">
+                  <label for="street" class="form-label">Calle</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="street"
+                    name="street"
+                    [ngClass]="{
                 'is-invalid': street.touched && street.errors,
                 'is-valid': street.touched && !street.errors,
               }"
-              [(ngModel)]="supplier.address.street"
-              #street="ngModel"
-              required
-              minlength="4"
-              maxlength="20"
-            />
-            <div
-              *ngIf="street.touched && street.errors?.['required'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Ingrese una calle</span>
-            </div>
-            <div
-              *ngIf="street.touched && street.errors?.['minlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >La calle debe tener al menos 4 caracteres</span
-              >
-            </div>
-            <div
-              *ngIf="street.touched && street.errors?.['maxlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >La calle no debe superar los 20 caracteres</span
-              >
-            </div>
-          </div>
+                    [(ngModel)]="supplier.address.street"
+                    #street="ngModel"
+                    required
+                    minlength="4"
+                    maxlength="20"
+                  />
+                  <div
+                    *ngIf="street.touched && street.errors?.['required'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger">Ingrese una calle</span>
+                  </div>
+                  <div
+                    *ngIf="street.touched && street.errors?.['minlength'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >La calle debe tener al menos 4 caracteres</span
+                    >
+                  </div>
+                  <div
+                    *ngIf="street.touched && street.errors?.['maxlength'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >La calle no debe superar los 20 caracteres</span
+                    >
+                  </div>
+                </div>
 
-          <!-- Número -->
-          <div class="mb-3">
-            <label for="number" class="form-label">Número</label>
-            <input
-              type="text"
-              class="form-control"
-              id="number"
-              name="number"
-              [ngClass]="{
+                <!-- Número -->
+                <div class="mb-3">
+                  <label for="number" class="form-label">Número</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="number"
+                    name="number"
+                    [ngClass]="{
                 'is-invalid': number.touched && number.errors,
                 'is-valid': number.touched && !number.errors,
               }"
-              [(ngModel)]="supplier.address.number"
-              #number="ngModel"
-              required
-              maxlength="5"
-            />
-            <div
-              *ngIf="number.touched && number.errors?.['required'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Ingrese un número</span>
-            </div>
-            <div
-              *ngIf="number.touched && number.errors?.['maxlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >El número no debe superar los 5 caracteres</span
-              >
-            </div>
-          </div>
+                    [(ngModel)]="supplier.address.number"
+                    #number="ngModel"
+                    required
+                    maxlength="5"
+                  />
+                  <div
+                    *ngIf="number.touched && number.errors?.['required'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger">Ingrese un número</span>
+                  </div>
+                  <div
+                    *ngIf="number.touched && number.errors?.['maxlength'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >El número no debe superar los 5 caracteres</span
+                    >
+                  </div>
+                </div>
 
-          <!-- Código Postal -->
-          <div class="mb-3">
-            <label for="postal-code" class="form-label">Código Postal</label>
-            <input
-              type="text"
-              class="form-control"
-              id="postal-code"
-              name="postalCode"
-              [ngClass]="{
+                <!-- Código Postal -->
+                <div class="mb-3">
+                  <label for="postal-code" class="form-label"
+                    >Código Postal</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="postal-code"
+                    name="postalCode"
+                    [ngClass]="{
                 'is-invalid': postalCode.touched && postalCode.errors,
                 'is-valid': postalCode.touched && !postalCode.errors,
               }"
-              [(ngModel)]="supplier.address.postalCode"
-              #postalCode="ngModel"
-              required
-              maxlength="5"
-            />
-            <div
-              *ngIf="postalCode.touched && postalCode.errors?.['required'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >Ingrese un código postal</span
-              >
-            </div>
-            <div
-              *ngIf="postalCode.touched && postalCode.errors?.['maxlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >El código postal no debe superar los 5 caracteres</span
-              >
-            </div>
-          </div>
+                    [(ngModel)]="supplier.address.postalCode"
+                    #postalCode="ngModel"
+                    required
+                    maxlength="5"
+                  />
+                  <div
+                    *ngIf="postalCode.touched && postalCode.errors?.['required'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >Ingrese un código postal</span
+                    >
+                  </div>
+                  <div
+                    *ngIf="postalCode.touched && postalCode.errors?.['maxlength'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >El código postal no debe superar los 5 caracteres</span
+                    >
+                  </div>
+                </div>
+              </div>
 
-          <!-- País -->
-          <div class="mb-3">
-            <label for="country" class="form-label">País</label>
-            <select
-              class="form-select"
-              id="country"
-              name="country"
-              [ngClass]="{
+              <div class="col-md-6">
+                <!-- País -->
+                <div class="mb-3">
+                  <label for="country" class="form-label">País</label>
+                  <select
+                    class="form-select"
+                    id="country"
+                    name="country"
+                    [ngClass]="{
                 'is-invalid': country.touched && country.errors,
                 'is-valid': country.touched && !country.errors,
               }"
-              [(ngModel)]="supplier.address.country"
-              (ngModelChange)="onCountryChange($event)"
-              #country="ngModel"
-              required
-            >
-              <option value="" disabled selected>Seleccionar</option>
-              <option
-                *ngFor="let country of countryList"
-                [value]="country.name"
-              >
-                {{ country.name }}
-              </option>
-            </select>
-            <div
-              *ngIf="country.touched && country.errors?.['required'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Seleccione un país</span>
-            </div>
-          </div>
+                    [(ngModel)]="supplier.address.country"
+                    (ngModelChange)="onCountryChange($event)"
+                    #country="ngModel"
+                    required
+                  >
+                    <option value="" disabled selected>Seleccionar</option>
+                    <option
+                      *ngFor="let country of countryList"
+                      [value]="country.name"
+                    >
+                      {{ country.name }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="country.touched && country.errors?.['required'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >Seleccione un país</span
+                    >
+                  </div>
+                </div>
 
-          <!-- Provincia -->
-          <div class="mb-3">
-            <label for="state" class="form-label">Provincia</label>
-            <select
-              class="form-select"
-              id="state"
-              name="state"
-              [ngClass]="{
+                <!-- Provincia -->
+                <div class="mb-3">
+                  <label for="state" class="form-label">Provincia</label>
+                  <select
+                    class="form-select"
+                    id="state"
+                    name="state"
+                    [ngClass]="{
                 'is-invalid': state.touched && state.errors,
                 'is-valid': state.touched && !state.errors,
               }"
-              [(ngModel)]="supplier.address.state"
-              (ngModelChange)="onStateChange($event)"
-              #state="ngModel"
-              required
-            >
-              <option value="" disabled selected>Seleccionar</option>
-              <option *ngFor="let state of filteredStates" [value]="state.name">
-                {{ state.name }}
-              </option>
-            </select>
-            <div
-              *ngIf="state.touched && !supplier.address.country"
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >Seleccione un país primero</span
-              >
-            </div>
-            <div
-              *ngIf="state.touched && state.errors?.['required'] && supplier.address.country"
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >Seleccione una provincia</span
-              >
-            </div>
-          </div>
+                    [(ngModel)]="supplier.address.state"
+                    (ngModelChange)="onStateChange($event)"
+                    #state="ngModel"
+                    required
+                  >
+                    <option value="" disabled selected>Seleccionar</option>
+                    <option
+                      *ngFor="let state of filteredStates"
+                      [value]="state.name"
+                    >
+                      {{ state.name }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="state.touched && !supplier.address.country"
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >Seleccione un país primero</span
+                    >
+                  </div>
+                  <div
+                    *ngIf="state.touched && state.errors?.['required'] && supplier.address.country"
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >Seleccione una provincia</span
+                    >
+                  </div>
+                </div>
 
-          <!-- Localidad -->
-          <div class="mb-3">
-            <label for="city" class="form-label">Localidad</label>
-            <select
-              class="form-select"
-              id="city"
-              name="city"
-              [ngClass]="{
+                <!-- Localidad -->
+                <div class="mb-3">
+                  <label for="city" class="form-label">Localidad</label>
+                  <select
+                    class="form-select"
+                    id="city"
+                    name="city"
+                    [ngClass]="{
                 'is-invalid': city.touched && city.errors,
                 'is-valid': city.touched && !city.errors,
               }"
-              [(ngModel)]="supplier.address.city"
-              #city="ngModel"
-              required
-            >
-              <option value="" disabled selected>Seleccionar</option>
-              <option *ngFor="let city of filteredCities" [value]="city.name">
-                {{ city.name }}
-              </option>
-            </select>
-            <div
-              *ngIf="city.touched && !supplier.address.state"
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >Seleccione una provincia primero</span
-              >
+                    [(ngModel)]="supplier.address.city"
+                    #city="ngModel"
+                    required
+                  >
+                    <option value="" disabled selected>Seleccionar</option>
+                    <option
+                      *ngFor="let city of filteredCities"
+                      [value]="city.name"
+                    >
+                      {{ city.name }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="city.touched && !supplier.address.state"
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >Seleccione una provincia primero</span
+                    >
+                  </div>
+                  <div
+                    *ngIf="city.touched && city.errors?.['required'] && supplier.address.state"
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >Ingrese una localidad</span
+                    >
+                  </div>
+                  <div
+                    *ngIf="city.touched && city.errors?.['minlength']"
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >La localidad debe tener al menos 4 caracteres</span
+                    >
+                  </div>
+                  <div
+                    *ngIf="city.touched && city.errors?.['maxlength']"
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >La localidad no debe superar los 20 caracteres</span
+                    >
+                  </div>
+                </div>
+              </div>
             </div>
-            <div
-              *ngIf="city.touched && city.errors?.['required'] && supplier.address.state"
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Ingrese una localidad</span>
-            </div>
-            <div
-              *ngIf="city.touched && city.errors?.['minlength']"
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >La localidad debe tener al menos 4 caracteres</span
-              >
-            </div>
-            <div
-              *ngIf="city.touched && city.errors?.['maxlength']"
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >La localidad no debe superar los 20 caracteres</span
-              >
-            </div>
-          </div>
-        </fieldset>
+          </fieldset>
+        </div>
 
-        <fieldset class="mb-4">
-          <legend>Información Fiscal</legend>
-          <!-- CUIT -->
-          <div class="mb-3">
-            <label for="cuit" class="form-label">CUIT</label>
-            <input
-              type="text"
-              class="form-control"
-              id="cuit"
-              name="cuit"
-              [ngClass]="{
-                'is-invalid': cuit.touched && cuit.errors,
-                'is-valid': cuit.touched && !cuit.errors,
-              }"
-              [(ngModel)]="supplier.taxInformation.cuit"
-              [disabled]="editSupplier"
-              (input)="formatCuit($event)"
-              #cuit="ngModel"
-              required
-              pattern="^\d{2}-\d{8}-\d{1}$"
-              maxlength="13"
-            />
-            <div
-              *ngIf="cuit.touched && cuit.errors?.['required'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Ingrese un CUIT</span>
-            </div>
-            <div
-              *ngIf="cuit.touched && cuit.errors?.['pattern'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Ingrese un CUIT válido</span>
-            </div>
-            <div
-              *ngIf="cuit.touched && cuit.errors?.['maxlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >El CUIT no debe superar los 11 dígitos</span
-              >
-            </div>
-          </div>
-
-          <!-- Condición IVA -->
-          <div class="mb-3">
-            <label for="vat-condition" class="form-label">Condición IVA</label>
-            <select
-              class="form-select"
-              id="vat-condition"
-              name="vatCondition"
-              [ngClass]="{
-                'is-invalid': vatCondition.touched && vatCondition.errors,
-                'is-valid': vatCondition.touched && !vatCondition.errors,
-              }"
-              [(ngModel)]="supplier.taxInformation.vatCondition"
-              #vatCondition="ngModel"
-              required
-            >
-              <option value="" disabled selected>Seleccionar</option>
-              <option
-                *ngFor="let vatCondition of vatConditions"
-                [value]="vatCondition.name"
-              >
-                {{ vatCondition.name }}
-              </option>
-            </select>
-            <div
-              *ngIf="vatCondition.touched && vatCondition.errors?.['required'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >Seleccione una condición fiscal</span
-              >
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset class="mb-4">
-          <legend>Persona de Contacto</legend>
-          <!-- Nombre -->
-          <div class="mb-3">
-            <label for="firstname" class="form-label">Nombre</label>
-            <input
-              type="text"
-              class="form-control"
-              id="firstname"
-              name="firstName"
-              [ngClass]="{
+        <div class="row">
+          <fieldset class="mb-4">
+            <legend>Persona de Contacto</legend>
+            <div class="row">
+              <div class="col-md-6">
+                <!-- Nombre -->
+                <div class="mb-3">
+                  <label for="firstname" class="form-label">Nombre</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="firstname"
+                    name="firstName"
+                    [ngClass]="{
                 'is-invalid': firstName.touched && firstName.errors,
                 'is-valid': firstName.touched && !firstName.errors,
               }"
-              [(ngModel)]="supplier.contactDetails.firstName"
-              #firstName="ngModel"
-              required
-              minlength="4"
-              maxlength="20"
-            />
-            <div
-              *ngIf="firstName.touched && firstName.errors?.['required'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Ingrese un nombre</span>
-            </div>
-            <div
-              *ngIf="firstName.touched && firstName.errors?.['minlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >El nombre debe tener al menos 4 caracteres</span
-              >
-            </div>
-            <div
-              *ngIf="firstName.touched && firstName.errors?.['maxlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >El nombre no debe superar los 20 caracteres</span
-              >
-            </div>
-          </div>
+                    [(ngModel)]="supplier.contactDetails.firstName"
+                    #firstName="ngModel"
+                    required
+                    minlength="4"
+                    maxlength="20"
+                  />
+                  <div
+                    *ngIf="firstName.touched && firstName.errors?.['required'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger">Ingrese un nombre</span>
+                  </div>
+                  <div
+                    *ngIf="firstName.touched && firstName.errors?.['minlength'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >El nombre debe tener al menos 4 caracteres</span
+                    >
+                  </div>
+                  <div
+                    *ngIf="firstName.touched && firstName.errors?.['maxlength'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >El nombre no debe superar los 20 caracteres</span
+                    >
+                  </div>
+                </div>
 
-          <!-- Apellido -->
-          <div class="mb-3">
-            <label for="lastname" class="form-label">Apellido</label>
-            <input
-              type="text"
-              class="form-control"
-              id="lastname"
-              name="lastName"
-              [ngClass]="{
+                <!-- Apellido -->
+                <div class="mb-3">
+                  <label for="lastname" class="form-label">Apellido</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lastname"
+                    name="lastName"
+                    [ngClass]="{
                 'is-invalid': lastName.touched && lastName.errors,
                 'is-valid': lastName.touched && !lastName.errors,
               }"
-              [(ngModel)]="supplier.contactDetails.lastName"
-              #lastName="ngModel"
-              required
-              minlength="4"
-              maxlength="20"
-            />
-            <div
-              *ngIf="lastName.touched && lastName.errors?.['required'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Ingrese un apellido</span>
-            </div>
-            <div
-              *ngIf="lastName.touched && lastName.errors?.['minlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >El apellido debe tener al menos 4 caracteres</span
-              >
-            </div>
-            <div
-              *ngIf="lastName.touched && lastName.errors?.['maxlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >El apellido no debe superar los 20 caracteres</span
-              >
-            </div>
-          </div>
+                    [(ngModel)]="supplier.contactDetails.lastName"
+                    #lastName="ngModel"
+                    required
+                    minlength="4"
+                    maxlength="20"
+                  />
+                  <div
+                    *ngIf="lastName.touched && lastName.errors?.['required'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >Ingrese un apellido</span
+                    >
+                  </div>
+                  <div
+                    *ngIf="lastName.touched && lastName.errors?.['minlength'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >El apellido debe tener al menos 4 caracteres</span
+                    >
+                  </div>
+                  <div
+                    *ngIf="lastName.touched && lastName.errors?.['maxlength'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >El apellido no debe superar los 20 caracteres</span
+                    >
+                  </div>
+                </div>
 
-          <!-- Teléfono -->
-          <div class="mb-3">
-            <label for="contact-phone" class="form-label">Teléfono</label>
-            <input
-              type="text"
-              class="form-control"
-              id="contact-phone"
-              name="contactPhone"
-              [ngClass]="{
-                'is-invalid': contactPhone.touched && contactPhone.errors,
-                'is-valid': contactPhone.touched && !contactPhone.errors,
-              }"
-              [(ngModel)]="supplier.contactDetails.phone"
-              #contactPhone="ngModel"
-              required
-              minlength="8"
-              maxlength="20"
-            />
-            <div
-              *ngIf="contactPhone.touched && contactPhone.errors?.['required'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Ingrese un télefono</span>
-            </div>
-            <div
-              *ngIf="contactPhone.touched && contactPhone.errors?.['minlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >El télefono debe tener al menos 8 caracteres</span
-              >
-            </div>
-            <div
-              *ngIf="contactPhone.touched && contactPhone.errors?.['maxlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >El télefono no debe superar los 20 caracteres</span
-              >
-            </div>
-          </div>
-
-          <!-- Email -->
-          <div class="mb-3">
-            <label for="contact-email" class="form-label">Email</label>
-            <input
-              type="text"
-              class="form-control"
-              id="contact-email"
-              name="contactEmail"
-              [ngClass]="{
-                'is-invalid': contactEmail.touched && contactEmail.errors,
-                'is-valid': contactEmail.touched && !contactEmail.errors,
-              }"
-              [(ngModel)]="supplier.contactDetails.email"
-              #contactEmail="ngModel"
-              required
-              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-            />
-            <div
-              *ngIf="contactEmail.touched && contactEmail.errors?.['required'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Ingrese un email</span>
-            </div>
-            <div
-              *ngIf="contactEmail.touched && contactEmail.errors?.['pattern'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Ingrese un email válido</span>
-            </div>
-          </div>
-
-          <!-- Rol -->
-          <div class="mb-3">
-            <label for="role" class="form-label">Rol</label>
-            <input
-              type="text"
-              class="form-control"
-              id="role"
-              name="role"
-              [ngClass]="{
+                <!-- Rol -->
+                <div class="mb-3">
+                  <label for="role" class="form-label">Rol</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="role"
+                    name="role"
+                    [ngClass]="{
                 'is-invalid': role.touched && role.errors,
                 'is-valid': role.touched && !role.errors,
               }"
-              [(ngModel)]="supplier.contactDetails.role"
-              #role="ngModel"
-              required
-              minlength="4"
-              maxlength="20"
-            />
-            <div
-              *ngIf="role.touched && role.errors?.['required'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger">Ingrese un rol</span>
-            </div>
-            <div
-              *ngIf="role.touched && role.errors?.['minlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >El rol debe tener al menos 4 caracteres</span
-              >
-            </div>
-            <div
-              *ngIf="role.touched && role.errors?.['maxlength'] "
-              class="col-auto"
-            >
-              <span class="form-text text-danger"
-                >El rol no debe superar los 20 caracteres</span
-              >
-            </div>
-          </div>
-        </fieldset>
+                    [(ngModel)]="supplier.contactDetails.role"
+                    #role="ngModel"
+                    required
+                    minlength="4"
+                    maxlength="20"
+                  />
+                  <div
+                    *ngIf="role.touched && role.errors?.['required'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger">Ingrese un rol</span>
+                  </div>
+                  <div
+                    *ngIf="role.touched && role.errors?.['minlength'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >El rol debe tener al menos 4 caracteres</span
+                    >
+                  </div>
+                  <div
+                    *ngIf="role.touched && role.errors?.['maxlength'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >El rol no debe superar los 20 caracteres</span
+                    >
+                  </div>
+                </div>
+              </div>
 
-        <div class="form-row">
-          <div class="mt-4 d-flex justify-content-center">
+              <div class="col-md-6">
+                <!-- Teléfono -->
+                <div class="mb-3">
+                  <label for="contact-phone" class="form-label">Teléfono</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="contact-phone"
+                    name="contactPhone"
+                    [ngClass]="{
+                'is-invalid': contactPhone.touched && contactPhone.errors,
+                'is-valid': contactPhone.touched && !contactPhone.errors,
+              }"
+                    [(ngModel)]="supplier.contactDetails.phone"
+                    #contactPhone="ngModel"
+                    required
+                    minlength="8"
+                    maxlength="20"
+                  />
+                  <div
+                    *ngIf="contactPhone.touched && contactPhone.errors?.['required'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >Ingrese un télefono</span
+                    >
+                  </div>
+                  <div
+                    *ngIf="contactPhone.touched && contactPhone.errors?.['minlength'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >El télefono debe tener al menos 8 caracteres</span
+                    >
+                  </div>
+                  <div
+                    *ngIf="contactPhone.touched && contactPhone.errors?.['maxlength'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >El télefono no debe superar los 20 caracteres</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                  <label for="contact-email" class="form-label">Email</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="contact-email"
+                    name="contactEmail"
+                    [ngClass]="{
+                'is-invalid': contactEmail.touched && contactEmail.errors,
+                'is-valid': contactEmail.touched && !contactEmail.errors,
+              }"
+                    [(ngModel)]="supplier.contactDetails.email"
+                    #contactEmail="ngModel"
+                    required
+                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                  />
+                  <div
+                    *ngIf="contactEmail.touched && contactEmail.errors?.['required'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger">Ingrese un email</span>
+                  </div>
+                  <div
+                    *ngIf="contactEmail.touched && contactEmail.errors?.['pattern'] "
+                    class="col-auto"
+                  >
+                    <span class="form-text text-danger"
+                      >Ingrese un email válido</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="row">
+          <div class="d-flex justify-content-center">
             <button class="btn btn-outline-secondary" routerLink="/suppliers">
               Cancelar
             </button>
