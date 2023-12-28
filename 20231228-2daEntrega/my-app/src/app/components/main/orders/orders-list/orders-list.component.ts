@@ -41,8 +41,8 @@ export class OrdersListComponent implements OnInit {
     this.router.navigate(['/orders/add']);
   }
 
-  editOrder(id: number) {
-    this.router.navigate([`/orders/edit/${id}`]);
+  openOrder(id: number) {
+    this.router.navigate([`/orders/${id}`]);
   }
 
   confirmDelete(id: number) {

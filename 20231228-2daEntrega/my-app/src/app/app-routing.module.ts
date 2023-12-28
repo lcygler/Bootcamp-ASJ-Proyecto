@@ -24,7 +24,7 @@ const productsRoutes: Routes = [
 const ordersRoutes: Routes = [
   { path: '', component: OrdersListComponent },
   { path: 'add', component: OrdersFormComponent },
-  { path: 'edit/:orderId', component: OrdersFormComponent },
+  { path: ':orderId', component: OrdersFormComponent },
 ];
 
 const routes: Routes = [
@@ -32,6 +32,7 @@ const routes: Routes = [
   { path: 'products', children: productsRoutes },
   { path: 'orders', children: ordersRoutes },
   { path: 'about', component: AboutComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'suppliers' },
 ];
 
 @NgModule({

@@ -2,7 +2,7 @@
   <div class="row-md-12">
     <div class="col-md-12">
       <h2 class="mb-4">
-        {{ editProduct ? "Editar Producto" : "Alta de Producto" }}
+        {{ isEditView ? "Editar Producto" : "Alta de Producto" }}
       </h2>
 
       <form #ProductForm="ngForm" (ngSubmit)="onSubmit(ProductForm)">
@@ -11,8 +11,8 @@
             <fieldset class="mb-4">
               <!-- <legend>Datos del Producto</legend> -->
               <!-- SKU -->
-              <div class="mb-3" *ngIf="editProduct">
-                <label for="code" class="form-label">SKU</label>
+              <div class="mb-3" *ngIf="isEditView">
+                <label for="sku" class="form-label">SKU</label>
                 <input
                   type="text"
                   class="form-control"

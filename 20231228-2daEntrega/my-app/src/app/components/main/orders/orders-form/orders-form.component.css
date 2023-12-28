@@ -1,0 +1,7 @@
+.order-active {
+  color: green;
+}
+
+.order-cancelled {
+  color: red;
+}

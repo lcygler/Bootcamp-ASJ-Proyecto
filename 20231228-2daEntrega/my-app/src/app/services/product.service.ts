@@ -50,6 +50,15 @@ export class ProductService {
     );
   }
 
+  public getProductsBySupplier(id: number): Observable<any> {
+    return this.http.get(`${this.API_URL}?supplierId=${id}`).pipe(
+      catchError((error) => {
+        console.error('Error fetching products by supplier:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
   public createProduct(product: any) {
     return this.http.post(`${this.API_URL}`, product).pipe(
       catchError((error) => {

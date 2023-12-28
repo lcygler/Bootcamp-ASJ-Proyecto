@@ -2,7 +2,7 @@
   <div class="row-md-12">
     <div class="col-md-12">
       <h2 class="mb-4">
-        {{ editSupplier ? "Editar Proveedor" : "Alta de Proveedor" }}
+        {{ isEditView ? "Editar Proveedor" : "Alta de Proveedor" }}
       </h2>
 
       <form #SupplierForm="ngForm" (ngSubmit)="onSubmit(SupplierForm)">
@@ -10,7 +10,8 @@
           <div class="col-md-6">
             <fieldset class="mb-4">
               <legend>Datos Comerciales</legend>
-              <div class="mb-3" *ngIf="editSupplier">
+              <!-- Código -->
+              <div class="mb-3" *ngIf="isEditView">
                 <label for="code" class="form-label">Código</label>
                 <input
                   type="text"
@@ -33,9 +34,9 @@
                   id="business-name"
                   name="businessName"
                   [ngClass]="{
-                'is-invalid': businessName.touched && businessName.errors,
-                'is-valid': businessName.touched && !businessName.errors,
-              }"
+                    'is-invalid': businessName.touched && businessName.errors,
+                    'is-valid': businessName.touched && !businessName.errors,
+                  }"
                   [(ngModel)]="supplier.businessName"
                   #businessName="ngModel"
                   required
@@ -247,7 +248,7 @@
                         'is-valid': cuit.touched && !cuit.errors,
                       }"
                       [(ngModel)]="supplier.taxInformation.cuit"
-                      [disabled]="editSupplier"
+                      [disabled]="isEditView"
                       (input)="formatCuit($event)"
                       #cuit="ngModel"
                       required

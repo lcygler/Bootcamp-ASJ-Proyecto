@@ -62,6 +62,15 @@ export class OrderService {
     );
   }
 
+  public getOrderItems(id: number): Observable<any> {
+    return this.http.get(`${this.API_URL}/${id}/items`).pipe(
+      catchError((error) => {
+        console.error('Error fetching order items:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
   public createOrder(order: any) {
     return this.http.post(`${this.API_URL}`, order).pipe(
       catchError((error) => {

@@ -107,7 +107,7 @@
           <td class="px-4 text-wrap">{{ product.description }}</td>
           <td class="px-4">{{ product.category }}</td>
           <td class="px-4">{{ product.supplier.businessName }}</td>
-          <td class="px-4">${{ product.price }}</td>
+          <td class="px-4">{{ product.price | currency }}</td>
           <td class="px-4">
             <!-- Actions -->
             <div class="btn-group my-2 btn-actions">

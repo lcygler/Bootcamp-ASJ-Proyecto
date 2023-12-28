@@ -87,7 +87,6 @@
           <th>N°</th>
           <th>Fecha de Emisión</th>
           <th>Fecha de Entrega</th>
-          <th>Dirección de Entrega</th>
           <th>Proveedor</th>
           <th>Total</th>
           <th>Acciones</th>
@@ -106,18 +105,18 @@
           <td class="px-4">{{ order.id }}</td>
           <td class="px-4">{{ order.issueDate }}</td>
           <td class="px-4">{{ order.deliveryDate }}</td>
-          <td class="px-4">{{ order.address }}</td>
           <td class="px-4">{{ order.supplier.businessName }}</td>
-          <td class="px-4">${{ order.total }}</td>
+          <td class="px-4">{{ order.total | currency }}</td>
           <td class="px-4">
             <!-- Actions -->
             <div class="btn-group my-2 btn-actions">
               <button
                 class="btn btn-outline-secondary btn-edit"
-                (click)="editOrder(order.id)"
-                [disabled]="!order.isActive"
+                (click)="openOrder(order.id)"
               >
-                <span class="material-icons" style="font-size: 16px">edit</span>
+                <span class="material-icons" style="font-size: 16px">
+                  open_in_new
+                </span>
               </button>
               <button
                 class="btn btn-outline-danger"

@@ -42,7 +42,7 @@ export class SuppliersFormComponent implements OnInit {
   };
   supplierId: number | null = null;
   nextSupplierId: number | null = null;
-  editSupplier: boolean = false;
+  isEditView: boolean = false;
   vatConditions: any[] = [];
   countryList: any[] = [];
   stateList: any[] = [];
@@ -63,7 +63,7 @@ export class SuppliersFormComponent implements OnInit {
     if (id) {
       this.supplierId = parseInt(id);
       this.getSupplierById(this.supplierId);
-      this.editSupplier = this.isEditRoute();
+      this.isEditView = this.isEditRoute();
     }
 
     this.getVatConditions();

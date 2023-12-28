@@ -23,7 +23,7 @@ export class ProductsFormComponent implements OnInit {
   };
   productId: number | null = null;
   nextProductId: number | null = null;
-  editProduct: boolean = false;
+  isEditView: boolean = false;
   supplierList: any[] = [];
   categoryList: any[] = [];
 
@@ -41,7 +41,7 @@ export class ProductsFormComponent implements OnInit {
     if (id) {
       this.productId = parseInt(id);
       this.getProductById(this.productId);
-      this.editProduct = this.isEditRoute();
+      this.isEditView = this.isEditRoute();
     }
 
     this.getSuppliers();
