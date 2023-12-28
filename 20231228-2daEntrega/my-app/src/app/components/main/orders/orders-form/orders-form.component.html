@@ -20,6 +20,7 @@
                   [(ngModel)]="selectedSupplier"
                   (ngModelChange)="onSupplierChange($event)"
                   #supplier="ngModel"
+                  [disabled]="productAdded"
                   required
                 >
                   <option value="" disabled selected>Seleccionar</option>
@@ -279,24 +280,15 @@
                     }"
                     [(ngModel)]="order.comments"
                     #comments="ngModel"
-                    minlength="10"
                     maxlength="200"
                     [readonly]="!isAddView"
                   ></textarea>
-                  <div
-                    *ngIf="comments.touched && comments.errors?.['minlength'] "
-                    class="col-auto"
-                  >
-                    <span class="form-text text-danger"
-                      >Los comentarios deben tener al menos 10 caracteres</span
-                    >
-                  </div>
                   <div
                     *ngIf="comments.touched && comments.errors?.['maxlength'] "
                     class="col-auto"
                   >
                     <span class="form-text text-danger"
-                      >Los comentarios no deben superar los 200 caracteres</span
+                      >El comentario debe ser más breve</span
                     >
                   </div>
                 </div>

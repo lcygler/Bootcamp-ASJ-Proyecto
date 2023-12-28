@@ -19,8 +19,13 @@ export class OrderService {
             // Ordenar por isActive
             return b.isActive - a.isActive;
           } else {
+            // Sino ordenar por issueDate (más reciente)
+            const dateA = new Date(a.issueDate).getTime();
+            const dateB = new Date(b.issueDate).getTime();
+            return dateB - dateA;
+
             // Sino ordenar por id
-            return a.id - b.id;
+            // return a.id - b.id;
           }
         })
       ),
@@ -75,6 +80,15 @@ export class OrderService {
     return this.http.post(`${this.API_URL}`, order).pipe(
       catchError((error) => {
         console.error('Error creating order:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  public createOrderItems(orderItems: any) {
+    return this.http.post(`http://localhost:3000/order-items`, orderItems).pipe(
+      catchError((error) => {
+        console.error('Error creating order items:', error);
         return throwError(() => error);
       })
     );

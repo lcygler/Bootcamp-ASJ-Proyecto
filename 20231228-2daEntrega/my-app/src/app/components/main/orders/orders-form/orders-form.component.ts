@@ -26,6 +26,7 @@ export class OrdersFormComponent implements OnInit {
   nextOrderId: number | null = null;
   isAddView: boolean = false;
   todayDate: string = '';
+  productAdded: boolean = false;
 
   supplierList: any[] = [];
   productList: any[] = [];
@@ -110,16 +111,30 @@ export class OrdersFormComponent implements OnInit {
     const formData = form.value;
 
     const order: Order = {
-      issueDate: formData.issueDate,
+      issueDate: this.formatDate(formData.issueDate),
       deliveryDate: formData.deliveryDate,
       comments: formData.comments,
-      total: formData.total,
+      total: this.calculateTotal(),
       isActive: this.order.id ? this.order.isActive : true,
-      supplierId: formData.supplierId,
+      supplierId: this.selectedSupplier,
     };
 
     // Add new order
-    this.orderService.createOrder(order).subscribe((res) => {
+    this.orderService.createOrder(order).subscribe((createdOrder: any) => {
+      for (const item of this.orderItemList) {
+        const orderItems = {
+          orderId: createdOrder?.id,
+          productId: item.product.id,
+          quantity: item.quantity,
+          subtotal: item.subtotal,
+          supplierId: formData.supplierId,
+        };
+
+        this.orderService.createOrderItems(orderItems).subscribe((res) => {
+          console.log(`Se creó OrderItem de producto #${item.product.id}`);
+        });
+      }
+
       this.toastService.showSuccessToast('Orden agregada correctamente!');
     });
 
@@ -211,6 +226,7 @@ export class OrdersFormComponent implements OnInit {
           };
 
           this.orderItemList.push(newProduct);
+          this.productAdded = true;
         }
       });
   }
@@ -247,6 +263,16 @@ export class OrdersFormComponent implements OnInit {
 
       this.deleteMessage = '';
       this.productToDeleteId = null;
+    }
+  }
+
+  formatDate(dateString: string): string {
+    const parts = dateString.split('/');
+    if (parts.length === 3) {
+      const [day, month, year] = parts;
+      return `${year}-${month}-${day}`;
+    } else {
+      return dateString;
     }
   }
 }

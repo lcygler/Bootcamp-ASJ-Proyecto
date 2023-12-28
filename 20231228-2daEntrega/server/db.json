@@ -347,9 +347,9 @@
       "sku": "TECN-6",
       "category": "Tecnología",
       "name": "Tablet Pro",
-      "description": "Tableta profesional con pantalla de alta resolución",
+      "description": "Tablet profesional con pantalla de alta resolución",
       "price": 599.99,
-      "supplierId": 6,
+      "supplierId": 1,
       "isDeleted": false
     },
     {
@@ -389,7 +389,7 @@
       "name": "Caja de Verduras Orgánicas",
       "description": "Variedad de verduras frescas y orgánicas",
       "price": 49.99,
-      "supplierId": 1,
+      "supplierId": 10,
       "isDeleted": false
     }
   ],
@@ -399,7 +399,7 @@
       "issueDate": "2023-01-01",
       "deliveryDate": "2023-01-10",
       "comments": "Por favor, dejar en la recepción. Contactar al llegar si es necesario.",
-      "total": 1499.99,
+      "total": 3799.95,
       "isActive": true,
       "supplierId": 1
     },
@@ -523,7 +523,7 @@
     },
     {
       "id": 6,
-      "orderId": 6,
+      "orderId": 1,
       "productId": 6,
       "quantity": 1,
       "subtotal": 599.99
@@ -551,7 +551,7 @@
     },
     {
       "id": 10,
-      "orderId": 1,
+      "orderId": 10,
       "productId": 10,
       "quantity": 3,
       "subtotal": 149.97
