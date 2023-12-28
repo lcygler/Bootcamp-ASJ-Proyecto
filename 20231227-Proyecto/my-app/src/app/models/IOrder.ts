@@ -4,6 +4,6 @@ export interface IOrder {
   deliveryDate: Date;
   address: string;
   total: number;
-  status: string;
+  isActive: boolean;
   supplierId: number;
 }

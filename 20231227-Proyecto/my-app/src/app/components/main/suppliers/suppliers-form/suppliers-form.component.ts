@@ -38,6 +38,7 @@ export class SuppliersFormComponent implements OnInit {
       email: '',
       role: '',
     },
+    isDeleted: false,
   };
   supplierId: number | null = null;
   nextSupplierId: number | null = null;
@@ -85,7 +86,7 @@ export class SuppliersFormComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (!form.valid) {
-      console.error('Form not valid.');
+      console.error('Invalid form.');
       return;
     }
 
@@ -118,6 +119,7 @@ export class SuppliersFormComponent implements OnInit {
           email: formData.contactEmail,
           role: formData.role,
         },
+        isDeleted: this.supplier.id ? this.supplier.isDeleted : false,
       };
 
       if (this.isEditRoute()) {
@@ -149,8 +151,6 @@ export class SuppliersFormComponent implements OnInit {
   }
 
   onCountryChange(selectedCountry: string): void {
-    console.log(selectedCountry);
-
     if (selectedCountry) {
       this.filteredStates =
         this.locationService.getStatesByCountry(selectedCountry);
@@ -160,8 +160,6 @@ export class SuppliersFormComponent implements OnInit {
   }
 
   onStateChange(selectedState: string): void {
-    console.log(selectedState);
-
     if (selectedState) {
       this.filteredCities =
         this.locationService.getCitiesByState(selectedState);

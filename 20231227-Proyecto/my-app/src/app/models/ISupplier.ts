@@ -25,4 +25,5 @@ export interface Supplier {
     email: string;
     role: string;
   };
+  isDeleted: boolean;
 }

@@ -5,5 +5,6 @@ export interface IProduct {
   name: string;
   description: string;
   price: number;
+  isDeleted: boolean;
   supplierId: number;
 }
