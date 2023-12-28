@@ -1,54 +1,107 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { data } from 'src/app/data/products';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { productCategories } from '../data/product-categories';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  products = [...data];
+  private API_URL = 'http://localhost:3000/products';
 
   constructor(private http: HttpClient) {}
 
-  public getProducts(): any[] {
-    return this.products;
+  public getProducts(): Observable<any> {
+    return this.http.get(`${this.API_URL}?_expand=supplier`).pipe(
+      map((products: any) =>
+        products
+          .filter((product: any) => !product.isDeleted)
+          .sort((a: any, b: any) => a.name.localeCompare(b.name))
+      ),
+      catchError((error) => {
+        console.error('Error fetching product list:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
-  public getProductById(id: string): any | undefined {
-    const product = this.products.find((p) => p.id === id);
-    return product;
+  public getProductsByRange(start: number, end: number): Observable<any> {
+    return this.http.get(`${this.API_URL}?_start=${start}&_end=${end}`).pipe(
+      map((products: any) =>
+        products
+          .filter((product: any) => !product.isDeleted)
+          .sort((a: any, b: any) => a.name.localeCompare(b.name))
+      ),
+      catchError((error) => {
+        console.error('Error fetching products by range:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  public getProductById(id: number): Observable<any> {
+    return this.http.get(`${this.API_URL}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Error fetching product by ID:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
   public createProduct(product: any) {
-    if (product) {
-      const lastProduct = this.products[this.products.length - 1];
-      const newId = lastProduct ? parseInt(lastProduct.id) + 1 : 1;
-      product.id = newId;
-      this.products.push(product);
-    }
+    return this.http.post(`${this.API_URL}`, product).pipe(
+      catchError((error) => {
+        console.error('Error creating product:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
-  public updateProduct(product: any): boolean {
-    let isUpdated = false;
-    const index = this.products.indexOf(product);
-
-    if (index !== -1) {
-      this.products[index] = product;
-      isUpdated = true;
-    }
-
-    return isUpdated;
+  public updateProduct(id: number, data: any) {
+    return this.http.patch(`${this.API_URL}/${id}`, data).pipe(
+      catchError((error) => {
+        console.error('Error updating product:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
-  public deleteProduct(product: any): boolean {
-    let isDeleted = false;
-    const index = this.products.indexOf(product);
+  public deleteProduct(id: number) {
+    return this.http.patch(`${this.API_URL}/${id}`, { isDeleted: true }).pipe(
+      catchError((error) => {
+        console.error('Error updating product:', error);
+        return throwError(() => error);
+      })
+    );
+  }
 
-    if (index !== -1) {
-      this.products.splice(index, 1);
-      isDeleted = true;
-    }
+  public deleteProductPermanently(id: number) {
+    return this.http.delete(`${this.API_URL}/${id}`).pipe(
+      catchError((error) => {
+        console.error('Error deleting product:', error);
+        return throwError(() => error);
+      })
+    );
+  }
 
-    return isDeleted;
+  public getNextProductId(): Observable<number> {
+    return this.http.get(`${this.API_URL}?_sort=id&_order=desc&_limit=1`).pipe(
+      map((products: any) => {
+        if (products && products.length > 0) {
+          return products[0].id + 1;
+        } else {
+          return 1;
+        }
+      }),
+      catchError((error) => {
+        console.error('Error fetching latest supplier:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  public getCategories(): any[] {
+    return productCategories;
   }
 }

@@ -1,4 +1,4 @@
-export interface IOrder {
+export interface Order {
   id?: number;
   issueDate: Date;
   deliveryDate: Date;

@@ -4,35 +4,63 @@
       <h5 class="card-title py-2">Listado de Productos</h5>
     </div>
     <div class="col-3 d-flex justify-content-end">
+      <!-- Search -->
+      <div class="d-flex my-2 me-2" role="search">
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Buscar"
+          aria-label="Buscar"
+          [(ngModel)]="searchTerm"
+          style="min-width: 200px"
+          (keyup)="filterProducts()"
+        />
+        <!-- <button
+          class="btn btn-outline-success"
+          type="button"
+          (click)="filterProducts()"
+        >
+          Search
+        </button> -->
+      </div>
+
       <!-- Pagination -->
       <div class="btn-group my-2 btn-actions">
         <button
-          class="btn btn-outline-secondary"
-          [disabled]="productList.length < 1 || currentPage === 1"
+          class="btn btn-outline-secondary d-flex align-items-center"
+          [disabled]="filteredProducts.length < 1 || currentPage === 1"
           (click)="updatePage('first')"
         >
-          «
+          <span class="material-icons" style="font-size: 16px">
+            keyboard_double_arrow_left
+          </span>
         </button>
         <button
-          class="btn btn-outline-secondary"
-          [disabled]="productList.length < 1 || currentPage === 1"
+          class="btn btn-outline-secondary d-flex align-items-center"
+          [disabled]="filteredProducts.length < 1 || currentPage === 1"
           (click)="updatePage('prev')"
         >
-          ‹
+          <span class="material-icons" style="font-size: 16px">
+            keyboard_arrow_left
+          </span>
         </button>
         <button
-          class="btn btn-outline-secondary"
-          [disabled]="productList.length < 1 || !hasMoreItems()"
+          class="btn btn-outline-secondary d-flex align-items-center"
+          [disabled]="filteredProducts.length < 1 || !hasMoreItems()"
           (click)="updatePage('next')"
         >
-          ›
+          <span class="material-icons" style="font-size: 16px">
+            keyboard_arrow_right
+          </span>
         </button>
         <button
-          class="btn btn-outline-secondary"
-          [disabled]="productList.length < 1 || currentPage === totalPages"
+          class="btn btn-outline-secondary d-flex align-items-center"
+          [disabled]="filteredProducts.length < 1 || currentPage === totalPages"
           (click)="updatePage('last')"
         >
-          »
+          <span class="material-icons" style="font-size: 16px">
+            keyboard_double_arrow_right
+          </span>
         </button>
       </div>
 
@@ -49,31 +77,37 @@
     </div>
   </div>
 
+  <!-- Product List -->
   <div class="row overflow-x-auto">
-    <!-- Product List -->
     <table
       class="table table-bordered table-striped table-hover text-center text-nowrap align-middle"
     >
       <thead>
         <tr>
           <th>SKU</th>
-          <th>Proveedor</th>
-          <th>Categoría</th>
           <th>Nombre</th>
           <th>Descripción</th>
           <th>Precio</th>
+          <th>Categoría</th>
+          <th>Proveedor</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of displayedProducts">
-          <td class="px-4">{{ product.id }}</td>
-          <td class="px-4">{{ product.proveedor }}</td>
-          <td class="px-4">{{ product.categoria }}</td>
-          <td class="px-4">{{ product.nombre }}</td>
-          <td class="px-4">{{ product.descripcion }}</td>
-          <td class="px-4">${{ product.precio }}</td>
-
+        <tr
+          *ngFor="
+            let product of productList
+              | filter : searchTerm
+              | slice : currentPage : itemsPerPage
+          "
+        >
+          <!-- Product -->
+          <td class="px-4">{{ product.sku }}</td>
+          <td class="px-4">{{ product.name }}</td>
+          <td class="px-4 text-wrap">{{ product.description }}</td>
+          <td class="px-4">${{ product.price }}</td>
+          <td class="px-4">{{ product.category }}</td>
+          <td class="px-4">{{ product.supplier.businessName }}</td>
           <td class="px-4">
             <!-- Actions -->
             <div class="btn-group my-2 btn-actions">
@@ -85,16 +119,74 @@
               </button>
               <button
                 class="btn btn-outline-danger"
-                (click)="deleteProduct(product)"
+                (click)="confirmDelete(product.id)"
+                data-bs-toggle="modal"
+                data-bs-target="#deleteModal"
               >
-                <span class="material-icons" style="font-size: 16px"
-                  >delete</span
-                >
+                <span class="material-icons" style="font-size: 16px">
+                  delete
+                </span>
               </button>
             </div>
           </td>
         </tr>
       </tbody>
+      <tfoot *ngIf="filteredProducts.length > 0">
+        <tr style="border: none">
+          <td
+            colspan="12"
+            class="text-muted text-center small"
+            style="border: none"
+          >
+            {{ calculateRange() }}
+          </td>
+        </tr>
+      </tfoot>
     </table>
+  </div>
+
+  <!-- Delete Modal -->
+  <div
+    class="modal fade"
+    id="deleteModal"
+    tabindex="-1"
+    aria-labelledby="deleteModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteModalLabel">
+            Eliminar Producto
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          {{ deleteMessage }}
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+            (click)="deleteProduct()"
+          >
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

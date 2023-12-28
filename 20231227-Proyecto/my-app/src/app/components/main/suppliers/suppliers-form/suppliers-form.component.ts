@@ -94,7 +94,7 @@ export class SuppliersFormComponent implements OnInit {
       const formData = form.value;
 
       const supplier: Supplier = {
-        code: this.supplier.id ? `PROV-${this.supplier.id}` : `PROV-${res}`,
+        code: this.supplier.id ? this.supplier.code : `PROV-${res}`,
         businessName: formData.businessName,
         industry: formData.industry,
         website: formData.website,

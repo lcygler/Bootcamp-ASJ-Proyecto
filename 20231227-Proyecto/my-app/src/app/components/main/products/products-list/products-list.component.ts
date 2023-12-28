@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-products-list',
@@ -9,38 +10,73 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductsListComponent implements OnInit {
   productList: any[] = [];
-  displayedProducts: any[] = [];
+  filteredProducts: any[] = [];
+  searchTerm: string = '';
+  productToDeleteId: number | null = null;
+  deleteMessage: string = '';
 
   itemsPerPage: number = 5;
-  totalPages: number = 0;
+  totalPages: number = 1;
   currentPage: number = 1;
 
-  constructor(private router: Router, private productService: ProductService) {}
+  constructor(
+    private router: Router,
+    private productService: ProductService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit() {
-    this.updateList();
+    this.getProducts();
   }
 
   getProducts() {
-    this.productList = this.productService.getProducts();
+    this.productService.getProducts().subscribe((res) => {
+      this.productList = res;
+      this.filterProducts();
+      this.updateTotalPages();
+    });
   }
 
   addProduct() {
     this.router.navigate(['/products/add']);
   }
 
-  editProduct(id: string) {
+  editProduct(id: number) {
     this.router.navigate([`/products/edit/${id}`]);
   }
 
-  deleteProduct(product: any) {
-    const confirmDelete = window.confirm(
-      'Are you sure you want to delete this product?'
-    );
+  confirmDelete(id: number) {
+    this.deleteMessage = `¿Está seguro de que desea eliminar el producto #${id}?`;
+    this.productToDeleteId = id;
+  }
 
-    if (confirmDelete) {
-      this.productService.deleteProduct(product);
-      this.updateList();
+  deleteProduct() {
+    if (this.productToDeleteId) {
+      this.productService
+        .deleteProduct(this.productToDeleteId)
+        .subscribe((res) => {
+          this.getProducts();
+          this.productToDeleteId = null;
+          this.toastService.showSuccessToast(
+            'Proveedor eliminado correctamente!'
+          );
+        });
+    }
+  }
+
+  filterProducts() {
+    this.currentPage = 1;
+
+    if (this.searchTerm) {
+      this.filteredProducts = this.productList.filter((item) =>
+        JSON.stringify(item)
+          .toLowerCase()
+          .includes(this.searchTerm.toLowerCase())
+      );
+      this.updateTotalPages();
+    } else {
+      this.filteredProducts = [...this.productList];
+      this.updateTotalPages();
     }
   }
 
@@ -63,22 +99,28 @@ export class ProductsListComponent implements OnInit {
         this.currentPage = this.totalPages;
         break;
     }
+  }
 
-    this.updateList();
+  updateTotalPages(): void {
+    const minPages = 1;
+
+    this.totalPages = Math.max(
+      minPages,
+      Math.ceil(this.filteredProducts.length / this.itemsPerPage)
+    );
   }
 
   hasMoreItems(): boolean {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return startIndex + this.itemsPerPage < this.productList.length;
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    return start + this.itemsPerPage < this.filteredProducts.length;
   }
 
-  updateList(): void {
-    this.getProducts();
-
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.displayedProducts = this.productList.slice(startIndex, endIndex);
-
-    this.totalPages = Math.ceil(this.productList.length / this.itemsPerPage);
+  calculateRange(): string {
+    const start = (this.currentPage - 1) * this.itemsPerPage + 1;
+    const end = Math.min(
+      this.currentPage * this.itemsPerPage,
+      this.filteredProducts.length
+    );
+    return `Mostrando ${start} - ${end} de ${this.filteredProducts.length} productos`;
   }
 }
