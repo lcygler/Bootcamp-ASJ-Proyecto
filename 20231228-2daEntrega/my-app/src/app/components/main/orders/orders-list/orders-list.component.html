@@ -93,6 +93,19 @@
         </tr>
       </thead>
       <tbody>
+        <tr *ngIf="filteredOrders.length === 0">
+          <td colspan="6">
+            <div class="d-flex align-items-center justify-content-center">
+              <span
+                class="material-icons-outlined me-2"
+                style="font-size: 16px"
+              >
+                info
+              </span>
+              No se encontraron resultados
+            </div>
+          </td>
+        </tr>
         <tr
           *ngFor="
             let order of orderList

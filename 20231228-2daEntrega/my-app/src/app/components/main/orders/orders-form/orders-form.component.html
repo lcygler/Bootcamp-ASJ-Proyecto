@@ -9,7 +9,7 @@
         <div class="row">
           <div class="col-md-4 me-4" *ngIf="isAddView">
             <fieldset class="mb-4">
-              <!-- <legend>Sección</legend> -->
+              <legend>Datos del Producto</legend>
               <!-- Proveedor -->
               <div class="mb-3">
                 <label for="country" class="form-label">Proveedor</label>
@@ -21,7 +21,6 @@
                   (ngModelChange)="onSupplierChange($event)"
                   #supplier="ngModel"
                   [disabled]="productAdded"
-                  required
                 >
                   <option value="" disabled selected>Seleccionar</option>
                   <option
@@ -31,14 +30,6 @@
                     {{ supplier.businessName }}
                   </option>
                 </select>
-                <div
-                  *ngIf="supplier.touched && supplier.errors?.['required'] "
-                  class="col-auto"
-                >
-                  <span class="form-text text-danger">
-                    Seleccione un proveedor
-                  </span>
-                </div>
               </div>
 
               <!-- Producto -->
@@ -50,7 +41,6 @@
                   name="product"
                   [(ngModel)]="selectedProduct"
                   #product="ngModel"
-                  required
                 >
                   <option value="" disabled selected>Seleccionar</option>
                   <option
@@ -68,14 +58,6 @@
                     Seleccione un proveedor primero
                   </span>
                 </div>
-                <div
-                  *ngIf="product.touched && product.errors?.['required'] && selectedSupplier"
-                  class="col-auto"
-                >
-                  <span class="form-text text-danger">
-                    Seleccione un producto
-                  </span>
-                </div>
               </div>
 
               <!-- Cantidad -->
@@ -86,24 +68,11 @@
                   class="form-control"
                   id="quantity"
                   name="quantity"
-                  [ngClass]="{
-                                'is-invalid': quantity.touched && quantity.errors,
-                                'is-valid': quantity.touched && !quantity.errors,
-                              }"
                   [(ngModel)]="selectedQuantity"
                   #quantity="ngModel"
-                  required
                   min="1"
                   max="99"
                 />
-                <div
-                  *ngIf="quantity.touched && quantity.errors?.['required'] "
-                  class="col-auto"
-                >
-                  <span class="form-text text-danger"
-                    >Ingrese una cantidad</span
-                  >
-                </div>
                 <div
                   *ngIf="quantity.touched && quantity.errors?.['min'] "
                   class="col-auto"
@@ -125,8 +94,17 @@
               <div class="mb-3 d-flex justify-content-center">
                 <button
                   type="button"
+                  class="btn btn-outline-secondary me-2"
+                  (click)="resetForm(OrderForm)"
+                >
+                  Limpiar
+                </button>
+                <button
+                  type="button"
                   class="btn btn-success"
-                  [disabled]="!selectedSupplier || !selectedProduct"
+                  [disabled]="
+                    !selectedSupplier || !selectedProduct || !selectedQuantity
+                  "
                   (click)="addProduct()"
                 >
                   Agregar
@@ -137,7 +115,7 @@
 
           <div class="col-md">
             <fieldset class="mb-4">
-              <!-- <legend>Sección</legend> -->
+              <legend>Datos de la Orden</legend>
 
               <div class="row">
                 <div class="col-md-6">
@@ -191,7 +169,8 @@
                           ? (todayDate | date : 'dd/MM/yyyy')
                           : (order.issueDate | date : 'dd/MM/yyyy')
                       "
-                      readonly
+                      [disabled]="isAddView"
+                      [readonly]="!isAddView"
                     />
                   </div>
                 </div>
@@ -299,8 +278,17 @@
 
         <div class="row my-3">
           <!-- Productos -->
-          <h4 class="mb-3">Productos</h4>
-          <p *ngIf="orderItemList.length < 1">No se cargaron productos.</p>
+          <!-- <h4 class="mb-3">Productos</h4> -->
+          <legend>Listado de Productos</legend>
+          <div
+            class="d-flex align-items-center justify-content-center my-4"
+            *ngIf="orderItemList.length < 1"
+          >
+            <span class="material-icons-outlined me-2" style="font-size: 16px">
+              info
+            </span>
+            No se agregaron productos.
+          </div>
           <table
             class="table table-bordered table-hover text-center align-middle"
             *ngIf="orderItemList.length > 0"
@@ -311,7 +299,7 @@
                 <th>Nombre</th>
                 <th>Cantidad</th>
                 <th>Precio</th>
-                <th>Total</th>
+                <th>Subtotal</th>
                 <th *ngIf="isAddView">Acciones</th>
               </tr>
             </thead>

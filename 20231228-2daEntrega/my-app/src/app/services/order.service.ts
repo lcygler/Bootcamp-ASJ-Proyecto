@@ -19,13 +19,10 @@ export class OrderService {
             // Ordenar por isActive
             return b.isActive - a.isActive;
           } else {
-            // Sino ordenar por issueDate (más reciente)
+            // Sino ordenar por issueDate (más reciente) e ID
             const dateA = new Date(a.issueDate).getTime();
             const dateB = new Date(b.issueDate).getTime();
-            return dateB - dateA;
-
-            // Sino ordenar por id
-            // return a.id - b.id;
+            return dateB - dateA || b.id - a.id;
           }
         })
       ),

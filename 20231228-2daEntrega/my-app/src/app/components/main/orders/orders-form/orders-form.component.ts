@@ -74,6 +74,14 @@ export class OrdersFormComponent implements OnInit {
     }
   }
 
+  getOrderItems(id: number) {
+    if (id) {
+      this.orderService.getOrderItems(id).subscribe((res) => {
+        this.orderItemList = res;
+      });
+    }
+  }
+
   getNextOrderId(): void {
     this.orderService.getNextOrderId().subscribe((res) => {
       this.nextOrderId = res;
@@ -92,14 +100,6 @@ export class OrdersFormComponent implements OnInit {
     });
   }
 
-  getOrderItems(id: number) {
-    if (id) {
-      this.orderService.getOrderItems(id).subscribe((res) => {
-        this.orderItemList = res;
-      });
-    }
-  }
-
   onSubmit(form: NgForm) {
     if (!form.valid) {
       console.error('Invalid form.');
@@ -111,7 +111,8 @@ export class OrdersFormComponent implements OnInit {
     const formData = form.value;
 
     const order: Order = {
-      issueDate: this.formatDate(formData.issueDate),
+      // issueDate: this.formatDate(formData.issueDate),
+      issueDate: this.getTodayDate(),
       deliveryDate: formData.deliveryDate,
       comments: formData.comments,
       total: this.calculateTotal(),
@@ -142,53 +143,6 @@ export class OrdersFormComponent implements OnInit {
     this.router.navigate(['/orders']);
   }
 
-  getTodayDate(): string {
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
-    const day = ('0' + currentDate.getDate()).slice(-2);
-    return `${year}/${month}/${day}`;
-  }
-
-  getMinDate(): string {
-    const currentDate = new Date(this.todayDate);
-    currentDate.setDate(currentDate.getDate() + 2);
-
-    const year = currentDate.getFullYear();
-    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
-    const day = ('0' + currentDate.getDate()).slice(-2);
-
-    return `${year}-${month}-${day}`;
-  }
-
-  getMaxDate(): string {
-    const currentDate = new Date(this.todayDate);
-    currentDate.setDate(currentDate.getDate() + 30);
-
-    const year = currentDate.getFullYear();
-    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
-    const day = ('0' + currentDate.getDate()).slice(-2);
-
-    return `${year}-${month}-${day}`;
-  }
-
-  isAddRoute(): boolean {
-    const route = this.router.url;
-    return route.includes('/orders/add');
-  }
-
-  onSupplierChange(selectedSupplier: number): void {
-    if (selectedSupplier) {
-      this.productService
-        .getProductsBySupplier(selectedSupplier)
-        .subscribe((res) => {
-          this.filteredProducts = res;
-        });
-    } else {
-      this.filteredProducts = [];
-    }
-  }
-
   addProduct() {
     this.productService
       .getProductById(this.selectedProduct)
@@ -205,6 +159,9 @@ export class OrdersFormComponent implements OnInit {
           existingProduct.subtotal = (
             existingProduct.product.price * existingProduct.quantity
           ).toFixed(2);
+          this.toastService.showSuccessToast(
+            'Cantidad actualizada correctamente!'
+          );
         } else {
           // Agregar nuevo producto
           const newProduct = {
@@ -227,18 +184,11 @@ export class OrdersFormComponent implements OnInit {
 
           this.orderItemList.push(newProduct);
           this.productAdded = true;
+          this.toastService.showSuccessToast(
+            'Producto agregado correctamente!'
+          );
         }
       });
-  }
-
-  calculateTotal(): number {
-    let total = 0;
-
-    for (const item of this.orderItemList) {
-      total += parseFloat(item.subtotal);
-    }
-
-    return total;
   }
 
   confirmDelete(id: number) {
@@ -266,13 +216,96 @@ export class OrdersFormComponent implements OnInit {
     }
   }
 
-  formatDate(dateString: string): string {
-    const parts = dateString.split('/');
+  resetForm(form: NgForm) {
+    this.selectedSupplier = null;
+    this.selectedProduct = null;
+    this.selectedQuantity = null;
+    this.productAdded = false;
+
+    form.reset();
+    form.control.markAsPristine();
+    form.control.markAsUntouched();
+    form.control.updateValueAndValidity();
+
+    this.todayDate = this.getTodayDate();
+    const formattedDate = this.formatDateAsc(this.todayDate);
+    form.control.patchValue({ issueDate: formattedDate });
+  }
+
+  onSupplierChange(selectedSupplier: number): void {
+    if (selectedSupplier) {
+      this.productService
+        .getProductsBySupplier(selectedSupplier)
+        .subscribe((res) => {
+          this.filteredProducts = res;
+        });
+    } else {
+      this.filteredProducts = [];
+    }
+  }
+
+  getTodayDate(): string {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+    const day = ('0' + currentDate.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  }
+
+  getMinDate(): string {
+    const currentDate = new Date(this.todayDate);
+    currentDate.setDate(currentDate.getDate() + 2);
+
+    const year = currentDate.getFullYear();
+    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+    const day = ('0' + currentDate.getDate()).slice(-2);
+
+    return `${year}-${month}-${day}`;
+  }
+
+  getMaxDate(): string {
+    const currentDate = new Date(this.todayDate);
+    currentDate.setDate(currentDate.getDate() + 30);
+
+    const year = currentDate.getFullYear();
+    const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+    const day = ('0' + currentDate.getDate()).slice(-2);
+
+    return `${year}-${month}-${day}`;
+  }
+
+  calculateTotal(): number {
+    let total = 0;
+
+    for (const item of this.orderItemList) {
+      total += parseFloat(item.subtotal);
+    }
+
+    return total;
+  }
+
+  formatDateDesc(dateString: string): string {
+    const parts = dateString.split('-');
     if (parts.length === 3) {
       const [day, month, year] = parts;
       return `${year}-${month}-${day}`;
     } else {
       return dateString;
     }
+  }
+
+  formatDateAsc(dateString: string): string {
+    const parts = dateString.split('-');
+    if (parts.length === 3) {
+      const [year, month, day] = parts;
+      return `${day}/${month}/${year}`;
+    } else {
+      return dateString;
+    }
+  }
+
+  isAddRoute(): boolean {
+    const route = this.router.url;
+    return route.includes('/orders/add');
   }
 }

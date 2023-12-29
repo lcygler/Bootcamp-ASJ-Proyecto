@@ -86,7 +86,7 @@
         <tr>
           <th>SKU</th>
           <th>Nombre</th>
-          <th>Descripción</th>
+          <!-- <th>Descripción</th> -->
           <th>Categoría</th>
           <th>Proveedor</th>
           <th>Precio</th>
@@ -94,6 +94,20 @@
         </tr>
       </thead>
       <tbody>
+        <tr *ngIf="filteredProducts.length === 0">
+          <!-- <td colspan="7"> -->
+          <td colspan="6">
+            <div class="d-flex align-items-center justify-content-center">
+              <span
+                class="material-icons-outlined me-2"
+                style="font-size: 16px"
+              >
+                info
+              </span>
+              No se encontraron resultados
+            </div>
+          </td>
+        </tr>
         <tr
           *ngFor="
             let product of productList
@@ -104,7 +118,7 @@
           <!-- Product -->
           <td class="px-4">{{ product.sku }}</td>
           <td class="px-4">{{ product.name }}</td>
-          <td class="px-4 text-wrap">{{ product.description }}</td>
+          <!-- <td class="px-4 text-wrap">{{ product.description }}</td> -->
           <td class="px-4">{{ product.category }}</td>
           <td class="px-4">{{ product.supplier.businessName }}</td>
           <td class="px-4">{{ product.price | currency }}</td>

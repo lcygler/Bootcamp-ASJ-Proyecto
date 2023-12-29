@@ -9,7 +9,7 @@
         <div class="row">
           <div class="col-md-6">
             <fieldset class="mb-4">
-              <!-- <legend>Datos del Producto</legend> -->
+              <legend>Datos del Producto</legend>
               <!-- SKU -->
               <div class="mb-3" *ngIf="isEditView">
                 <label for="sku" class="form-label">SKU</label>
@@ -79,7 +79,6 @@
                   [(ngModel)]="product.description"
                   #description="ngModel"
                   required
-                  minlength="10"
                   maxlength="200"
                 ></textarea>
                 <div
@@ -91,19 +90,11 @@
                   >
                 </div>
                 <div
-                  *ngIf="description.touched && description.errors?.['minlength'] "
-                  class="col-auto"
-                >
-                  <span class="form-text text-danger"
-                    >La descripción debe tener al menos 10 caracteres</span
-                  >
-                </div>
-                <div
                   *ngIf="description.touched && description.errors?.['maxlength'] "
                   class="col-auto"
                 >
                   <span class="form-text text-danger"
-                    >La descripción no debe superar los 200 caracteres</span
+                    >La descripción es muy extensa</span
                   >
                 </div>
               </div>
@@ -112,7 +103,7 @@
 
           <div class="col-md-6">
             <fieldset class="mb-4">
-              <!-- <legend>Datos Comerciales</legend> -->
+              <legend>Detalles del Producto</legend>
               <!-- Categoría -->
               <div class="mb-3">
                 <label for="category" class="form-label">Categoría</label>
