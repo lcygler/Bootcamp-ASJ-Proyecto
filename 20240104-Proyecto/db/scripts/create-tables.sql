@@ -65,7 +65,7 @@ CREATE TABLE categories (
 
 CREATE TABLE orders (
   id int PRIMARY KEY IDENTITY(1, 1),
-  issue_date datetime  DEFAULT (GETDATE()),
+  issue_date datetime DEFAULT (GETDATE()),
   delivery_date date,
   comments varchar(255),
   total float,
