@@ -9,7 +9,9 @@ CREATE TABLE suppliers (
   address_id int,
   tax_information_id int,
   contact_detail_id int,
-  is_deleted bit
+  is_deleted bit,
+  created_at datetime DEFAULT GETDATE(),
+  updated_at datetime DEFAULT GETDATE()
 )
 
 CREATE TABLE addresses (
@@ -18,18 +20,24 @@ CREATE TABLE addresses (
   number varchar(255),
   postal_code varchar(255),
   city varchar(255),
-  state_id int
+  state_id int,
+  created_at datetime DEFAULT GETDATE(),
+  updated_at datetime DEFAULT GETDATE()
 )
 
 CREATE TABLE states (
   id int PRIMARY KEY IDENTITY(1, 1),
   name varchar(255),
-  country_id int
+  country_id int,
+  created_at datetime DEFAULT GETDATE(),
+  updated_at datetime DEFAULT GETDATE()
 )
 
 CREATE TABLE countries (
   id int PRIMARY KEY IDENTITY(1, 1),
-  name varchar(255)
+  name varchar(255),
+  created_at datetime DEFAULT GETDATE(),
+  updated_at datetime DEFAULT GETDATE()
 )
 
 CREATE TABLE contact_details (
@@ -38,13 +46,17 @@ CREATE TABLE contact_details (
   last_name varchar(255),
   phone varchar(255),
   email varchar(255),
-  role varchar(255)
+  role varchar(255),
+  created_at datetime DEFAULT GETDATE(),
+  updated_at datetime DEFAULT GETDATE()
 )
 
 CREATE TABLE tax_information (
   id int PRIMARY KEY IDENTITY(1, 1),
   cuit varchar(255) UNIQUE,
-  vat_condition varchar(255)
+  vat_condition varchar(255),
+  created_at datetime DEFAULT GETDATE(),
+  updated_at datetime DEFAULT GETDATE()
 )
 
 CREATE TABLE products (
@@ -55,12 +67,16 @@ CREATE TABLE products (
   price float,
   category_id int,
   supplier_id int,
-  is_deleted bit
+  is_deleted bit,
+  created_at datetime DEFAULT GETDATE(),
+  updated_at datetime DEFAULT GETDATE()
 )
 
 CREATE TABLE categories (
   id int PRIMARY KEY IDENTITY(1, 1),
-  name varchar(255)
+  name varchar(255),
+  created_at datetime DEFAULT GETDATE(),
+  updated_at datetime DEFAULT GETDATE()
 )
 
 CREATE TABLE orders (
@@ -71,12 +87,16 @@ CREATE TABLE orders (
   total float,
   status_id int,
   supplier_id int,
-  is_deleted bit
+  is_deleted bit,
+  created_at datetime DEFAULT GETDATE(),
+  updated_at datetime DEFAULT GETDATE()
 )
 
 CREATE TABLE statuses (
   id int PRIMARY KEY IDENTITY(1, 1),
-  name varchar(255)
+  name varchar(255),
+  created_at datetime DEFAULT GETDATE(),
+  updated_at datetime DEFAULT GETDATE()
 )
 
 CREATE TABLE order_details (
@@ -84,7 +104,9 @@ CREATE TABLE order_details (
   order_id int,
   product_id int,
   quantity int,
-  subtotal float
+  subtotal float,
+  created_at datetime DEFAULT GETDATE(),
+  updated_at datetime DEFAULT GETDATE()
 )
 
 CREATE TABLE users (
@@ -97,23 +119,31 @@ CREATE TABLE users (
   genre_id int,
   address_id int,
   role_id int,
-  is_deleted bit
+  is_deleted bit,
+  created_at datetime DEFAULT GETDATE(),
+  updated_at datetime DEFAULT GETDATE()
 )
 
 CREATE TABLE genres (
   id int PRIMARY KEY IDENTITY(1, 1),
-  name varchar(255)
+  name varchar(255),
+  created_at datetime DEFAULT GETDATE(),
+  updated_at datetime DEFAULT GETDATE()
 )
 
 CREATE TABLE roles (
   id int PRIMARY KEY IDENTITY(1, 1),
-  name varchar(255)
+  name varchar(255),
+  created_at datetime DEFAULT GETDATE(),
+  updated_at datetime DEFAULT GETDATE()
 )
 
 CREATE TABLE user_credentials (
   id int PRIMARY KEY IDENTITY(1, 1),
   user_id int,
-  password_hash varchar(255)
+  password_hash varchar(255),
+  created_at datetime DEFAULT GETDATE(),
+  updated_at datetime DEFAULT GETDATE()
 )
 
 -- Suppliers
