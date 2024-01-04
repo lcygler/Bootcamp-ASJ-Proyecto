@@ -1,0 +1,94 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">
+      <img
+        src="../../../assets/img/logo.png"
+        alt="Logo"
+        style="max-height: 35px"
+      />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <!-- Home -->
+        <!-- <li class="nav-item me-2">
+          <a
+            class="nav-link d-flex align-items-center hover-effect"
+            aria-current="page"
+            routerLink="/"
+            [ngClass]="{ 'active active-link': isCurrentRoute('/') }"
+          >
+            <span
+              class="material-icons"
+              style="font-size: 16px; margin-right: 10px"
+            >
+              home
+            </span>
+            Inicio
+          </a>
+        </li> -->
+
+        <!-- Suppliers -->
+        <li class="nav-item me-2">
+          <a
+            class="nav-link d-flex align-items-center hover-effect"
+            routerLink="/suppliers"
+            [ngClass]="{ 'active active-link': isCurrentRoute('/suppliers') }"
+          >
+            <span
+              class="material-icons"
+              style="font-size: 16px; margin-right: 10px"
+            >
+              supervisor_account
+            </span>
+            Proveedores
+          </a>
+        </li>
+
+        <!-- Products -->
+        <li class="nav-item me-2">
+          <a
+            class="nav-link d-flex align-items-center hover-effect"
+            routerLink="/products"
+            [ngClass]="{ 'active active-link': isCurrentRoute('/products') }"
+          >
+            <span
+              class="material-icons"
+              style="font-size: 16px; margin-right: 10px"
+            >
+              inventory_2
+            </span>
+            Productos
+          </a>
+        </li>
+
+        <!-- Orders -->
+        <li class="nav-item me-2">
+          <a
+            class="nav-link d-flex align-items-center hover-effect"
+            routerLink="/orders"
+            [ngClass]="{ 'active active-link': isCurrentRoute('/orders') }"
+          >
+            <span
+              class="material-icons"
+              style="font-size: 16px; margin-right: 10px"
+            >
+              shopping_cart
+            </span>
+            Ordenes
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
