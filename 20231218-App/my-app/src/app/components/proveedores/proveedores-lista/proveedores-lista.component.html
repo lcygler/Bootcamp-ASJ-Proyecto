@@ -1,0 +1,123 @@
+<div class="container m-4" style="width: 100vw">
+  <div class="row d-flex align-items-center">
+    <div class="col-9">
+      <h5 class="card-title py-2">Listado de Proveedores</h5>
+    </div>
+    <div class="col-3 d-flex justify-content-end">
+      <div class="btn-group my-2 btn-actions">
+        <button
+          class="btn btn-outline-secondary"
+          [ngClass]="{ disabled: proveedores.length < 1 || paginaActual === 1 }"
+          (click)="actualizarPagina('primera')"
+        >
+          «
+        </button>
+        <button
+          class="btn btn-outline-secondary"
+          [ngClass]="{ disabled: proveedores.length < 1 || paginaActual === 1 }"
+          (click)="actualizarPagina('anterior')"
+        >
+          ‹
+        </button>
+        <button
+          class="btn btn-outline-secondary"
+          [ngClass]="{ disabled: proveedores.length < 1 || !hayMasElementos() }"
+          (click)="actualizarPagina('siguiente')"
+        >
+          ›
+        </button>
+        <button
+          class="btn btn-outline-secondary"
+          [ngClass]="{
+            disabled: proveedores.length < 1 || paginaActual === totalPaginas
+          }"
+          (click)="actualizarPagina('ultima')"
+        >
+          »
+        </button>
+      </div>
+
+      <button
+        class="btn btn-success m-2 d-flex justify-content-center align-items-center"
+        (click)="agregarProveedor()"
+      >
+        <span class="material-icons" style="font-size: 16px; margin-right: 4px"
+          >add</span
+        >
+        Nuevo
+      </button>
+    </div>
+  </div>
+
+  <div class="row overflow-x-auto">
+    <table
+      class="table table-bordered table-striped table-hover text-center text-nowrap align-middle"
+    >
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Razón Social</th>
+          <th>Rubro</th>
+          <th>Sitio web</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Calle</th>
+          <th>N°</th>
+          <th>CP</th>
+          <th>Localidad</th>
+          <th>Provincia</th>
+          <th>País</th>
+          <th>CUIT</th>
+          <th>Condición IVA</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Teléfono</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let proveedor of proveedoresMostrados">
+          <td class="px-4">{{ proveedor.id }}</td>
+          <td class="px-4">{{ proveedor.razonSocial }}</td>
+          <td class="px-4">{{ proveedor.rubro }}</td>
+          <td class="px-4">{{ proveedor.sitioWeb }}</td>
+          <td class="px-4">{{ proveedor.email }}</td>
+          <td class="px-4">{{ proveedor.telefono }}</td>
+          <td class="px-4">{{ proveedor.calle }}</td>
+          <td class="px-4">{{ proveedor.numero }}</td>
+          <td class="px-4">{{ proveedor.codigoPostal }}</td>
+          <td class="px-4">{{ proveedor.localidad }}</td>
+          <td class="px-4">{{ proveedor.provincia }}</td>
+          <td class="px-4">{{ proveedor.pais }}</td>
+          <td class="px-4">{{ proveedor.cuit }}</td>
+          <td class="px-4">{{ proveedor.condicionIva }}</td>
+          <td class="px-4">{{ proveedor.nombreContacto }}</td>
+          <td class="px-4">{{ proveedor.apellidoContacto }}</td>
+          <td class="px-4">{{ proveedor.telefonoContacto }}</td>
+          <td class="px-4">{{ proveedor.emailContacto }}</td>
+          <td class="px-4">{{ proveedor.rolContacto }}</td>
+          <td class="px-4">
+            <div class="btn-group my-2 btn-actions">
+              <button
+                class="btn btn-outline-primary"
+                (click)="editarProveedor(proveedor.id)"
+              >
+                <span class="material-icons" style="font-size: 16px">edit</span>
+              </button>
+              <button
+                class="btn btn-outline-danger"
+                (click)="eliminarProveedor(proveedor)"
+              >
+                <span class="material-icons" style="font-size: 16px"
+                  >delete</span
+                >
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

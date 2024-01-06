@@ -1,9 +1,0 @@
-.nav-link {
-  border-radius: 0.375rem;
-}
-
-.active-link,
-.hover-effect:hover {
-  background-color: #393e46;
-  color: #fff !important;
-}
