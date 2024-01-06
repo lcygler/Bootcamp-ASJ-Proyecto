@@ -1,0 +1,167 @@
+// Suppliers
+Table "suppliers" {
+  "id" int [pk, increment]
+  "code" varchar(255) [unique]
+  "business_name" varchar(255)
+  "industry" varchar(255)
+  "website" varchar(255)
+  "email" varchar(255)
+  "phone" varchar(255)
+  "logo" varchar(255)
+  "address_id" int [ref: - "addresses"."id"]
+  "tax_information_id" int [ref: - "tax_information"."id"]
+  "contact_detail_id" int [ref: - "contact_details"."id"]
+  "is_deleted" bit [default: 0]
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
+
+Table "industries" {
+  "id" int [pk, increment]
+  "name" varchar(255)
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
+
+Table "addresses" {
+  "id" int [pk, increment]
+  "street" varchar(255)
+  "number" varchar(255)
+  "postal_code" varchar(255)
+  "city" varchar(255)
+  "state_id" int [ref: > "states"."id"]
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
+
+Table "states" {
+  "id" int [pk, increment]
+  "name" varchar(255)
+  "country_id" int [ref: > "countries"."id"]
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
+
+Table "countries" {
+  "id" int [pk, increment]
+  "name" varchar(255)
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
+
+Table "contact_details" {
+  "id" int [pk, increment]
+  "first_name" varchar(255)
+  "last_name" varchar(255)
+  "phone" varchar(255)
+  "email" varchar(255)
+  "role" varchar(255)
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
+
+Table "vat_conditions" {
+  "id" int [pk, increment]
+  "name" varchar(255)
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
+
+Table "tax_information" {
+  "id" int [pk, increment]
+  "cuit" varchar(255) [unique]
+  "vat_condition_id" int [ref: > "vat_conditions"."id"]
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
+
+// Products
+Table "products" {
+  "id" int [pk, increment]
+  "sku" varchar(255) [unique]
+  "name" varchar(255)
+  "description" varchar(255)
+  "image" varchar(255)
+  "price" float
+  "category_id" int [ref: > "categories"."id"]
+  "supplier_id" int [ref: > "suppliers"."id"]
+  "is_deleted" bit [default: 0]
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
+
+Table "categories" {
+  "id" int [pk, increment]
+  "name" varchar(255)
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
+
+// Orders
+Table "orders" {
+  "id" int [pk, increment]
+  "issue_date" datetime [default: `getdate()`]
+  "delivery_date" datetime
+  "comments" varchar(255)
+  "total" float
+  "status_id" int [ref: > "statuses"."id"]
+  "supplier_id" int [ref: > "suppliers"."id"]
+  "user_id" int [ref: > "users"."id"]
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
+
+Table "statuses" {
+  "id" int [pk, increment]
+  "name" varchar(255)
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
+
+Table "order_details" {
+  "id" int [pk, increment]
+  "order_id" int [ref: > "orders"."id"]
+  "product_id" int [ref: > "products"."id"]
+  "quantity" int
+  "price" float
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
+
+// Users
+Table "users" {
+  "id" int [pk, increment]
+  "first_name" varchar(255)
+  "last_name" varchar(255)
+  "dni" varchar(255) [unique]
+  "email" varchar(255) [unique]
+  "phone" varchar(255)
+  "genre_id" int [ref: > "genres"."id"]
+  "role_id" int [ref: > "roles"."id"]
+  "address_id" int [ref: - "addresses"."id"]
+  "is_deleted" bit [default: 0]
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
+
+Table "genres" {
+  "id" int [pk, increment]
+  "name" varchar(255)
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
+
+Table "roles" {
+  "id" int [pk, increment]
+  "name" varchar(255)
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
+
+Table "user_credentials" {
+  "id" int [pk, increment]
+  "user_id" int [ref: - "users"."id"]
+  "password_hash" varchar(255)
+  "created_at" datetime [default: `getdate()`]
+  "updated_at" datetime [default: `getdate()`]
+}
