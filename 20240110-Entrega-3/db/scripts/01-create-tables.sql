@@ -1,3 +1,4 @@
+-- Create Tables
 CREATE TABLE countries (
   id int IDENTITY(1, 1) PRIMARY KEY,
   name varchar(255) NOT NULL,
@@ -95,16 +96,6 @@ CREATE TABLE products (
   updated_at datetime NOT NULL DEFAULT GETDATE()
 )
 
-CREATE TABLE order_details (
-  id int IDENTITY(1, 1) PRIMARY KEY,
-  order_id int NOT NULL,
-  product_id int NOT NULL,
-  quantity int NOT NULL,
-  price float NOT NULL,
-  created_at datetime NOT NULL DEFAULT GETDATE(),
-  updated_at datetime NOT NULL DEFAULT GETDATE()
-)
-
 CREATE TABLE statuses (
   id int IDENTITY(1, 1) PRIMARY KEY,
   name varchar(255) NOT NULL,
@@ -121,6 +112,16 @@ CREATE TABLE orders (
   status_id int NOT NULL,
   supplier_id int NOT NULL,
   user_id int NOT NULL,
+  created_at datetime NOT NULL DEFAULT GETDATE(),
+  updated_at datetime NOT NULL DEFAULT GETDATE()
+)
+
+CREATE TABLE order_details (
+  id int IDENTITY(1, 1) PRIMARY KEY,
+  order_id int NOT NULL,
+  product_id int NOT NULL,
+  quantity int NOT NULL,
+  price float NOT NULL,
   created_at datetime NOT NULL DEFAULT GETDATE(),
   updated_at datetime NOT NULL DEFAULT GETDATE()
 )
@@ -162,6 +163,7 @@ CREATE TABLE user_credentials (
   updated_at datetime NOT NULL DEFAULT GETDATE()
 )
 
+-- Create Relationships
 -- Suppliers
 ALTER TABLE suppliers
 ADD CONSTRAINT fk_suppliers_industries
@@ -178,16 +180,6 @@ FOREIGN KEY (tax_information_id) REFERENCES tax_information (id);
 ALTER TABLE suppliers
 ADD CONSTRAINT fk_suppliers_contact_details
 FOREIGN KEY (contact_detail_id) REFERENCES contact_details (id);
-
--- Addresses
-ALTER TABLE addresses
-ADD CONSTRAINT fk_addresses_states
-FOREIGN KEY (state_id) REFERENCES states (id);
-
--- States
-ALTER TABLE states
-ADD CONSTRAINT fk_states_countries
-FOREIGN KEY (country_id) REFERENCES countries (id);
 
 -- Tax_Information
 ALTER TABLE tax_information
@@ -238,3 +230,13 @@ FOREIGN KEY (role_id) REFERENCES roles (id);
 ALTER TABLE user_credentials
 ADD CONSTRAINT fk_user_credentials_users
 FOREIGN KEY (user_id) REFERENCES users (id);
+
+-- Addresses
+ALTER TABLE addresses
+ADD CONSTRAINT fk_addresses_states
+FOREIGN KEY (state_id) REFERENCES states (id);
+
+-- States
+ALTER TABLE states
+ADD CONSTRAINT fk_states_countries
+FOREIGN KEY (country_id) REFERENCES countries (id);
