@@ -25,3 +25,6 @@ SELECT * FROM roles;
 SELECT * FROM addresses;
 SELECT * FROM states;
 SELECT * FROM countries;
+
+-- Images
+SELECT * FROM images;

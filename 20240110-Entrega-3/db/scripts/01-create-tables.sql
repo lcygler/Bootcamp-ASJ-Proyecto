@@ -1,3 +1,10 @@
+-- Create Database
+CREATE DATABASE project;
+GO
+
+USE project;
+GO
+
 -- Create Tables
 -- Addresses
 CREATE TABLE countries (
@@ -22,6 +29,14 @@ CREATE TABLE addresses (
   postal_code varchar(20) NOT NULL,
   city varchar(255) NOT NULL,
   state_id int NOT NULL,
+  created_at datetime NOT NULL DEFAULT GETDATE(),
+  updated_at datetime NOT NULL DEFAULT GETDATE()
+)
+
+-- Images
+CREATE TABLE images (
+  id int IDENTITY(1, 1) PRIMARY KEY,
+  url varchar(255) NOT NULL,
   created_at datetime NOT NULL DEFAULT GETDATE(),
   updated_at datetime NOT NULL DEFAULT GETDATE()
 )
@@ -106,7 +121,7 @@ CREATE TABLE suppliers (
   website varchar(255) NOT NULL,
   email varchar(255) NOT NULL,
   phone varchar(255) NOT NULL,
-  logo varchar(255),
+  image_id int,
   address_id int NOT NULL,
   tax_information_id int NOT NULL,
   contact_detail_id int NOT NULL,
@@ -128,8 +143,8 @@ CREATE TABLE products (
   sku varchar(255) UNIQUE NOT NULL,
   name varchar(255) NOT NULL,
   description varchar(255) NOT NULL,
-  image varchar(255),
   price float NOT NULL,
+  image_id int,
   category_id int NOT NULL,
   supplier_id int NOT NULL,
   is_deleted bit NOT NULL DEFAULT 0,
@@ -147,6 +162,7 @@ CREATE TABLE statuses (
 
 CREATE TABLE orders (
   id int IDENTITY(1, 1) PRIMARY KEY,
+  number varchar(255) UNIQUE NOT NULL,
   issue_date datetime DEFAULT (GETDATE()),
   delivery_date datetime NOT NULL,
   comments varchar(255) NOT NULL,
@@ -203,6 +219,10 @@ ADD CONSTRAINT fk_suppliers_industries
 FOREIGN KEY (industry_id) REFERENCES industries (id);
 
 ALTER TABLE suppliers
+ADD CONSTRAINT fk_suppliers_images
+FOREIGN KEY (image_id) REFERENCES images (id);
+
+ALTER TABLE suppliers
 ADD CONSTRAINT fk_suppliers_addresses
 FOREIGN KEY (address_id) REFERENCES addresses (id);
 
@@ -221,27 +241,31 @@ FOREIGN KEY (vat_condition_id) REFERENCES vat_conditions (id);
 
 -- Products
 ALTER TABLE products
-ADD CONSTRAINT fk_products_category
+ADD CONSTRAINT fk_products_images
+FOREIGN KEY (image_id) REFERENCES images (id);
+
+ALTER TABLE products
+ADD CONSTRAINT fk_products_categories
 FOREIGN KEY (category_id) REFERENCES categories (id);
 
 ALTER TABLE products
-ADD CONSTRAINT fk_products_supplier
+ADD CONSTRAINT fk_products_suppliers
 FOREIGN KEY (supplier_id) REFERENCES suppliers (id);
 
 -- Orders
 ALTER TABLE orders
-ADD CONSTRAINT fk_orders_status
+ADD CONSTRAINT fk_orders_statuses
 FOREIGN KEY (status_id) REFERENCES statuses (id);
 
 ALTER TABLE orders
-ADD CONSTRAINT fk_orders_supplier
+ADD CONSTRAINT fk_orders_suppliers
 FOREIGN KEY (supplier_id) REFERENCES suppliers (id);
 
 -- Order_Details
 ALTER TABLE order_details
-ADD CONSTRAINT fk_order_details_order
+ADD CONSTRAINT fk_order_details_orders
 FOREIGN KEY (order_id) REFERENCES orders (id);
 
 ALTER TABLE order_details
-ADD CONSTRAINT fk_order_details_product
+ADD CONSTRAINT fk_order_details_products
 FOREIGN KEY (product_id) REFERENCES products (id);
