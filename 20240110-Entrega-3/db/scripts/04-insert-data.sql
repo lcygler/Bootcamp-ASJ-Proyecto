@@ -1,3 +1,4 @@
+-- Addresses
 INSERT INTO addresses (street, number, postal_code, city, state_id) VALUES
 ('Av. Corrientes', '456', '1001', 'CABA', 175),
 ('Calle Independencia', '234', '5000', 'Córdoba', 176),
@@ -20,6 +21,7 @@ INSERT INTO addresses (street, number, postal_code, city, state_id) VALUES
 ('Av. Entre Ríos', '210', '3101', 'Paraná', 178),
 ('Calle Lavalle', '789', '4601', 'San Salvador de Jujuy', 180);
 
+-- Users
 INSERT INTO genres (name) VALUES
 ('Masculino'),
 ('Femenino'),
@@ -53,6 +55,7 @@ INSERT INTO user_credentials (user_id, password) VALUES
 (9, '$2a$12$.XmJb.ZlUeZr1ptvl.wn2.Ka8DTwqGZLYYzvMjpv1LbemJDCg6D/i'),
 (10, '$2a$12$KSa/4xwufTK1x9MF52vTbOqZnMjj2.QTRmouzGEojvC6YDwKo/fPK');
 
+-- Suppliers
 INSERT INTO industries (name) VALUES
 ('Tecnología'),
 ('Hogar y Muebles'),
@@ -117,6 +120,7 @@ INSERT INTO suppliers (code, business_name, industry_id, website, email, phone, 
 ('PROV-9', 'Planeta Libros', 9, 'https://www.planetalibros.com.ar', 'info@planetalibros.com.ar', '+54 343 5678-9012', 9, 9, 9),
 ('PROV-10', 'Café La Bastilla', 10, 'https://www.tiendacafelabastilla.com.ar', 'ventas@labastilla.com.ar', '+54 11 2345-6789', 10, 10, 10);
 
+-- Products
 INSERT INTO categories (name) VALUES
 ('Tecnología'),
 ('Hogar y Muebles'),
@@ -151,6 +155,7 @@ INSERT INTO products (sku, name, description, price, category_id, supplier_id) V
 ('SKU-19', 'Máquina de Café Automática', 'Máquina de café con múltiples opciones de preparación', 196549.99, 10, 10),
 ('SKU-20', 'Robot Aspirador Inteligente', 'Aspiradora robot con navegación inteligente', 314999.99, 10, 10);
 
+-- Orders
 INSERT INTO statuses (name) VALUES
 ('En Proceso'),
 ('En Camino'),
