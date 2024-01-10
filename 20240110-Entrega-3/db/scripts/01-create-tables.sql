@@ -1,4 +1,5 @@
 -- Create Tables
+-- Addresses
 CREATE TABLE countries (
   id int IDENTITY(1, 1) PRIMARY KEY,
   name varchar(255) NOT NULL,
@@ -25,6 +26,45 @@ CREATE TABLE addresses (
   updated_at datetime NOT NULL DEFAULT GETDATE()
 )
 
+-- Users
+CREATE TABLE genres (
+  id int IDENTITY(1, 1) PRIMARY KEY,
+  name varchar(255) NOT NULL,
+  created_at datetime NOT NULL DEFAULT GETDATE(),
+  updated_at datetime NOT NULL DEFAULT GETDATE()
+)
+
+CREATE TABLE roles (
+  id int IDENTITY(1, 1) PRIMARY KEY,
+  name varchar(255) NOT NULL,
+  created_at datetime NOT NULL DEFAULT GETDATE(),
+  updated_at datetime NOT NULL DEFAULT GETDATE()
+)
+
+CREATE TABLE users (
+  id int IDENTITY(1, 1) PRIMARY KEY,
+  first_name varchar(255) NOT NULL,
+  last_name varchar(255) NOT NULL,
+  dni varchar(255) UNIQUE NOT NULL,
+  email varchar(255) UNIQUE NOT NULL,
+  phone varchar(255) NOT NULL,
+  genre_id int NOT NULL,
+  address_id int NOT NULL,
+  role_id int NOT NULL,
+  is_deleted bit NOT NULL DEFAULT 0,
+  created_at datetime NOT NULL DEFAULT GETDATE(),
+  updated_at datetime NOT NULL DEFAULT GETDATE()
+)
+
+CREATE TABLE user_credentials (
+  id int IDENTITY(1, 1) PRIMARY KEY,
+  user_id int NOT NULL,
+  password varchar(255) NOT NULL,
+  created_at datetime NOT NULL DEFAULT GETDATE(),
+  updated_at datetime NOT NULL DEFAULT GETDATE()
+)
+
+-- Suppliers
 CREATE TABLE industries (
   id int IDENTITY(1, 1) PRIMARY KEY,
   name varchar(255) NOT NULL,
@@ -75,6 +115,7 @@ CREATE TABLE suppliers (
   updated_at datetime NOT NULL DEFAULT GETDATE()
 )
 
+-- Products
 CREATE TABLE categories (
   id int IDENTITY(1, 1) PRIMARY KEY,
   name varchar(255) NOT NULL,
@@ -96,6 +137,7 @@ CREATE TABLE products (
   updated_at datetime NOT NULL DEFAULT GETDATE()
 )
 
+-- Orders
 CREATE TABLE statuses (
   id int IDENTITY(1, 1) PRIMARY KEY,
   name varchar(255) NOT NULL,
@@ -126,44 +168,35 @@ CREATE TABLE order_details (
   updated_at datetime NOT NULL DEFAULT GETDATE()
 )
 
-CREATE TABLE genres (
-  id int IDENTITY(1, 1) PRIMARY KEY,
-  name varchar(255) NOT NULL,
-  created_at datetime NOT NULL DEFAULT GETDATE(),
-  updated_at datetime NOT NULL DEFAULT GETDATE()
-)
-
-CREATE TABLE roles (
-  id int IDENTITY(1, 1) PRIMARY KEY,
-  name varchar(255) NOT NULL,
-  created_at datetime NOT NULL DEFAULT GETDATE(),
-  updated_at datetime NOT NULL DEFAULT GETDATE()
-)
-
-CREATE TABLE users (
-  id int IDENTITY(1, 1) PRIMARY KEY,
-  first_name varchar(255) NOT NULL,
-  last_name varchar(255) NOT NULL,
-  dni varchar(255) UNIQUE NOT NULL,
-  email varchar(255) UNIQUE NOT NULL,
-  phone varchar(255) NOT NULL,
-  genre_id int NOT NULL,
-  address_id int NOT NULL,
-  role_id int NOT NULL,
-  is_deleted bit NOT NULL DEFAULT 0,
-  created_at datetime NOT NULL DEFAULT GETDATE(),
-  updated_at datetime NOT NULL DEFAULT GETDATE()
-)
-
-CREATE TABLE user_credentials (
-  id int IDENTITY(1, 1) PRIMARY KEY,
-  user_id int NOT NULL,
-  password varchar(255) NOT NULL,
-  created_at datetime NOT NULL DEFAULT GETDATE(),
-  updated_at datetime NOT NULL DEFAULT GETDATE()
-)
-
 -- Create Relationships
+-- Addresses
+ALTER TABLE addresses
+ADD CONSTRAINT fk_addresses_states
+FOREIGN KEY (state_id) REFERENCES states (id);
+
+-- States
+ALTER TABLE states
+ADD CONSTRAINT fk_states_countries
+FOREIGN KEY (country_id) REFERENCES countries (id);
+
+-- Users
+ALTER TABLE users
+ADD CONSTRAINT fk_users_genres
+FOREIGN KEY (genre_id) REFERENCES genres (id);
+
+ALTER TABLE users
+ADD CONSTRAINT fk_users_roles
+FOREIGN KEY (role_id) REFERENCES roles (id);
+
+ALTER TABLE users
+ADD CONSTRAINT fk_users_addresses
+FOREIGN KEY (address_id) REFERENCES addresses (id);
+
+-- User_Credentials
+ALTER TABLE user_credentials
+ADD CONSTRAINT fk_user_credentials_users
+FOREIGN KEY (user_id) REFERENCES users (id);
+
 -- Suppliers
 ALTER TABLE suppliers
 ADD CONSTRAINT fk_suppliers_industries
@@ -212,31 +245,3 @@ FOREIGN KEY (order_id) REFERENCES orders (id);
 ALTER TABLE order_details
 ADD CONSTRAINT fk_order_details_product
 FOREIGN KEY (product_id) REFERENCES products (id);
-
--- Users
-ALTER TABLE users
-ADD CONSTRAINT fk_users_genres
-FOREIGN KEY (genre_id) REFERENCES genres (id);
-
-ALTER TABLE users
-ADD CONSTRAINT fk_users_addresses
-FOREIGN KEY (address_id) REFERENCES addresses (id);
-
-ALTER TABLE users
-ADD CONSTRAINT fk_users_roles
-FOREIGN KEY (role_id) REFERENCES roles (id);
-
--- User_Credentials
-ALTER TABLE user_credentials
-ADD CONSTRAINT fk_user_credentials_users
-FOREIGN KEY (user_id) REFERENCES users (id);
-
--- Addresses
-ALTER TABLE addresses
-ADD CONSTRAINT fk_addresses_states
-FOREIGN KEY (state_id) REFERENCES states (id);
-
--- States
-ALTER TABLE states
-ADD CONSTRAINT fk_states_countries
-FOREIGN KEY (country_id) REFERENCES countries (id);
