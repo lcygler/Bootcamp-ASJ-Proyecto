@@ -186,105 +186,86 @@ CREATE TABLE order_details (
 
 -- Create Relationships
 -- Addresses
-ALTER TABLE 
-  addresses 
-ADD 
-  CONSTRAINT fk_addresses_states FOREIGN KEY (state_id) REFERENCES states (id);
+ALTER TABLE addresses
+ADD CONSTRAINT fk_addresses_states
+FOREIGN KEY (state_id) REFERENCES states (id);
 
 -- States
-ALTER TABLE 
-  states 
-ADD 
-  CONSTRAINT fk_states_countries FOREIGN KEY (country_id) REFERENCES countries (id);
+ALTER TABLE states
+ADD CONSTRAINT fk_states_countries
+FOREIGN KEY (country_id) REFERENCES countries (id);
 
 -- Users
-ALTER TABLE 
-  users 
-ADD 
-  CONSTRAINT fk_users_genres FOREIGN KEY (genre_id) REFERENCES genres (id);
+ALTER TABLE users
+ADD CONSTRAINT fk_users_genres
+FOREIGN KEY (genre_id) REFERENCES genres (id);
 
-ALTER TABLE 
-  users 
-ADD 
-  CONSTRAINT fk_users_roles FOREIGN KEY (role_id) REFERENCES roles (id);
+ALTER TABLE users
+ADD CONSTRAINT fk_users_roles
+FOREIGN KEY (role_id) REFERENCES roles (id);
 
-ALTER TABLE 
-  users 
-ADD 
-  CONSTRAINT fk_users_addresses FOREIGN KEY (address_id) REFERENCES addresses (id);
+ALTER TABLE users
+ADD CONSTRAINT fk_users_addresses
+FOREIGN KEY (address_id) REFERENCES addresses (id);
 
 -- User_Credentials
-ALTER TABLE 
-  user_credentials 
-ADD 
-  CONSTRAINT fk_user_credentials_users FOREIGN KEY (user_id) REFERENCES users (id);
+ALTER TABLE user_credentials
+ADD CONSTRAINT fk_user_credentials_users
+FOREIGN KEY (user_id) REFERENCES users (id);
 
 -- Suppliers
-ALTER TABLE 
-  suppliers 
-ADD 
-  CONSTRAINT fk_suppliers_industries FOREIGN KEY (industry_id) REFERENCES industries (id);
+ALTER TABLE suppliers
+ADD CONSTRAINT fk_suppliers_industries
+FOREIGN KEY (industry_id) REFERENCES industries (id);
 
-ALTER TABLE 
-  suppliers 
-ADD 
-  CONSTRAINT fk_suppliers_images FOREIGN KEY (image_id) REFERENCES images (id);
+ALTER TABLE suppliers
+ADD CONSTRAINT fk_suppliers_images
+FOREIGN KEY (image_id) REFERENCES images (id);
 
-ALTER TABLE 
-  suppliers 
-ADD 
-  CONSTRAINT fk_suppliers_addresses FOREIGN KEY (address_id) REFERENCES addresses (id);
+ALTER TABLE suppliers
+ADD CONSTRAINT fk_suppliers_addresses
+FOREIGN KEY (address_id) REFERENCES addresses (id);
 
-ALTER TABLE 
-  suppliers 
-ADD 
-  CONSTRAINT fk_suppliers_tax_information FOREIGN KEY (tax_information_id) REFERENCES tax_information (id);
+ALTER TABLE suppliers
+ADD CONSTRAINT fk_suppliers_tax_information
+FOREIGN KEY (tax_information_id) REFERENCES tax_information (id);
 
-ALTER TABLE 
-  suppliers 
-ADD 
-  CONSTRAINT fk_suppliers_contact_details FOREIGN KEY (contact_detail_id) REFERENCES contact_details (id);
+ALTER TABLE suppliers
+ADD CONSTRAINT fk_suppliers_contact_details
+FOREIGN KEY (contact_detail_id) REFERENCES contact_details (id);
 
 -- Tax_Information
-ALTER TABLE 
-  tax_information 
-ADD 
-  CONSTRAINT fk_tax_information_vat_conditions FOREIGN KEY (vat_condition_id) REFERENCES vat_conditions (id);
+ALTER TABLE tax_information
+ADD CONSTRAINT fk_tax_information_vat_conditions
+FOREIGN KEY (vat_condition_id) REFERENCES vat_conditions (id);
 
 -- Products
-ALTER TABLE 
-  products 
-ADD 
-  CONSTRAINT fk_products_images FOREIGN KEY (image_id) REFERENCES images (id);
+ALTER TABLE products
+ADD CONSTRAINT fk_products_images
+FOREIGN KEY (image_id) REFERENCES images (id);
 
-ALTER TABLE 
-  products 
-ADD 
-  CONSTRAINT fk_products_categories FOREIGN KEY (category_id) REFERENCES categories (id);
+ALTER TABLE products
+ADD CONSTRAINT fk_products_categories
+FOREIGN KEY (category_id) REFERENCES categories (id);
 
-ALTER TABLE 
-  products 
-ADD 
-  CONSTRAINT fk_products_suppliers FOREIGN KEY (supplier_id) REFERENCES suppliers (id);
+ALTER TABLE products
+ADD CONSTRAINT fk_products_suppliers
+FOREIGN KEY (supplier_id) REFERENCES suppliers (id);
 
 -- Orders
-ALTER TABLE 
-  orders 
-ADD 
-  CONSTRAINT fk_orders_statuses FOREIGN KEY (status_id) REFERENCES statuses (id);
+ALTER TABLE orders
+ADD CONSTRAINT fk_orders_statuses
+FOREIGN KEY (status_id) REFERENCES statuses (id);
 
-ALTER TABLE 
-  orders 
-ADD 
-  CONSTRAINT fk_orders_suppliers FOREIGN KEY (supplier_id) REFERENCES suppliers (id);
+ALTER TABLE orders
+ADD CONSTRAINT fk_orders_suppliers
+FOREIGN KEY (supplier_id) REFERENCES suppliers (id);
 
 -- Order_Details
-ALTER TABLE 
-  order_details 
-ADD 
-  CONSTRAINT fk_order_details_orders FOREIGN KEY (order_id) REFERENCES orders (id);
+ALTER TABLE order_details
+ADD CONSTRAINT fk_order_details_orders
+FOREIGN KEY (order_id) REFERENCES orders (id);
 
-ALTER TABLE 
-  order_details 
-ADD 
-  CONSTRAINT fk_order_details_products FOREIGN KEY (product_id) REFERENCES products (id);
+ALTER TABLE order_details
+ADD CONSTRAINT fk_order_details_products
+FOREIGN KEY (product_id) REFERENCES products (id);
