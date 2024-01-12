@@ -1,0 +1,21 @@
+/* .my-navbar {
+  position: fixed;
+  width: 100vw;
+} */
+
+.nav-link {
+  border-radius: 0.375rem;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+.active-link {
+  /* background-color: #393e46; */
+  border: 1px solid #393e46;
+  /* color: white !important; */
+}
+
+/* .hover-effect:hover {
+  background-color: #393e46;
+  color: white !important;
+} */
