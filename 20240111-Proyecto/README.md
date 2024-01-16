@@ -5,7 +5,7 @@
 Para iniciar el servidor:
 
 - Posicionarse en la carpeta **server**
-- Ejecutar `npm install`
+- Ejecutar `npm install -g json-server`
 - Ejecutar `npm run server`
 
 Para iniciar la aplicación:
