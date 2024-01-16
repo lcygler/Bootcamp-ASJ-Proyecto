@@ -10,6 +10,6 @@ Para iniciar el servidor:
 
 Para iniciar la aplicación:
 
-- Posicionarse en la carpeta **my-app**
+- Posicionarse en la carpeta **app**
 - Ejecutar `npm install`
 - Ejecutar `ng serve -o`
