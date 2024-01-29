@@ -27,7 +27,9 @@
                 <legend>Datos del Producto</legend>
                 <!-- SKU -->
                 <div class="mb-3" *ngIf="isEditView">
-                  <label for="sku" class="form-label">SKU</label>
+                  <label for="sku" class="form-label">
+                    SKU <span class="text-danger">*</span>
+                  </label>
                   <input
                     type="text"
                     class="form-control"
@@ -40,16 +42,18 @@
 
                 <!-- Nombre -->
                 <div class="mb-3">
-                  <label for="name" class="form-label">Nombre</label>
+                  <label for="name" class="form-label">
+                    Nombre <span class="text-danger">*</span>
+                  </label>
                   <input
                     type="text"
                     class="form-control"
                     id="name"
                     name="name"
                     [ngClass]="{
-                        'is-invalid': name.touched && name.errors,
-                        'is-valid': name.touched && !name.errors,
-                      }"
+                      'is-invalid': name.touched && name.errors,
+                      'is-valid': name.touched && !name.errors,
+                    }"
                     [(ngModel)]="product.name"
                     #name="ngModel"
                     required
@@ -82,21 +86,21 @@
 
                 <!-- Descripción -->
                 <div class="mb-3">
-                  <label for="description" class="form-label"
-                    >Descripción</label
-                  >
+                  <label for="description" class="form-label">
+                    Descripción <span class="text-danger">*</span>
+                  </label>
                   <textarea
                     class="form-control"
                     id="description"
                     name="description"
                     [ngClass]="{
-                    'is-invalid': description.touched && description.errors,
-                    'is-valid': description.touched && !description.errors,
-                  }"
+                      'is-invalid': description.touched && description.errors,
+                      'is-valid': description.touched && !description.errors,
+                    }"
                     [(ngModel)]="product.description"
                     #description="ngModel"
                     required
-                    maxlength="200"
+                    maxlength="255"
                   ></textarea>
                   <div
                     *ngIf="description.touched && description.errors?.['required'] "
@@ -123,23 +127,25 @@
                 <legend>Detalles del Producto</legend>
                 <!-- Categoría -->
                 <div class="mb-3">
-                  <label for="category" class="form-label">Categoría</label>
+                  <label for="category" class="form-label">
+                    Categoría <span class="text-danger">*</span>
+                  </label>
                   <select
                     class="form-select"
                     id="category"
                     name="category"
                     [ngClass]="{
-                    'is-invalid': category.touched && category.errors,
-                    'is-valid': category.touched && !category.errors,
-                  }"
-                    [(ngModel)]="product.category"
+                      'is-invalid': category.touched && category.errors,
+                      'is-valid': category.touched && !category.errors,
+                    }"
+                    [(ngModel)]="product.category.id"
                     #category="ngModel"
                     required
                   >
                     <option value="" disabled selected>Seleccionar</option>
                     <option
                       *ngFor="let category of categoryList"
-                      [value]="category.name"
+                      [value]="category.id"
                     >
                       {{ category.name }}
                     </option>
@@ -156,17 +162,19 @@
 
                 <!-- Proveedor -->
                 <div class="mb-3">
-                  <label for="supplier-id" class="form-label">Proveedor</label>
+                  <label for="supplier" class="form-label">
+                    Proveedor <span class="text-danger">*</span>
+                  </label>
                   <select
                     class="form-select"
-                    id="supplier-id"
-                    name="supplierId"
+                    id="supplier"
+                    name="supplier"
                     [ngClass]="{
-                    'is-invalid': supplierId.touched && (supplierId.errors || product.supplierId === null),
-                    'is-valid': supplierId.touched && !supplierId.errors,
-                  }"
-                    [(ngModel)]="product.supplierId"
-                    #supplierId="ngModel"
+                      'is-invalid': supplier.touched && (supplier.errors || supplier === null),
+                      'is-valid': supplier.touched && !supplier.errors,
+                    }"
+                    [(ngModel)]="product.supplier.id"
+                    #supplier="ngModel"
                     required
                   >
                     <option value="null" disabled selected>Seleccionar</option>
@@ -178,7 +186,7 @@
                     </option>
                   </select>
                   <div
-                    *ngIf="supplierId.touched && (supplierId.errors?.['required'] || product.supplierId === null)"
+                    *ngIf="supplier.touched && (supplier.errors?.['required'] || supplier === null)"
                     class="col-auto"
                   >
                     <span class="form-text text-danger"
@@ -189,21 +197,26 @@
 
                 <!-- Precio -->
                 <div class="mb-3">
-                  <label for="price" class="form-label">Precio</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="price"
-                    name="price"
-                    [ngClass]="{
-                                'is-invalid': price.touched && price.errors,
-                                'is-valid': price.touched && !price.errors,
-                              }"
-                    [(ngModel)]="product.price"
-                    #price="ngModel"
-                    required
-                    min="0"
-                  />
+                  <label for="price" class="form-label">
+                    Precio <span class="text-danger">*</span>
+                  </label>
+                  <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="price"
+                      name="price"
+                      [ngClass]="{
+                      'is-invalid': price.touched && price.errors,
+                      'is-valid': price.touched && !price.errors,
+                    }"
+                      [(ngModel)]="product.price"
+                      #price="ngModel"
+                      required
+                      min="0"
+                    />
+                  </div>
                   <div
                     *ngIf="price.touched && price.errors?.['required'] "
                     class="col-auto"

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductService } from 'src/app/services/product.service';
-import { ToastService } from 'src/app/services/toast.service';
+
+import { Product } from 'src/app/models/product/IProduct';
+
+import { ToastService } from 'src/app/services/common/toast.service';
+import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
   selector: 'app-products-list',
@@ -9,8 +12,8 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./products-list.component.css'],
 })
 export class ProductsListComponent implements OnInit {
-  productList: any[] = [];
-  filteredProducts: any[] = [];
+  productList: Product[] = [];
+  filteredProducts: Product[] = [];
   searchTerm: string = '';
   productToDeleteId: number | null = null;
   deleteMessage: string = '';
@@ -80,7 +83,7 @@ export class ProductsListComponent implements OnInit {
     }
   }
 
-  updatePage(navigation: 'prev' | 'next' | 'first' | 'last'): void {
+  updatePage(navigation: 'prev' | 'next' | 'first' | 'last') {
     switch (navigation) {
       case 'prev':
         if (this.currentPage > 1) {
@@ -101,7 +104,7 @@ export class ProductsListComponent implements OnInit {
     }
   }
 
-  updateTotalPages(): void {
+  updateTotalPages() {
     const minPages = 1;
 
     this.totalPages = Math.max(

@@ -1,11 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { OrderService } from 'src/app/services/order.service';
-import { ProductService } from 'src/app/services/product.service';
-import { SupplierService } from 'src/app/services/supplier.service';
-import { ToastService } from 'src/app/services/toast.service';
-import { Order } from '../../../../models/IOrder';
+import { faCalendar } from '@fortawesome/free-regular-svg-icons';
+import { forkJoin } from 'rxjs';
+
+import { Order } from 'src/app/models/order/IOrder';
+import { OrderDetail } from 'src/app/models/order/IOrderDetail';
+import { Category } from 'src/app/models/product/ICategory';
+import { Product } from 'src/app/models/product/IProduct';
+import { Supplier } from 'src/app/models/supplier/ISupplier';
+
+import { ToastService } from 'src/app/services/common/toast.service';
+import { OrderDetailService } from 'src/app/services/order/order-detail.service';
+import { OrderService } from 'src/app/services/order/order.service';
+import { ProductService } from 'src/app/services/product/product.service';
+import { SupplierService } from 'src/app/services/supplier/supplier.service';
 
 @Component({
   selector: 'app-orders-form',
@@ -14,31 +23,33 @@ import { Order } from '../../../../models/IOrder';
 })
 export class OrdersFormComponent implements OnInit {
   order: Order = {
+    number: '',
     issueDate: null,
     deliveryDate: null,
     comments: '',
     total: null,
-    isActive: false,
-    supplierId: null,
+    supplier: {},
   };
 
   orderId: number | null = null;
   nextOrderId: number | null = null;
   isAddView: boolean = false;
+  isProductAdded: boolean = false;
   todayDate: string = '';
-  productAdded: boolean = false;
 
-  supplierList: any[] = [];
-  productList: any[] = [];
-  categoryList: any[] = [];
-  orderItemList: any[] = [];
-  filteredProducts: any[] = [];
+  supplierList: Supplier[] = [];
+  productList: Product[] = [];
+  categoryList: Category[] = [];
+  orderDetailList: OrderDetail[] = [];
+  filteredProducts: Product[] = [];
 
-  selectedSupplier: any;
-  selectedProduct: any;
-  selectedQuantity: any;
-  deleteMessage: string = '';
+  selectedSupplierId: number | null = null;
+  selectedProductId: number | null = null;
+  selectedQuantity: number | null = null;
   productToDeleteId: number | null = null;
+  deleteMessage: string = '';
+
+  faCalendar = faCalendar;
 
   constructor(
     private router: Router,
@@ -46,7 +57,8 @@ export class OrdersFormComponent implements OnInit {
     private orderService: OrderService,
     private supplierService: SupplierService,
     private productService: ProductService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private orderDetailService: OrderDetailService
   ) {}
 
   ngOnInit(): void {
@@ -55,15 +67,13 @@ export class OrdersFormComponent implements OnInit {
     if (id) {
       this.orderId = parseInt(id);
       this.getOrderById(this.orderId);
-      this.getOrderItems(this.orderId);
+      this.getOrderDetails(this.orderId);
     }
 
     this.todayDate = this.getTodayDate();
-
     this.isAddView = this.isAddRoute();
     this.getSuppliers();
     this.getProducts();
-    this.getNextOrderId();
   }
 
   getOrderById(id: number): void {
@@ -74,18 +84,12 @@ export class OrdersFormComponent implements OnInit {
     }
   }
 
-  getOrderItems(id: number) {
+  getOrderDetails(id: number) {
     if (id) {
-      this.orderService.getOrderItems(id).subscribe((res) => {
-        this.orderItemList = res;
+      this.orderService.getOrderDetails(id).subscribe((res) => {
+        this.orderDetailList = res;
       });
     }
-  }
-
-  getNextOrderId(): void {
-    this.orderService.getNextOrderId().subscribe((res) => {
-      this.nextOrderId = res;
-    });
   }
 
   getSuppliers() {
@@ -101,89 +105,81 @@ export class OrdersFormComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    if (!form.valid) {
-      console.error('Invalid form.');
+    if (!this.isAddView) return;
+
+    if (form.invalid) {
+      console.error('Form contains errors.');
       return;
     }
-
-    if (!this.isAddView) return;
 
     const formData = form.value;
 
     const order: Order = {
-      // issueDate: this.formatDate(formData.issueDate),
-      issueDate: this.getTodayDate(),
-      deliveryDate: formData.deliveryDate,
-      comments: formData.comments,
+      issueDate: this.getTodayDate() + 'T00:00:00',
+      deliveryDate: formData.deliveryDate + 'T00:00:00',
+      comments: formData.comments.trim(),
       total: this.calculateTotal(),
-      isActive: this.order.id ? this.order.isActive : true,
-      supplierId: this.selectedSupplier,
+      supplier: { id: this.selectedSupplierId! }, // { id: formData.supplier }
     };
 
     // Add new order
-    this.orderService.createOrder(order).subscribe((createdOrder: any) => {
-      for (const item of this.orderItemList) {
-        const orderItems = {
-          orderId: createdOrder?.id,
-          productId: item.product.id,
-          quantity: item.quantity,
-          subtotal: item.subtotal,
-          supplierId: formData.supplierId,
+    this.orderService.createOrder(order).subscribe((createdOrder: Order) => {
+      let createdOrderDetails = 0;
+
+      // Add order details
+      for (const orderDetail of this.orderDetailList) {
+        const newOrderDetail: OrderDetail = {
+          order: { id: createdOrder.id },
+          product: { id: orderDetail.product.id },
+          quantity: orderDetail.quantity,
+          price: orderDetail.product.price!,
         };
 
-        this.orderService.createOrderItems(orderItems).subscribe((res) => {
-          console.log(`Se creó OrderItem de producto #${item.product.id}`);
-        });
+        this.orderDetailService
+          .createOrderDetail(newOrderDetail)
+          .subscribe((res) => {
+            // console.log(`Producto #${orderDetail.product.id} agregado a la orden`);
+            createdOrderDetails++;
+
+            if (createdOrderDetails === this.orderDetailList.length) {
+              this.toastService.showSuccessToast(
+                'Orden agregada correctamente!'
+              );
+              form.reset();
+              this.navigateToOrders();
+            }
+          });
       }
-
-      this.toastService.showSuccessToast('Orden agregada correctamente!');
     });
-
-    form.reset();
-    this.router.navigate(['/orders']);
   }
 
   addProduct() {
-    this.productService
-      .getProductById(this.selectedProduct)
-      .subscribe((res) => {
-        const product = res;
+    if (!this.selectedProductId) {
+      return;
+    }
 
-        const existingProduct = this.orderItemList.find(
-          (item) => item.product.id === product.id
+    this.productService
+      .getProductById(this.selectedProductId)
+      .subscribe((product) => {
+        const existingProduct = this.orderDetailList.find(
+          (orderDetail) => orderDetail.product.id === product.id
         );
 
         if (existingProduct) {
-          // Actualizar cantidad y subtotal
-          existingProduct.quantity += this.selectedQuantity;
-          existingProduct.subtotal = (
-            existingProduct.product.price * existingProduct.quantity
-          ).toFixed(2);
+          existingProduct.quantity += this.selectedQuantity!;
+
           this.toastService.showSuccessToast(
             'Cantidad actualizada correctamente!'
           );
         } else {
-          // Agregar nuevo producto
-          const newProduct = {
-            // id: ?
-            orderId: this.nextOrderId,
-            productId: product.productId,
-            quantity: this.selectedQuantity,
-            subtotal: (product.price * this.selectedQuantity).toFixed(2),
-            product: {
-              id: product.id,
-              sku: product.sku,
-              category: product.category,
-              name: product.name,
-              description: product.description,
-              price: product.price,
-              supplierId: product.supplierId,
-              isDeleted: product.isDeleted,
-            },
+          const orderDetail: OrderDetail = {
+            product: product,
+            quantity: this.selectedQuantity!,
+            price: product.price!,
           };
 
-          this.orderItemList.push(newProduct);
-          this.productAdded = true;
+          this.orderDetailList.push(orderDetail);
+          this.isProductAdded = true;
           this.toastService.showSuccessToast(
             'Producto agregado correctamente!'
           );
@@ -196,14 +192,14 @@ export class OrdersFormComponent implements OnInit {
     this.productToDeleteId = id;
   }
 
-  removeProduct(): void {
+  removeProduct() {
     if (this.productToDeleteId) {
-      const index = this.orderItemList.findIndex(
-        (item) => item.product.id === this.productToDeleteId
+      const index = this.orderDetailList.findIndex(
+        (orderDetail) => orderDetail.product.id === this.productToDeleteId
       );
 
       if (index !== -1) {
-        this.orderItemList.splice(index, 1);
+        this.orderDetailList.splice(index, 1);
         this.toastService.showSuccessToast('Producto removido correctamente!');
       } else {
         console.warn(
@@ -217,10 +213,10 @@ export class OrdersFormComponent implements OnInit {
   }
 
   resetForm(form: NgForm) {
-    this.selectedSupplier = null;
-    this.selectedProduct = null;
+    this.selectedSupplierId = null;
+    this.selectedProductId = null;
     this.selectedQuantity = null;
-    this.productAdded = false;
+    this.isProductAdded = false;
 
     form.reset();
     form.control.markAsPristine();
@@ -232,10 +228,10 @@ export class OrdersFormComponent implements OnInit {
     form.control.patchValue({ issueDate: formattedDate });
   }
 
-  onSupplierChange(selectedSupplier: number): void {
-    if (selectedSupplier) {
+  onSupplierChange(selectedSupplierId: number) {
+    if (selectedSupplierId) {
       this.productService
-        .getProductsBySupplier(selectedSupplier)
+        .getProductsBySupplier(selectedSupplierId)
         .subscribe((res) => {
           this.filteredProducts = res;
         });
@@ -274,11 +270,19 @@ export class OrdersFormComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
+  isDeliveryDateValid() {
+    const deliveryDate = new Date(this.order.deliveryDate!);
+    const minDate = new Date(this.getMinDate());
+    const maxDate = new Date(this.getMaxDate());
+
+    return deliveryDate >= minDate && deliveryDate <= maxDate;
+  }
+
   calculateTotal(): number {
     let total = 0;
 
-    for (const item of this.orderItemList) {
-      total += parseFloat(item.subtotal);
+    for (const item of this.orderDetailList) {
+      total += item.price * item.quantity;
     }
 
     return total;
@@ -304,8 +308,27 @@ export class OrdersFormComponent implements OnInit {
     }
   }
 
+  navigateToOrders() {
+    this.router.navigate(['/orders']);
+  }
+
   isAddRoute(): boolean {
     const route = this.router.url;
     return route.includes('/orders/add');
+  }
+
+  getStatusClass(status: string): string {
+    switch (status) {
+      case 'Cancelado':
+        return 'order-cancelled';
+      case 'En Proceso':
+        return 'order-in-progress';
+      case 'En Camino':
+        return 'order-on-its-way';
+      case 'Entregado':
+        return 'order-delivered';
+      default:
+        return 'order-in-progress';
+    }
   }
 }

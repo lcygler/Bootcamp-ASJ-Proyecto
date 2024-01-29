@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SupplierService } from 'src/app/services/supplier.service';
-import { ToastService } from 'src/app/services/toast.service';
+import { ToastService } from 'src/app/services/common/toast.service';
+import { SupplierService } from 'src/app/services/supplier/supplier.service';
 
 @Component({
   selector: 'app-suppliers-list',

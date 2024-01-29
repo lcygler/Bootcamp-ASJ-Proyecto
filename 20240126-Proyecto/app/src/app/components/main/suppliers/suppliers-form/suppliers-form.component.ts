@@ -1,10 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LocationService } from 'src/app/services/location.service';
-import { SupplierService } from 'src/app/services/supplier.service';
-import { ToastService } from 'src/app/services/toast.service';
-import { Supplier } from '../../../../models/ISupplier';
+
+import { Country } from 'src/app/models/address/ICountry';
+import { State } from 'src/app/models/address/IState';
+import { Industry } from 'src/app/models/supplier/IIndustry';
+import { Supplier } from 'src/app/models/supplier/ISupplier';
+import { VatCondition } from 'src/app/models/supplier/IVatCondition';
+
+import { AddressService } from 'src/app/services/address/address.service';
+import { CountryService } from 'src/app/services/address/country.service';
+import { StateService } from 'src/app/services/address/state.service';
+import { ToastService } from 'src/app/services/common/toast.service';
+import { ContactDetailService } from 'src/app/services/supplier/contact-detail.service';
+import { IndustryService } from 'src/app/services/supplier/industry.service';
+import { SupplierService } from 'src/app/services/supplier/supplier.service';
+import { TaxInformationService } from 'src/app/services/supplier/tax-information.service';
+import { VatConditionService } from 'src/app/services/supplier/vat-condition.service';
 
 @Component({
   selector: 'app-suppliers-form',
@@ -15,49 +27,48 @@ export class SuppliersFormComponent implements OnInit {
   supplier: Supplier = {
     code: '',
     businessName: '',
-    industry: '',
+    industry: {},
     website: '',
     email: '',
     phone: '',
     address: {
-      street: '',
-      number: '',
-      postalCode: '',
-      city: '',
-      state: '',
-      country: '',
+      state: {
+        country: {},
+      },
     },
     taxInformation: {
-      cuit: '',
-      vatCondition: '',
+      vatCondition: {},
     },
-    contactDetails: {
-      firstName: '',
-      lastName: '',
-      phone: '',
-      email: '',
-      role: '',
-    },
-    isDeleted: false,
+    contactDetails: {},
   };
+
+  vatConditionList: VatCondition[] = [];
+  industryList: Industry[] = [];
+  countryList: Country[] = [];
+  stateList: State[] = [];
+  filteredStates: State[] = [];
+
   supplierId: number | null = null;
-  nextSupplierId: number | null = null;
+  newAddressId: number | null = null;
+  newTaxInformationId: number | null = null;
+  newContactDetailId: number | null = null;
   isEditView: boolean = false;
-  vatConditions: any[] = [];
-  countryList: any[] = [];
-  stateList: any[] = [];
-  filteredStates: any[] = [];
-  // filteredCities: any[] = [];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private supplierService: SupplierService,
     private toastService: ToastService,
-    private locationService: LocationService
+    private addressService: AddressService,
+    private stateService: StateService,
+    private countryService: CountryService,
+    private taxInformationService: TaxInformationService,
+    private vatConditionService: VatConditionService,
+    private contactDetailService: ContactDetailService,
+    private industryService: IndustryService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     const id = this.route.snapshot.paramMap.get('supplierId');
 
     if (id) {
@@ -66,89 +77,169 @@ export class SuppliersFormComponent implements OnInit {
       this.isEditView = this.isEditRoute();
     }
 
+    this.countryService.getCountries().subscribe((res) => {
+      this.countryList = res;
+    });
+
+    this.getIndustries();
     this.getVatConditions();
-    this.countryList = this.locationService.getCountries();
   }
 
-  getSupplierById(id: number): void {
+  getSupplierById(id: number) {
     if (id) {
       this.supplierService.getSupplierById(id).subscribe((res) => {
         this.supplier = res;
-
-        const country = this.supplier.address?.country;
-        this.filteredStates = this.locationService.getStatesByCountry(country);
-
-        // const state = this.supplier.address?.state;
-        // this.filteredCities = this.locationService.getCitiesByState(state);
+        const countryId = this.supplier?.address?.state?.country?.id;
+        countryId && this.getStatesByCountry(countryId);
       });
     }
   }
 
-  getVatConditions(): void {
-    this.supplierService.getVatConditions().subscribe((res) => {
-      this.vatConditions = res;
+  getVatConditions() {
+    this.vatConditionService.getVatConditions().subscribe((res) => {
+      this.vatConditionList = res;
+    });
+  }
+
+  getIndustries() {
+    this.industryService.getIndustries().subscribe((res) => {
+      this.industryList = res;
+    });
+  }
+
+  getStatesByCountry(countryId: number) {
+    this.stateService.getStatesByCountry(countryId).subscribe((res) => {
+      this.filteredStates = res;
     });
   }
 
   onSubmit(form: NgForm) {
-    if (!form.valid) {
-      console.error('Invalid form.');
+    if (form.invalid) {
+      console.error('Form contains errors.');
       return;
     }
 
-    this.supplierService.getNextSupplierId().subscribe((res) => {
-      const formData = form.value;
+    const formData = form.value;
 
-      const supplier: Supplier = {
-        code: this.supplier.id ? this.supplier.code : `PROV-${res}`,
-        businessName: formData.businessName,
-        industry: formData.industry,
-        website: formData.website,
-        email: formData.email,
-        phone: formData.phone,
-        address: {
-          street: formData.street,
-          number: formData.number,
-          postalCode: formData.postalCode,
-          city: formData.city,
-          state: formData.state,
-          country: formData.country,
-        },
-        taxInformation: {
-          cuit: this.supplier.taxInformation.cuit,
-          vatCondition: formData.vatCondition,
-        },
-        contactDetails: {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          phone: formData.contactPhone,
-          email: formData.contactEmail,
-          role: formData.role,
-        },
-        isDeleted: this.supplier.id ? this.supplier.isDeleted : false,
-      };
+    const address = {
+      street: formData.street,
+      number: formData.number,
+      postalCode: formData.postalCode,
+      city: formData.city,
+      state: { id: formData.state },
+    };
 
-      if (this.isEditRoute()) {
-        // Update existing supplier
-        this.supplierService
-          .updateSupplier(this.supplier.id!, supplier)
-          .subscribe((res) => {
-            this.toastService.showSuccessToast(
-              'Proveedor modificado correctamente!'
-            );
-          });
-      } else {
-        // Add new supplier
-        this.supplierService.createSupplier(supplier).subscribe((res) => {
-          this.toastService.showSuccessToast(
-            'Proveedor agregado correctamente!'
-          );
+    const taxInformation = {
+      cuit: formData.cuit,
+      vatCondition: { id: formData.vatCondition },
+    };
+
+    const contactDetails = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      phone: formData.contactPhone,
+      email: formData.contactEmail,
+      role: formData.role,
+    };
+
+    const supplier: Supplier = {
+      businessName: formData.businessName,
+      industry: { id: formData.industry },
+      website: formData.website,
+      email: formData.email,
+      phone: formData.phone,
+      address: {},
+      taxInformation: {},
+      contactDetails: {},
+    };
+
+    if (this.isEditRoute()) {
+      // Update address
+      this.addressService
+        .updateAddress(this.supplier.address.id!, address)
+        .subscribe((res) => {
+          this.newAddressId = res.id!;
+
+          // Update tax information
+          this.taxInformationService
+            .updateTaxInformation(
+              this.supplier.taxInformation.id!,
+              taxInformation
+            )
+            .subscribe((res) => {
+              this.newTaxInformationId = res.id!;
+
+              // Update contact details
+              this.contactDetailService
+                .updateContactDetail(
+                  this.supplier.contactDetails.id!,
+                  contactDetails
+                )
+                .subscribe((res) => {
+                  this.newContactDetailId = res.id!;
+
+                  // Update supplier
+                  supplier.address = { id: this.newAddressId! };
+                  supplier.taxInformation = { id: this.newTaxInformationId! };
+                  supplier.contactDetails = { id: this.newContactDetailId };
+
+                  this.supplierService
+                    .updateSupplier(this.supplierId!, supplier)
+                    .subscribe((res) => {
+                      this.toastService.showSuccessToast(
+                        'Proveedor modificado correctamente!'
+                      );
+                      form.reset();
+                      this.newAddressId = null;
+                      this.newTaxInformationId = null;
+                      this.newContactDetailId = null;
+                      this.navigateToSuppliers();
+                    });
+                });
+            });
         });
-      }
+    } else {
+      // Add address
+      this.addressService.createAddress(address).subscribe((res) => {
+        this.newAddressId = res.id!;
 
-      form.reset();
-      this.router.navigate(['/suppliers']);
-    });
+        // Add tax information
+        this.taxInformationService
+          .createTaxInformation(taxInformation)
+          .subscribe((res) => {
+            this.newTaxInformationId = res.id!;
+
+            // Add contact details
+            this.contactDetailService
+              .createContactDetail(contactDetails)
+              .subscribe((res) => {
+                this.newContactDetailId = res.id!;
+
+                // Add supplier
+                supplier.address = { id: this.newAddressId! };
+                supplier.taxInformation = { id: this.newTaxInformationId! };
+                supplier.contactDetails = { id: this.newContactDetailId };
+
+                this.supplierService
+                  .createSupplier(supplier)
+                  .subscribe((res) => {
+                    this.toastService.showSuccessToast(
+                      'Proveedor agregado correctamente!'
+                    );
+                    form.reset();
+                    this.newAddressId = null;
+                    this.newTaxInformationId = null;
+                    this.newContactDetailId = null;
+                    this.navigateToSuppliers();
+                  });
+              });
+          });
+      });
+    }
+  }
+
+  navigateToSuppliers() {
+    this.router.navigate(['/suppliers']);
   }
 
   isEditRoute(): boolean {
@@ -156,25 +247,15 @@ export class SuppliersFormComponent implements OnInit {
     return route.includes('/suppliers/edit');
   }
 
-  onCountryChange(selectedCountry: string): void {
-    if (selectedCountry) {
-      this.filteredStates =
-        this.locationService.getStatesByCountry(selectedCountry);
+  onCountryChange(selectedCountryId: number) {
+    if (selectedCountryId) {
+      this.getStatesByCountry(selectedCountryId);
     } else {
       this.filteredStates = [];
     }
   }
 
-  // onStateChange(selectedState: string): void {
-  //   if (selectedState) {
-  //     this.filteredCities =
-  //       this.locationService.getCitiesByState(selectedState);
-  //   } else {
-  //     this.filteredCities = [];
-  //   }
-  // }
-
-  formatCuit(event: any): void {
+  formatCuit(event: any) {
     const cuit = event.target.value.replace(/\D/g, ''); // Eliminar no dígitos
     const maxLength = 11;
 

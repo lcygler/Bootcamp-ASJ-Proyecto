@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from 'src/app/services/product.service';
-import { SupplierService } from 'src/app/services/supplier.service';
-import { ToastService } from 'src/app/services/toast.service';
-import { Product } from '../../../../models/IProduct';
+
+import { Category } from 'src/app/models/product/ICategory';
+import { Product } from 'src/app/models/product/IProduct';
+import { Supplier } from 'src/app/models/supplier/ISupplier';
+
+import { ToastService } from 'src/app/services/common/toast.service';
+import { CategoryService } from 'src/app/services/product/category.service';
+import { ProductService } from 'src/app/services/product/product.service';
+import { SupplierService } from 'src/app/services/supplier/supplier.service';
 
 @Component({
   selector: 'app-products-form',
@@ -14,28 +19,29 @@ import { Product } from '../../../../models/IProduct';
 export class ProductsFormComponent implements OnInit {
   product: Product = {
     sku: '',
-    category: '',
     name: '',
     description: '',
     price: null,
-    isDeleted: false,
-    supplierId: null,
+    category: {},
+    supplier: {},
   };
+
+  supplierList: Supplier[] = [];
+  categoryList: Category[] = [];
+
   productId: number | null = null;
-  nextProductId: number | null = null;
   isEditView: boolean = false;
-  supplierList: any[] = [];
-  categoryList: any[] = [];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private productService: ProductService,
     private supplierService: SupplierService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private categoryService: CategoryService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     const id = this.route.snapshot.paramMap.get('productId');
 
     if (id) {
@@ -48,7 +54,7 @@ export class ProductsFormComponent implements OnInit {
     this.getCategories();
   }
 
-  getProductById(id: number): void {
+  getProductById(id: number) {
     if (id) {
       this.productService.getProductById(id).subscribe((res) => {
         this.product = res;
@@ -63,53 +69,50 @@ export class ProductsFormComponent implements OnInit {
   }
 
   getCategories() {
-    this.productService.getCategories().subscribe((res) => {
+    this.categoryService.getCategories().subscribe((res) => {
       this.categoryList = res;
     });
   }
 
   onSubmit(form: NgForm) {
-    if (!form.valid) {
-      console.error('Invalid form.');
+    if (form.invalid) {
+      console.error('Form contains errors.');
       return;
     }
 
-    this.productService.getNextProductId().subscribe((res) => {
-      const formData = form.value;
+    const formData = form.value;
 
-      const product: Product = {
-        sku: this.product.id
-          ? `${this.product.sku}`
-          : `${this.product.category.slice(0, 4).toUpperCase()}-${res}`,
-        category: formData.category,
-        name: formData.name,
-        description: formData.description,
-        price: formData.price,
-        isDeleted: this.product.id ? this.product.isDeleted : false,
-        supplierId: formData.supplierId,
-      };
+    const product: Product = {
+      name: formData.name.trim(),
+      description: formData.description.trim(),
+      price: formData.price,
+      category: { id: formData.category },
+      supplier: { id: formData.supplier },
+    };
 
-      if (this.isEditRoute()) {
-        // Update existing product
-        this.productService
-          .updateProduct(this.product.id!, product)
-          .subscribe((res) => {
-            this.toastService.showSuccessToast(
-              'Producto modificado correctamente!'
-            );
-          });
-      } else {
-        // Add new product
-        this.productService.createProduct(product).subscribe((res) => {
+    if (this.isEditRoute()) {
+      // Update existing product
+      this.productService
+        .updateProduct(this.product.id!, product)
+        .subscribe((res) => {
           this.toastService.showSuccessToast(
-            'Producto agregado correctamente!'
+            'Producto modificado correctamente!'
           );
+          form.reset();
+          this.navigateToProducts();
         });
-      }
+    } else {
+      // Add new product
+      this.productService.createProduct(product).subscribe((res) => {
+        this.toastService.showSuccessToast('Producto agregado correctamente!');
+        form.reset();
+        this.navigateToProducts();
+      });
+    }
+  }
 
-      form.reset();
-      this.router.navigate(['/products']);
-    });
+  navigateToProducts() {
+    this.router.navigate(['/products']);
   }
 
   isEditRoute(): boolean {

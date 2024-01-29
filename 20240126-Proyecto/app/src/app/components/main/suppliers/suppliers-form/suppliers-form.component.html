@@ -27,7 +27,9 @@
                 <legend>Datos Comerciales</legend>
                 <!-- Código -->
                 <div class="mb-3" *ngIf="isEditView">
-                  <label for="code" class="form-label">Código</label>
+                  <label for="code" class="form-label">
+                    Código <span class="text-danger">*</span>
+                  </label>
                   <input
                     type="text"
                     class="form-control"
@@ -40,18 +42,18 @@
 
                 <!-- Razón Social -->
                 <div class="mb-3">
-                  <label for="business-name" class="form-label"
-                    >Razón Social</label
-                  >
+                  <label for="business-name" class="form-label">
+                    Razón Social <span class="text-danger">*</span>
+                  </label>
                   <input
                     type="text"
                     class="form-control"
                     id="business-name"
                     name="businessName"
                     [ngClass]="{
-                    'is-invalid': businessName.touched && businessName.errors,
-                    'is-valid': businessName.touched && !businessName.errors,
-                  }"
+                      'is-invalid': businessName.touched && businessName.errors,
+                      'is-valid': businessName.touched && !businessName.errors,
+                    }"
                     [(ngModel)]="supplier.businessName"
                     #businessName="ngModel"
                     required
@@ -86,42 +88,35 @@
 
                 <!-- Rubro -->
                 <div class="mb-3">
-                  <label for="industry" class="form-label">Rubro</label>
-                  <input
-                    type="text"
-                    class="form-control"
+                  <label for="industry" class="form-label">
+                    Rubro <span class="text-danger">*</span>
+                  </label>
+                  <select
+                    class="form-select"
                     id="industry"
                     name="industry"
                     [ngClass]="{
-                'is-invalid': industry.touched && industry.errors,
-                'is-valid': industry.touched && !industry.errors,
-              }"
-                    [(ngModel)]="supplier.industry"
+                      'is-invalid': industry.touched && industry.errors,
+                      'is-valid': industry.touched && !industry.errors,
+                    }"
+                    [(ngModel)]="supplier.industry.id"
                     #industry="ngModel"
                     required
-                    minlength="4"
-                    maxlength="20"
-                  />
+                  >
+                    <option value="" disabled selected>Seleccionar</option>
+                    <option
+                      *ngFor="let industry of industryList"
+                      [value]="industry.id"
+                    >
+                      {{ industry.name }}
+                    </option>
+                  </select>
                   <div
                     *ngIf="industry.touched && industry.errors?.['required'] "
                     class="col-auto"
                   >
-                    <span class="form-text text-danger">Ingrese un rubro</span>
-                  </div>
-                  <div
-                    *ngIf="industry.touched && industry.errors?.['minlength'] "
-                    class="col-auto"
-                  >
                     <span class="form-text text-danger"
-                      >El rubro debe tener al menos 4 caracteres</span
-                    >
-                  </div>
-                  <div
-                    *ngIf="industry.touched && industry.errors?.['maxlength'] "
-                    class="col-auto"
-                  >
-                    <span class="form-text text-danger"
-                      >El rubro no debe superar los 20 caracteres</span
+                      >Seleccione un rubro</span
                     >
                   </div>
                 </div>
@@ -133,21 +128,30 @@
                 <legend>Datos de Contacto</legend>
                 <!-- Sitio Web -->
                 <div class="mb-3">
-                  <label for="website" class="form-label">Sitio Web</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="website"
-                    name="website"
-                    [ngClass]="{
-                'is-invalid': website.touched && website.errors,
-                'is-valid': website.touched && !website.errors,
-              }"
-                    [(ngModel)]="supplier.website"
-                    #website="ngModel"
-                    required
-                    pattern="(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,})?"
-                  />
+                  <label for="website" class="form-label">
+                    Sitio Web <span class="text-danger">*</span>
+                  </label>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <span class="material-icons" style="font-size: 16px">
+                        link
+                      </span>
+                    </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="website"
+                      name="website"
+                      [ngClass]="{
+                      'is-invalid': website.touched && website.errors,
+                      'is-valid': website.touched && !website.errors,
+                    }"
+                      [(ngModel)]="supplier.website"
+                      #website="ngModel"
+                      required
+                      pattern="(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,})?"
+                    />
+                  </div>
                   <div
                     *ngIf="website.touched && website.errors?.['required'] "
                     class="col-auto"
@@ -168,21 +172,31 @@
 
                 <!-- Email -->
                 <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="email"
-                    name="email"
-                    [ngClass]="{
-                'is-invalid': email.touched && email.errors,
-                'is-valid': email.touched && !email.errors,
-              }"
-                    [(ngModel)]="supplier.email"
-                    #email="ngModel"
-                    required
-                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-                  />
+                  <label for="email" class="form-label">
+                    Email <span class="text-danger">*</span>
+                  </label>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      {{ "@" }}
+                      <!-- <span class="material-icons" style="font-size: 16px">
+                        mail_outline
+                      </span> -->
+                    </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      [ngClass]="{
+                      'is-invalid': email.touched && email.errors,
+                      'is-valid': email.touched && !email.errors,
+                    }"
+                      [(ngModel)]="supplier.email"
+                      #email="ngModel"
+                      required
+                      pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                    />
+                  </div>
                   <div
                     *ngIf="email.touched && email.errors?.['required'] "
                     class="col-auto"
@@ -201,22 +215,31 @@
 
                 <!-- Teléfono -->
                 <div class="mb-3">
-                  <label for="phone" class="form-label">Teléfono</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="phone"
-                    name="phone"
-                    [ngClass]="{
-                'is-invalid': phone.touched && phone.errors,
-                'is-valid': phone.touched && !phone.errors,
-              }"
-                    [(ngModel)]="supplier.phone"
-                    #phone="ngModel"
-                    required
-                    minlength="8"
-                    maxlength="20"
-                  />
+                  <label for="phone" class="form-label">
+                    Teléfono <span class="text-danger">*</span>
+                  </label>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <span class="material-icons" style="font-size: 16px">
+                        local_phone
+                      </span>
+                    </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="phone"
+                      name="phone"
+                      [ngClass]="{
+                      'is-invalid': phone.touched && phone.errors,
+                      'is-valid': phone.touched && !phone.errors,
+                    }"
+                      [(ngModel)]="supplier.phone"
+                      #phone="ngModel"
+                      required
+                      minlength="8"
+                      maxlength="20"
+                    />
+                  </div>
                   <div
                     *ngIf="phone.touched && phone.errors?.['required'] "
                     class="col-auto"
@@ -254,16 +277,18 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="mb-3">
-                      <label for="cuit" class="form-label">CUIT</label>
+                      <label for="cuit" class="form-label">
+                        CUIT <span class="text-danger">*</span>
+                      </label>
                       <input
                         type="text"
                         class="form-control"
                         id="cuit"
                         name="cuit"
                         [ngClass]="{
-                        'is-invalid': cuit.touched && cuit.errors,
-                        'is-valid': cuit.touched && !cuit.errors,
-                      }"
+                          'is-invalid': cuit.touched && cuit.errors,
+                          'is-valid': cuit.touched && !cuit.errors,
+                        }"
                         [(ngModel)]="supplier.taxInformation.cuit"
                         [disabled]="isEditView"
                         (input)="formatCuit($event)"
@@ -302,25 +327,25 @@
                   <div class="col-md-6">
                     <!-- Condición IVA -->
                     <div class="mb-3">
-                      <label for="vat-condition" class="form-label"
-                        >Condición IVA</label
-                      >
+                      <label for="vat-condition" class="form-label">
+                        Condición IVA <span class="text-danger">*</span>
+                      </label>
                       <select
                         class="form-select"
                         id="vat-condition"
                         name="vatCondition"
                         [ngClass]="{
-                        'is-invalid': vatCondition.touched && vatCondition.errors,
-                        'is-valid': vatCondition.touched && !vatCondition.errors,
-                      }"
-                        [(ngModel)]="supplier.taxInformation.vatCondition"
+                          'is-invalid': vatCondition.touched && vatCondition.errors,
+                          'is-valid': vatCondition.touched && !vatCondition.errors,
+                        }"
+                        [(ngModel)]="supplier.taxInformation.vatCondition!.id"
                         #vatCondition="ngModel"
                         required
                       >
                         <option value="" disabled selected>Seleccionar</option>
                         <option
-                          *ngFor="let vatCondition of vatConditions"
-                          [value]="vatCondition.name"
+                          *ngFor="let vatCondition of vatConditionList"
+                          [value]="vatCondition.id"
                         >
                           {{ vatCondition.name }}
                         </option>
@@ -347,16 +372,18 @@
                 <div class="col-md-6">
                   <!-- Calle -->
                   <div class="mb-3">
-                    <label for="street" class="form-label">Calle</label>
+                    <label for="street" class="form-label">
+                      Calle <span class="text-danger">*</span>
+                    </label>
                     <input
                       type="text"
                       class="form-control"
                       id="street"
                       name="street"
                       [ngClass]="{
-                'is-invalid': street.touched && street.errors,
-                'is-valid': street.touched && !street.errors,
-              }"
+                        'is-invalid': street.touched && street.errors,
+                        'is-valid': street.touched && !street.errors,
+                      }"
                       [(ngModel)]="supplier.address.street"
                       #street="ngModel"
                       required
@@ -391,16 +418,18 @@
 
                   <!-- Número -->
                   <div class="mb-3">
-                    <label for="number" class="form-label">Número</label>
+                    <label for="number" class="form-label">
+                      Número <span class="text-danger">*</span>
+                    </label>
                     <input
                       type="text"
                       class="form-control"
                       id="number"
                       name="number"
                       [ngClass]="{
-                'is-invalid': number.touched && number.errors,
-                'is-valid': number.touched && !number.errors,
-              }"
+                        'is-invalid': number.touched && number.errors,
+                        'is-valid': number.touched && !number.errors,
+                      }"
                       [(ngModel)]="supplier.address.number"
                       #number="ngModel"
                       required
@@ -426,18 +455,18 @@
 
                   <!-- Código Postal -->
                   <div class="mb-3">
-                    <label for="postal-code" class="form-label"
-                      >Código Postal</label
-                    >
+                    <label for="postal-code" class="form-label">
+                      Código Postal <span class="text-danger">*</span>
+                    </label>
                     <input
                       type="text"
                       class="form-control"
                       id="postal-code"
                       name="postalCode"
                       [ngClass]="{
-                'is-invalid': postalCode.touched && postalCode.errors,
-                'is-valid': postalCode.touched && !postalCode.errors,
-              }"
+                        'is-invalid': postalCode.touched && postalCode.errors,
+                        'is-valid': postalCode.touched && !postalCode.errors,
+                      }"
                       [(ngModel)]="supplier.address.postalCode"
                       #postalCode="ngModel"
                       required
@@ -465,16 +494,18 @@
                 <div class="col-md-6">
                   <!-- País -->
                   <div class="mb-3">
-                    <label for="country" class="form-label">País</label>
+                    <label for="country" class="form-label">
+                      País <span class="text-danger">*</span>
+                    </label>
                     <select
                       class="form-select"
                       id="country"
                       name="country"
                       [ngClass]="{
-                'is-invalid': country.touched && country.errors,
-                'is-valid': country.touched && !country.errors,
-              }"
-                      [(ngModel)]="supplier.address.country"
+                        'is-invalid': country.touched && country.errors,
+                        'is-valid': country.touched && !country.errors,
+                      }"
+                      [(ngModel)]="supplier.address.state!.country!.id"
                       (ngModelChange)="onCountryChange($event)"
                       #country="ngModel"
                       required
@@ -482,7 +513,7 @@
                       <option value="" disabled selected>Seleccionar</option>
                       <option
                         *ngFor="let country of countryList"
-                        [value]="country.name"
+                        [value]="country.id"
                       >
                         {{ country.name }}
                       </option>
@@ -498,31 +529,32 @@
                   </div>
 
                   <!-- Provincia -->
-                  <!-- (ngModelChange)="onStateChange($event)" -->
                   <div class="mb-3">
-                    <label for="state" class="form-label">Provincia</label>
+                    <label for="state" class="form-label">
+                      Provincia <span class="text-danger">*</span>
+                    </label>
                     <select
                       class="form-select"
                       id="state"
                       name="state"
                       [ngClass]="{
-                      'is-invalid': state.touched && state.errors,
-                      'is-valid': state.touched && !state.errors,
-                    }"
-                      [(ngModel)]="supplier.address.state"
+                        'is-invalid': state.touched && state.errors,
+                        'is-valid': state.touched && !state.errors,
+                      }"
+                      [(ngModel)]="supplier.address.state!.id"
                       #state="ngModel"
                       required
                     >
                       <option value="" disabled selected>Seleccionar</option>
                       <option
                         *ngFor="let state of filteredStates"
-                        [value]="state.name"
+                        [value]="state.id"
                       >
                         {{ state.name }}
                       </option>
                     </select>
                     <div
-                      *ngIf="state.touched && !supplier.address.country"
+                      *ngIf="state.touched && !supplier.address.state!.country"
                       class="col-auto"
                     >
                       <span class="form-text text-danger"
@@ -530,7 +562,7 @@
                       >
                     </div>
                     <div
-                      *ngIf="state.touched && state.errors?.['required'] && supplier.address.country"
+                      *ngIf="state.touched && state.errors?.['required'] && supplier.address.state!.country"
                       class="col-auto"
                     >
                       <span class="form-text text-danger"
@@ -539,18 +571,20 @@
                     </div>
                   </div>
 
-                  <!-- Localidad (Input) -->
+                  <!-- Localidad -->
                   <div class="mb-3">
-                    <label for="city" class="form-label">Localidad</label>
+                    <label for="city" class="form-label">
+                      Localidad <span class="text-danger">*</span>
+                    </label>
                     <input
                       type="text"
                       class="form-control"
                       id="city"
                       name="city"
                       [ngClass]="{
-                      'is-invalid': city.touched && city.errors,
-                      'is-valid': city.touched && !city.errors,
-                    }"
+                        'is-invalid': city.touched && city.errors,
+                        'is-valid': city.touched && !city.errors,
+                      }"
                       [(ngModel)]="supplier.address.city"
                       #city="ngModel"
                       required
@@ -582,63 +616,6 @@
                       >
                     </div>
                   </div>
-
-                  <!-- Localidad (Dropdown) -->
-                  <!-- <div class="mb-3">
-                  <label for="city" class="form-label">Localidad</label>
-                  <select
-                    class="form-select"
-                    id="city"
-                    name="city"
-                    [ngClass]="{
-                'is-invalid': city.touched && city.errors,
-                'is-valid': city.touched && !city.errors,
-              }"
-                    [(ngModel)]="supplier.address.city"
-                    #city="ngModel"
-                    required
-                  >
-                    <option value="" disabled selected>Seleccionar</option>
-                    <option
-                      *ngFor="let city of filteredCities"
-                      [value]="city.name"
-                    >
-                      {{ city.name }}
-                    </option>
-                  </select>
-                  <div
-                    *ngIf="city.touched && !supplier.address.state"
-                    class="col-auto"
-                  >
-                    <span class="form-text text-danger"
-                      >Seleccione una provincia primero</span
-                    >
-                  </div>
-                  <div
-                    *ngIf="city.touched && city.errors?.['required'] && supplier.address.state"
-                    class="col-auto"
-                  >
-                    <span class="form-text text-danger"
-                      >Ingrese una localidad</span
-                    >
-                  </div>
-                  <div
-                    *ngIf="city.touched && city.errors?.['minlength']"
-                    class="col-auto"
-                  >
-                    <span class="form-text text-danger"
-                      >La localidad debe tener al menos 4 caracteres</span
-                    >
-                  </div>
-                  <div
-                    *ngIf="city.touched && city.errors?.['maxlength']"
-                    class="col-auto"
-                  >
-                    <span class="form-text text-danger"
-                      >La localidad no debe superar los 20 caracteres</span
-                    >
-                  </div>
-                </div> -->
                 </div>
               </div>
             </fieldset>
@@ -651,16 +628,18 @@
                 <div class="col-md-6">
                   <!-- Nombre -->
                   <div class="mb-3">
-                    <label for="firstname" class="form-label">Nombre</label>
+                    <label for="firstname" class="form-label">
+                      Nombre <span class="text-danger">*</span>
+                    </label>
                     <input
                       type="text"
                       class="form-control"
                       id="firstname"
                       name="firstName"
                       [ngClass]="{
-                'is-invalid': firstName.touched && firstName.errors,
-                'is-valid': firstName.touched && !firstName.errors,
-              }"
+                        'is-invalid': firstName.touched && firstName.errors,
+                        'is-valid': firstName.touched && !firstName.errors,
+                      }"
                       [(ngModel)]="supplier.contactDetails.firstName"
                       #firstName="ngModel"
                       required
@@ -695,16 +674,18 @@
 
                   <!-- Apellido -->
                   <div class="mb-3">
-                    <label for="lastname" class="form-label">Apellido</label>
+                    <label for="lastname" class="form-label">
+                      Apellido <span class="text-danger">*</span>
+                    </label>
                     <input
                       type="text"
                       class="form-control"
                       id="lastname"
                       name="lastName"
                       [ngClass]="{
-                'is-invalid': lastName.touched && lastName.errors,
-                'is-valid': lastName.touched && !lastName.errors,
-              }"
+                        'is-invalid': lastName.touched && lastName.errors,
+                        'is-valid': lastName.touched && !lastName.errors,
+                      }"
                       [(ngModel)]="supplier.contactDetails.lastName"
                       #lastName="ngModel"
                       required
@@ -739,16 +720,18 @@
 
                   <!-- Rol -->
                   <div class="mb-3">
-                    <label for="role" class="form-label">Rol</label>
+                    <label for="role" class="form-label">
+                      Rol <span class="text-danger">*</span>
+                    </label>
                     <input
                       type="text"
                       class="form-control"
                       id="role"
                       name="role"
                       [ngClass]="{
-                'is-invalid': role.touched && role.errors,
-                'is-valid': role.touched && !role.errors,
-              }"
+                        'is-invalid': role.touched && role.errors,
+                        'is-valid': role.touched && !role.errors,
+                      }"
                       [(ngModel)]="supplier.contactDetails.role"
                       #role="ngModel"
                       required
@@ -783,24 +766,31 @@
                 <div class="col-md-6">
                   <!-- Teléfono -->
                   <div class="mb-3">
-                    <label for="contact-phone" class="form-label"
-                      >Teléfono</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="contact-phone"
-                      name="contactPhone"
-                      [ngClass]="{
-                'is-invalid': contactPhone.touched && contactPhone.errors,
-                'is-valid': contactPhone.touched && !contactPhone.errors,
-              }"
-                      [(ngModel)]="supplier.contactDetails.phone"
-                      #contactPhone="ngModel"
-                      required
-                      minlength="8"
-                      maxlength="20"
-                    />
+                    <label for="contact-phone" class="form-label">
+                      Teléfono <span class="text-danger">*</span>
+                    </label>
+                    <div class="input-group">
+                      <span class="input-group-text">
+                        <span class="material-icons" style="font-size: 16px">
+                          local_phone
+                        </span>
+                      </span>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="contact-phone"
+                        name="contactPhone"
+                        [ngClass]="{
+                        'is-invalid': contactPhone.touched && contactPhone.errors,
+                        'is-valid': contactPhone.touched && !contactPhone.errors,
+                      }"
+                        [(ngModel)]="supplier.contactDetails.phone"
+                        #contactPhone="ngModel"
+                        required
+                        minlength="8"
+                        maxlength="20"
+                      />
+                    </div>
                     <div
                       *ngIf="contactPhone.touched && contactPhone.errors?.['required'] "
                       class="col-auto"
@@ -829,21 +819,26 @@
 
                   <!-- Email -->
                   <div class="mb-3">
-                    <label for="contact-email" class="form-label">Email</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="contact-email"
-                      name="contactEmail"
-                      [ngClass]="{
-                'is-invalid': contactEmail.touched && contactEmail.errors,
-                'is-valid': contactEmail.touched && !contactEmail.errors,
-              }"
-                      [(ngModel)]="supplier.contactDetails.email"
-                      #contactEmail="ngModel"
-                      required
-                      pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-                    />
+                    <label for="contact-email" class="form-label">
+                      Email <span class="text-danger">*</span>
+                    </label>
+                    <div class="input-group">
+                      <span class="input-group-text">{{ "@" }}</span>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="contact-email"
+                        name="contactEmail"
+                        [ngClass]="{
+                        'is-invalid': contactEmail.touched && contactEmail.errors,
+                        'is-valid': contactEmail.touched && !contactEmail.errors,
+                      }"
+                        [(ngModel)]="supplier.contactDetails.email"
+                        #contactEmail="ngModel"
+                        required
+                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                      />
+                    </div>
                     <div
                       *ngIf="contactEmail.touched && contactEmail.errors?.['required'] "
                       class="col-auto"

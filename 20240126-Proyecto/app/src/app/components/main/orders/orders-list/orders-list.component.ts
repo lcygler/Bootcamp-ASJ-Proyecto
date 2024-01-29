@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrderService } from 'src/app/services/order.service';
-import { ToastService } from 'src/app/services/toast.service';
+
+import { Order } from 'src/app/models/order/IOrder';
+
+import { ToastService } from 'src/app/services/common/toast.service';
+import { OrderService } from 'src/app/services/order/order.service';
 
 @Component({
   selector: 'app-orders-list',
@@ -9,8 +12,8 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['./orders-list.component.css'],
 })
 export class OrdersListComponent implements OnInit {
-  orderList: any[] = [];
-  filteredOrders: any[] = [];
+  orderList: Order[] = [];
+  filteredOrders: Order[] = [];
   searchTerm: string = '';
   orderToDeleteId: number | null = null;
   deleteMessage: string = '';
@@ -76,7 +79,7 @@ export class OrdersListComponent implements OnInit {
     }
   }
 
-  updatePage(navigation: 'prev' | 'next' | 'first' | 'last'): void {
+  updatePage(navigation: 'prev' | 'next' | 'first' | 'last') {
     switch (navigation) {
       case 'prev':
         if (this.currentPage > 1) {
@@ -97,7 +100,7 @@ export class OrdersListComponent implements OnInit {
     }
   }
 
-  updateTotalPages(): void {
+  updateTotalPages() {
     const minPages = 1;
 
     this.totalPages = Math.max(
@@ -118,5 +121,20 @@ export class OrdersListComponent implements OnInit {
       this.filteredOrders.length
     );
     return `Mostrando ${start} - ${end} de ${this.filteredOrders.length} ordenes`;
+  }
+
+  getStatusBadgeClass(status: string): string {
+    switch (status) {
+      case 'Cancelado':
+        return 'badge text-bg-danger';
+      case 'En Proceso':
+        return 'badge text-bg-secondary';
+      case 'En Camino':
+        return 'badge text-bg-primary';
+      case 'Entregado':
+        return 'badge text-bg-success';
+      default:
+        return 'badge text-bg-secondary';
+    }
   }
 }

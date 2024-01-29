@@ -4,6 +4,7 @@ import {
   faBuilding,
   faFileLines,
   faTags,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -12,6 +13,7 @@ import {
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
+  faUsers = faUsers;
   faBuilding = faBuilding;
   faTags = faTags;
   faFileLines = faFileLines;

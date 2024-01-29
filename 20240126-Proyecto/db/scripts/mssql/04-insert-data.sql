@@ -349,16 +349,16 @@ VALUES
 
 INSERT INTO tax_information (cuit, vat_condition_id, created_at, updated_at) 
 VALUES 
-  ('45678901234', 1, GETDATE(), GETDATE()), 
-  ('56789012345', 2, GETDATE(), GETDATE()), 
-  ('67890123456', 1, GETDATE(), GETDATE()), 
-  ('78901234567', 1, GETDATE(), GETDATE()), 
-  ('89012345678', 2, GETDATE(), GETDATE()), 
-  ('90123456789', 2, GETDATE(), GETDATE()), 
-  ('01234567890', 6, GETDATE(), GETDATE()), 
-  ('12345678901', 6, GETDATE(), GETDATE()), 
-  ('23456789012', 1, GETDATE(), GETDATE()), 
-  ('34567890123', 2, GETDATE(), GETDATE());
+  ('45-67890123-4', 1, GETDATE(), GETDATE()), 
+  ('56-78901234-5', 2, GETDATE(), GETDATE()), 
+  ('67-89012345-6', 1, GETDATE(), GETDATE()), 
+  ('78-90123456-7', 1, GETDATE(), GETDATE()), 
+  ('89-01234567-8', 2, GETDATE(), GETDATE()), 
+  ('90-12345678-9', 2, GETDATE(), GETDATE()), 
+  ('01-23456789-0', 6, GETDATE(), GETDATE()), 
+  ('12-34567890-1', 6, GETDATE(), GETDATE()), 
+  ('23-45678901-2', 1, GETDATE(), GETDATE()), 
+  ('34-56789012-3', 2, GETDATE(), GETDATE());
 
 INSERT INTO contact_details (
   first_name, last_name, phone, email, 
