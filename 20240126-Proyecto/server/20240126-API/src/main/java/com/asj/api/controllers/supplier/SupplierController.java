@@ -42,6 +42,7 @@ public class SupplierController {
 		try {
 			return ResponseEntity.ok(supplierService.getAllSuppliers());
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -57,6 +58,7 @@ public class SupplierController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -70,10 +72,11 @@ public class SupplierController {
 			}
 
 			SupplierModel createdSupplier = supplierService.createSupplier(supplier);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Supplier created successfully");
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdSupplier);
 		} catch (DataIntegrityViolationException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Supplier code already exists");
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -95,6 +98,7 @@ public class SupplierController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -110,6 +114,7 @@ public class SupplierController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -125,6 +130,7 @@ public class SupplierController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}

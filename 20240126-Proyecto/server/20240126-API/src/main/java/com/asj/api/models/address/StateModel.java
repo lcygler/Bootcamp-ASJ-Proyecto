@@ -8,6 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -22,19 +24,22 @@ public class StateModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@Column(nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
 	private String name;
 
-	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "country_id")
+	@JoinColumn(name = "country_id", nullable = false)
+	@NotNull
 	private CountryModel country;
 
 	@Column(name = "created_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime createdAt;
 
 	@Column(name = "updated_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime updatedAt;
 
 	public StateModel() {

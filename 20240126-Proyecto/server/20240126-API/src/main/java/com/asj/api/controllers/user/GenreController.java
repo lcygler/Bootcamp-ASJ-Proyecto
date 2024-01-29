@@ -41,6 +41,7 @@ public class GenreController {
 		try {
 			return ResponseEntity.ok(genreService.getAllGenres());
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -56,6 +57,7 @@ public class GenreController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -69,8 +71,9 @@ public class GenreController {
 			}
 
 			GenreModel createdGenre = genreService.createGenre(genre);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Genre created successfully");
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdGenre);
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -92,6 +95,7 @@ public class GenreController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -107,6 +111,7 @@ public class GenreController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -122,6 +127,7 @@ public class GenreController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}

@@ -41,6 +41,7 @@ public class StatusController {
 		try {
 			return ResponseEntity.ok(statusService.getAllStatuses());
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -56,6 +57,7 @@ public class StatusController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -69,8 +71,9 @@ public class StatusController {
 			}
 
 			StatusModel createdStatus = statusService.createStatus(status);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Status created successfully");
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdStatus);
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -92,6 +95,7 @@ public class StatusController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -107,6 +111,7 @@ public class StatusController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -122,6 +127,7 @@ public class StatusController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}

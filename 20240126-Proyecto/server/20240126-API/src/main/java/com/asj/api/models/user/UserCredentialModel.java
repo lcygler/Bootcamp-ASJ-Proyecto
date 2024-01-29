@@ -8,6 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -22,19 +24,22 @@ public class UserCredentialModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotNull
 	@OneToOne
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id", nullable = false)
+	@NotNull
 	private UserModel user;
 
+	@Column(nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
 	private String password;
 
 	@Column(name = "created_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime createdAt;
 
 	@Column(name = "updated_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime updatedAt;
 
 	public UserCredentialModel() {

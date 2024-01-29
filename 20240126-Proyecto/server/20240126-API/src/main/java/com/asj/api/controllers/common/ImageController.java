@@ -41,6 +41,7 @@ public class ImageController {
 		try {
 			return ResponseEntity.ok(imageService.getAllImages());
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -56,6 +57,7 @@ public class ImageController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -69,8 +71,9 @@ public class ImageController {
 			}
 
 			ImageModel createdImage = imageService.createImage(image);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Image created successfully");
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdImage);
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -92,6 +95,7 @@ public class ImageController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -107,6 +111,7 @@ public class ImageController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -122,6 +127,7 @@ public class ImageController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}

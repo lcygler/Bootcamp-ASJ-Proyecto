@@ -42,6 +42,7 @@ public class TaxInformationController {
 		try {
 			return ResponseEntity.ok(taxInformationService.getAllTaxInformation());
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -57,6 +58,7 @@ public class TaxInformationController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -71,10 +73,11 @@ public class TaxInformationController {
 			}
 
 			TaxInformationModel createdTaxInformation = taxInformationService.createTaxInformation(taxInformation);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Tax information created successfully");
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdTaxInformation);
 		} catch (DataIntegrityViolationException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: CUIT already exists");
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -97,6 +100,7 @@ public class TaxInformationController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -114,6 +118,7 @@ public class TaxInformationController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -129,6 +134,7 @@ public class TaxInformationController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}

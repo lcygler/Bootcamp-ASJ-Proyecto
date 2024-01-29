@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.asj.api.models.address.StateModel;
@@ -41,6 +42,7 @@ public class StateController {
 		try {
 			return ResponseEntity.ok(stateService.getAllStates());
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -56,6 +58,18 @@ public class StateController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
+			return ResponseEntity.internalServerError().build();
+		}
+	}
+	
+	@GetMapping(params = "countryId") // [GET] /states?countryId={id}
+	public ResponseEntity<List<StateModel>> getStatesByCountry(@RequestParam Integer countryId) {
+		try {
+			List<StateModel> states = stateService.getStatesByCountry(countryId);
+			return ResponseEntity.ok(states);
+		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -69,8 +83,9 @@ public class StateController {
 			}
 
 			StateModel createdState = stateService.createState(state);
-			return ResponseEntity.status(HttpStatus.CREATED).body("State created successfully");
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdState);
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -92,6 +107,7 @@ public class StateController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -107,6 +123,7 @@ public class StateController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -122,6 +139,7 @@ public class StateController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}

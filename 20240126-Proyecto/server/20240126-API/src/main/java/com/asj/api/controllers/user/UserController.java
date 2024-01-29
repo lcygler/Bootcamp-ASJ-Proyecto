@@ -42,6 +42,7 @@ public class UserController {
 		try {
 			return ResponseEntity.ok(userService.getAllUsers());
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -57,6 +58,7 @@ public class UserController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -70,10 +72,11 @@ public class UserController {
 			}
 
 			UserModel createdUser = userService.createUser(user);
-			return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully");
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
 		} catch (DataIntegrityViolationException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: User DNI already exists");
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -95,6 +98,7 @@ public class UserController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -110,6 +114,7 @@ public class UserController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -125,6 +130,7 @@ public class UserController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}

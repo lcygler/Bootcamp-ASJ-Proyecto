@@ -41,6 +41,7 @@ public class VatConditionController {
 		try {
 			return ResponseEntity.ok(vatConditionService.getAllVatConditions());
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -56,6 +57,7 @@ public class VatConditionController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -70,8 +72,9 @@ public class VatConditionController {
 			}
 
 			VatConditionModel createdVatCondition = vatConditionService.createVatCondition(vatCondition);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Vat condition created successfully");
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdVatCondition);
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -93,6 +96,7 @@ public class VatConditionController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -109,6 +113,7 @@ public class VatConditionController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -124,6 +129,7 @@ public class VatConditionController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}

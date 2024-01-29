@@ -8,6 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -22,32 +24,37 @@ public class AddressModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@Column(nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
 	private String street;
 
+	@Column(nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
 	private String number;
 
-	@Column(name = "postal_code")
+	@Column(name = "postal_code", nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
 	private String postalCode;
 
+	@Column(nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
 	private String city;
 
-	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "state_id")
+	@JoinColumn(name = "state_id", nullable = false)
+	@NotNull
 	private StateModel state;
 
 	@Column(name = "created_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime createdAt;
 
 	@Column(name = "updated_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime updatedAt;
 
 	public AddressModel() {

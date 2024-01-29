@@ -25,10 +25,11 @@ public class SupplierService {
 	}
 
 	public SupplierModel createSupplier(SupplierModel supplier) {
+		supplier.setCode(generateSupplierCode());
 		supplier.setCreatedAt(LocalDateTime.now());
 		supplier.setUpdatedAt(LocalDateTime.now());
 		supplier.setIsDeleted(false);
-		
+
 		return supplierRepository.save(supplier);
 	}
 
@@ -48,10 +49,6 @@ public class SupplierService {
 
 		if (optionalSupplier.isPresent()) {
 			SupplierModel existingSupplier = optionalSupplier.get();
-
-			if (supplier.getCode() != null) {
-				existingSupplier.setCode(supplier.getCode());
-			}
 
 			if (supplier.getBusinessName() != null) {
 				existingSupplier.setBusinessName(supplier.getBusinessName());
@@ -110,6 +107,20 @@ public class SupplierService {
 		}
 
 		return optionalSupplier;
+	}
+
+	public Integer getNextSupplierId() {
+		Integer maxSupplierId = supplierRepository.getMaxSupplierId();
+
+		if (maxSupplierId != null) {
+			return maxSupplierId + 1;
+		} else {
+			return 1;
+		}
+	}
+
+	private String generateSupplierCode() {
+		return "PROV-" + getNextSupplierId();
 	}
 
 }

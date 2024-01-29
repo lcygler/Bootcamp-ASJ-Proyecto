@@ -52,6 +52,7 @@ public class AddressController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -65,8 +66,9 @@ public class AddressController {
 			}
 
 			AddressModel createdAddress = addressService.createAddress(address);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Address created successfully");
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdAddress);
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -88,6 +90,7 @@ public class AddressController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -103,6 +106,7 @@ public class AddressController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -118,6 +122,7 @@ public class AddressController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}

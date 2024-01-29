@@ -41,6 +41,7 @@ public class RoleController {
 		try {
 			return ResponseEntity.ok(roleService.getAllRoles());
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -56,6 +57,7 @@ public class RoleController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -69,8 +71,9 @@ public class RoleController {
 			}
 
 			RoleModel createdRole = roleService.createRole(role);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Role created successfully");
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdRole);
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -92,6 +95,7 @@ public class RoleController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -107,6 +111,7 @@ public class RoleController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -122,6 +127,7 @@ public class RoleController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}

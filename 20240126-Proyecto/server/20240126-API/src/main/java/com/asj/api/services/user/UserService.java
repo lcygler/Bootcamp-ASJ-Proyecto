@@ -60,10 +60,6 @@ public class UserService {
 				existingUser.setDni(user.getDni());
 			}
 			
-			if (user.getDni() != null) {
-				existingUser.setDni(user.getDni());
-			}
-			
 			if (user.getEmail() != null) {
 				existingUser.setEmail(user.getEmail());
 			}

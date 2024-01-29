@@ -8,6 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -22,20 +24,22 @@ public class TaxInformationModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@Column(unique = true, nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
-	@Column(unique = true)
 	private String cuit;
 
-	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "vat_condition_id")
+	@JoinColumn(name = "vat_condition_id", nullable = false)
+	@NotNull
 	private VatConditionModel vatCondition;
 
 	@Column(name = "created_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime createdAt;
 
 	@Column(name = "updated_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime updatedAt;
 
 	public TaxInformationModel() {

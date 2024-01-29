@@ -41,6 +41,7 @@ public class ContactDetailController {
 		try {
 			return ResponseEntity.ok(contactDetailService.getAllContactDetails());
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -56,6 +57,7 @@ public class ContactDetailController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -70,8 +72,9 @@ public class ContactDetailController {
 			}
 
 			ContactDetailModel createdContactDetail = contactDetailService.createContactDetail(contactDetail);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Contact detail created successfully");
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdContactDetail);
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -94,6 +97,7 @@ public class ContactDetailController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -111,6 +115,7 @@ public class ContactDetailController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -126,6 +131,7 @@ public class ContactDetailController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}

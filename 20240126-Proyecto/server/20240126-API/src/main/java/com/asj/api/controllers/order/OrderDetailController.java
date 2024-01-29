@@ -42,6 +42,7 @@ public class OrderDetailController {
 		try {
 			return ResponseEntity.ok(orderDetailService.getAllOrderDetails());
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -51,6 +52,7 @@ public class OrderDetailController {
 		try {
 			return ResponseEntity.ok(orderDetailService.getOrderDetailsByOrder(orderId));
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -66,6 +68,7 @@ public class OrderDetailController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -80,8 +83,9 @@ public class OrderDetailController {
 			}
 
 			OrderDetailModel createdOrderDetail = orderDetailService.createOrderDetail(orderDetail);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Order detail created successfully");
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdOrderDetail);
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -103,6 +107,7 @@ public class OrderDetailController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -119,6 +124,7 @@ public class OrderDetailController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -134,6 +140,7 @@ public class OrderDetailController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}

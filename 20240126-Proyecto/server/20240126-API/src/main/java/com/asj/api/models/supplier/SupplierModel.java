@@ -9,6 +9,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -26,27 +28,31 @@ public class SupplierModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotBlank
+	@Column(unique = true, nullable = false, length = 255)
 	@Size(max = 255)
-	@Column(unique = true)
 	private String code;
 
+	@Column(name = "business_name", nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
-	@Column(name = "business_name")
 	private String businessName;
 
 	@ManyToOne
-	@JoinColumn(name = "industry_id")
+	@JoinColumn(name = "industry_id", nullable = false)
+	@NotNull
 	private IndustryModel industry;
 
+	@Column(nullable = false, length = 255)
+	@NotBlank
 	@Size(max = 255)
 	private String website;
 
+	@Column(nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
 	private String email;
 
+	@Column(nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
 	private String phone;
@@ -55,28 +61,30 @@ public class SupplierModel {
 	@JoinColumn(name = "image_id")
 	private ImageModel image;
 
-	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "address_id")
+	@JoinColumn(name = "address_id", nullable = false)
+	@NotNull
 	private AddressModel address;
 
-	@NotNull
 	@OneToOne
-	@JoinColumn(name = "tax_information_id")
+	@JoinColumn(name = "tax_information_id", nullable = false)
+	@NotNull
 	private TaxInformationModel taxInformation;
 
-	@NotNull
 	@OneToOne
-	@JoinColumn(name = "contact_detail_id")
+	@JoinColumn(name = "contact_detail_id", nullable = false)
+	@NotNull
 	private ContactDetailModel contactDetails;
 
 	@Column(name = "is_deleted")
 	private Boolean isDeleted;
 
 	@Column(name = "created_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime createdAt;
 
 	@Column(name = "updated_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime updatedAt;
 
 	public SupplierModel() {

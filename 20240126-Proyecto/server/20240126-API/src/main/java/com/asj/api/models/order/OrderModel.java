@@ -8,7 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -26,34 +27,34 @@ public class OrderModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotBlank
+	@Column(unique = true, nullable = false, length = 255)
 	@Size(max = 255)
-	@Column(unique = true)
 	private String number;
 
+	@Column(name = "issue_date", nullable = false)
 	@NotNull
-	@Column(name = "issue_date")
 	private LocalDateTime issueDate;
 
+	@Column(name = "delivery_date", nullable = false)
 	@NotNull
-	@Column(name = "delivery_date")
 	private LocalDateTime deliveryDate;
 
+	@Column(length = 255)
 	@Size(max = 255)
 	private String comments;
 	
+	@Column(nullable = false)
 	@NotNull
 	@Positive
 	private Double total;
 
-	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "status_id")
+	@JoinColumn(name = "status_id", nullable = false)
 	private StatusModel status;
 
-	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "supplier_id")
+	@JoinColumn(name = "supplier_id", nullable = false)
+	@NotNull
 	private SupplierModel supplier;
 
 	@ManyToOne
@@ -64,9 +65,11 @@ public class OrderModel {
 	private Boolean isDeleted;
 
 	@Column(name = "created_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime createdAt;
 
 	@Column(name = "updated_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime updatedAt;
 
 	public OrderModel() {

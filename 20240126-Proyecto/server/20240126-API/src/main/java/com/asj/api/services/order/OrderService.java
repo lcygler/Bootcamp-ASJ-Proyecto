@@ -15,6 +15,9 @@ public class OrderService {
 
 	@Autowired
 	OrderRepository orderRepository;
+	
+	@Autowired
+	StatusService statusService;
 
 	public List<OrderModel> getAllOrders() {
 		return orderRepository.findAll();
@@ -23,11 +26,14 @@ public class OrderService {
 	public Optional<OrderModel> getOrderById(Integer id) {
 		return orderRepository.findById(id);
 	}
-
+		
 	public OrderModel createOrder(OrderModel order) {
+		order.setNumber(generateOrderNumber());
+		order.setStatus(statusService.getStatusById(1).get());
 		order.setCreatedAt(LocalDateTime.now());
 		order.setUpdatedAt(LocalDateTime.now());
-
+		order.setIsDeleted(false);
+		
 		return orderRepository.save(order);
 	}
 
@@ -47,10 +53,6 @@ public class OrderService {
 
 		if (optionalOrder.isPresent()) {
 			OrderModel existingOrder = optionalOrder.get();
-
-			if (order.getNumber() != null) {
-				existingOrder.setNumber(order.getNumber());
-			}
 
 			if (order.getIssueDate() != null) {
 				existingOrder.setIssueDate(order.getIssueDate());
@@ -100,6 +102,20 @@ public class OrderService {
 		}
 
 		return optionalOrder;
+	}
+	
+	public Integer getNextOrderId() {
+		Integer maxOrderId = orderRepository.getMaxOrderId();
+
+		if (maxOrderId != null) {
+			return maxOrderId + 1;
+		} else {
+			return 1;
+		}
+	}
+
+	private String generateOrderNumber() {
+		return "OC-" + getNextOrderId();
 	}
 
 }

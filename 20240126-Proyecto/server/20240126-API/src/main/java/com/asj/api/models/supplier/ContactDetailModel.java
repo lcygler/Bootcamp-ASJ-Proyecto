@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -19,32 +21,37 @@ public class ContactDetailModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@Column(name = "first_name", nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
-	@Column(name = "first_name")
 	private String firstName;
 
+	@Column(name = "last_name", nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
-	@Column(name = "last_name")
 	private String lastName;
 
+	@Column(nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
 	private String phone;
 	
+	@Column(nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
 	private String email;
 	
+	@Column(nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
 	private String role;
 
 	@Column(name = "created_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime createdAt;
 
 	@Column(name = "updated_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime updatedAt;
 
 	public ContactDetailModel() {

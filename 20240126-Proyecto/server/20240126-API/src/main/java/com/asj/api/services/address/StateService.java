@@ -24,6 +24,10 @@ public class StateService {
 		return stateRepository.findById(id);
 	}
 
+	public List<StateModel> getStatesByCountry(Integer countryId) {
+		return stateRepository.findByCountryId(countryId);
+	}
+	
 	public StateModel createState(StateModel state) {
 		state.setCreatedAt(LocalDateTime.now());
 		state.setUpdatedAt(LocalDateTime.now());

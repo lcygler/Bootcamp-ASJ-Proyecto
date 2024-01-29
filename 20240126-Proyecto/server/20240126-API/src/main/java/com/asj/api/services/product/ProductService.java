@@ -16,6 +16,9 @@ public class ProductService {
 	@Autowired
 	ProductRepository productRepository;
 
+	@Autowired
+	CategoryService categoryService;
+
 	public List<ProductModel> getAllProducts() {
 		return productRepository.findAll();
 	}
@@ -29,6 +32,7 @@ public class ProductService {
 	}
 
 	public ProductModel createProduct(ProductModel product) {
+		product.setSku(generateProductSku());
 		product.setCreatedAt(LocalDateTime.now());
 		product.setUpdatedAt(LocalDateTime.now());
 		product.setIsDeleted(false);
@@ -60,10 +64,6 @@ public class ProductService {
 
 		if (optionalProduct.isPresent()) {
 			ProductModel existingProduct = optionalProduct.get();
-
-			if (product.getSku() != null) {
-				existingProduct.setSku(product.getSku());
-			}
 
 			if (product.getName() != null) {
 				existingProduct.setName(product.getName());
@@ -105,6 +105,20 @@ public class ProductService {
 		}
 
 		return optionalProduct;
+	}
+	
+	public Integer getNextProductId() {
+		Integer maxProductId = productRepository.getMaxProductId();
+
+		if (maxProductId != null) {
+			return maxProductId + 1;
+		} else {
+			return 1;
+		}
+	}
+
+	private String generateProductSku() {
+		return "SKU-" + getNextProductId();
 	}
 
 }

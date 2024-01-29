@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.asj.api.models.product.ProductModel;
 import com.asj.api.services.product.ProductService;
@@ -44,6 +43,7 @@ public class ProductController {
 		try {
 			return ResponseEntity.ok(productService.getAllProducts());
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -54,6 +54,7 @@ public class ProductController {
 			List<ProductModel> products = productService.getProductsBySupplier(supplierId);
 			return ResponseEntity.ok(products);
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -69,6 +70,7 @@ public class ProductController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -82,12 +84,12 @@ public class ProductController {
 			}
 
 			ProductModel createdProduct = productService.createProduct(product);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Product created successfully");
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
 		} catch (DataIntegrityViolationException e) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Product SKU already exists");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Order number already exists");
 		} catch (Exception e) {
 			// e.printStackTrace();
-			// System.out.println(e.getMessage());
+			System.out.println("Error: " + e.getMessage());
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -107,11 +109,12 @@ public class ProductController {
 				return ResponseEntity.ok(optionalProduct.get());
 			} else {
 				return ResponseEntity.notFound().build();
-				// return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+//				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
 			return ResponseEntity.internalServerError().build();
-			// return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
+//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
 		}
 	}
 
@@ -126,6 +129,7 @@ public class ProductController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -141,6 +145,7 @@ public class ProductController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
 			return ResponseEntity.internalServerError().build();
 		}
 	}

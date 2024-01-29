@@ -41,6 +41,7 @@ public class UserCredentialController {
 		try {
 			return ResponseEntity.ok(userCredentialService.getAllUserCredentials());
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -56,6 +57,7 @@ public class UserCredentialController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -70,8 +72,9 @@ public class UserCredentialController {
 			}
 
 			UserCredentialModel createdUserCredential = userCredentialService.createUserCredential(userCredential);
-			return ResponseEntity.status(HttpStatus.CREATED).body("User credential created successfully");
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdUserCredential);
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -94,6 +97,7 @@ public class UserCredentialController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -111,6 +115,7 @@ public class UserCredentialController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -126,6 +131,7 @@ public class UserCredentialController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage()); 
 			return ResponseEntity.internalServerError().build();
 		}
 	}

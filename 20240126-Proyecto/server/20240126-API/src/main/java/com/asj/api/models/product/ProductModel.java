@@ -9,6 +9,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -27,19 +29,21 @@ public class ProductModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotBlank
+	@Column(unique = true, nullable = false, length = 255)
 	@Size(max = 255)
-	@Column(unique = true)
 	private String sku;
 
+	@Column(nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
 	private String name;
 
+	@Column(nullable = false, length = 255)
 	@NotBlank
 	@Size(max = 255)
 	private String description;
 
+	@Column(nullable = false)
 	@NotNull
 	@Positive
 	private Double price;
@@ -48,23 +52,25 @@ public class ProductModel {
 	@JoinColumn(name = "image_id")
 	private ImageModel image;
 
-	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "category_id")
+	@JoinColumn(name = "category_id", nullable = false)
+	@NotNull
 	private CategoryModel category;
 
-	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "supplier_id")
+	@JoinColumn(name = "supplier_id", nullable = false)
+	@NotNull
 	private SupplierModel supplier;
 
 	@Column(name = "is_deleted")
 	private Boolean isDeleted;
 
 	@Column(name = "created_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime createdAt;
 
 	@Column(name = "updated_at")
+	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime updatedAt;
 
 	public ProductModel() {

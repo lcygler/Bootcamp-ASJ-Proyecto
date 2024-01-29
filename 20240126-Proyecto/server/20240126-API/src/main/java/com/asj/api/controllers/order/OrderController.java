@@ -47,6 +47,7 @@ public class OrderController {
 		try {
 			return ResponseEntity.ok(orderService.getAllOrders());
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -62,6 +63,7 @@ public class OrderController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -72,6 +74,7 @@ public class OrderController {
 			List<OrderDetailModel> orderDetails = orderDetailService.getOrderDetailsByOrder(id);
 			return ResponseEntity.ok(orderDetails);
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -85,10 +88,11 @@ public class OrderController {
 			}
 
 			OrderModel createdOrder = orderService.createOrder(order);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Order created successfully");
+			return ResponseEntity.status(HttpStatus.CREATED).body(createdOrder);
 		} catch (DataIntegrityViolationException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Order number already exists");
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -110,6 +114,7 @@ public class OrderController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -125,6 +130,7 @@ public class OrderController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -140,6 +146,7 @@ public class OrderController {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
 			return ResponseEntity.internalServerError().build();
 		}
 	}

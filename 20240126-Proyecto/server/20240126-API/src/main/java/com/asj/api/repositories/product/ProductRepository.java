@@ -15,4 +15,6 @@ public interface ProductRepository extends JpaRepository<ProductModel, Integer>{
 	@Query(value = "SELECT * FROM products WHERE id = %:productId%", nativeQuery = true)
 	ProductModel getProductById(@Param("productId") Integer productId);
 	
+	@Query(value = "SELECT MAX(id) FROM products", nativeQuery = true)
+    Integer getMaxProductId();
 }
