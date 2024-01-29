@@ -1,0 +1,14 @@
+.btn-edit {
+  border-color: #393e46;
+  color: #393e46;
+}
+
+.btn-edit:hover {
+  background-color: #393e46;
+  color: white;
+}
+
+.inactive-order {
+  color: #999;
+  text-decoration: line-through;
+}
