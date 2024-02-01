@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
@@ -23,12 +24,13 @@ public class ImageModel {
 
 	@Column(nullable = false, length = 255)
 	@NotBlank(message = "URL cannot be blank")
+	@Pattern(message = "URL is not valid", regexp = "^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$")
 	@Size(max = 255, message = "URL must be less than {max} characters")
 	private String url;
 
 	@Column(name = "is_deleted")
 	private Boolean isDeleted;
-	
+
 	@Column(name = "created_at")
 	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime createdAt;
@@ -71,7 +73,7 @@ public class ImageModel {
 	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
-	
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}

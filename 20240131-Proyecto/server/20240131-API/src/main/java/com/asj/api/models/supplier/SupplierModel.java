@@ -46,7 +46,7 @@ public class SupplierModel {
 
 	@Column(nullable = false, length = 255)
 	@NotBlank(message = "Website cannot be blank")
-	@Pattern(message = "Website is not valid", regexp = "(https:\\/\\/www\\.|http:\\/\\/www\\.|https:\\/\\/|http:\\/\\/)?[a-zA-Z0-9]{2,}(\\.[a-zA-Z0-9]{2,})(\\.[a-zA-Z0-9]{2,})?")
+	@Pattern(message = "Website is not valid", regexp = "^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$")
 	@Size(max = 255, message = "Website must be less than {max} characters")
 	private String website;
 

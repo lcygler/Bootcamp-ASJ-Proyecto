@@ -36,6 +36,9 @@ export class ProductsFormComponent implements OnInit {
   productId: number | null = null;
   isEditView: boolean = false;
 
+  placeholder: string =
+    'https://res.cloudinary.com/dadsbmqwh/image/upload/v1706757607/asj/products/product-placeholder_mpyyog.png';
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -97,7 +100,7 @@ export class ProductsFormComponent implements OnInit {
     };
 
     const image: Image = {
-      url: formData.image,
+      url: formData.image || this.placeholder,
     };
 
     if (this.isEditRoute()) {

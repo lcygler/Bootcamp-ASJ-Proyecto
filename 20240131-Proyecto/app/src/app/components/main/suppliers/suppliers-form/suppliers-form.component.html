@@ -127,6 +127,62 @@
                   </div>
                 </div>
               </div>
+
+              <div class="row">
+                <!-- Logo -->
+                <div class="col-md-12">
+                  <div class="mb-3">
+                    <label for="image" class="form-label">Logo</label>
+                    <div class="d-flex align-items-center">
+                      <div class="input-group">
+                        <span class="input-group-text">
+                          <span class="material-icons" style="font-size: 16px">
+                            link
+                          </span>
+                        </span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="image"
+                          name="image"
+                          [ngClass]="{
+                          'is-invalid': image.touched && image.errors,
+                          'is-valid': supplier.image!.url && image.touched && !image.errors,
+                        }"
+                          [(ngModel)]="supplier.image!.url"
+                          #image="ngModel"
+                          pattern="^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$"
+                          maxlength="255"
+                        />
+                      </div>
+                      <div *ngIf="supplier.image!.url" class="ms-2">
+                        <img
+                          src="{{ supplier.image!.url }}"
+                          class="img-fluid rounded image-zoom"
+                          alt="..."
+                          style="object-fit: contain; width: 47px; height: 100%"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="image.touched && image.errors?.['pattern']"
+                      class="col-auto"
+                    >
+                      <span class="form-text text-danger"
+                        >Ingrese una URL válida</span
+                      >
+                    </div>
+                    <div
+                      *ngIf="image.touched && image.errors?.['maxlength']"
+                      class="col-auto"
+                    >
+                      <span class="form-text text-danger"
+                        >La URL no debe superar los 255 caracteres</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
             </fieldset>
           </div>
 
@@ -271,7 +327,7 @@
                         [(ngModel)]="supplier.website"
                         #website="ngModel"
                         required
-                        pattern="(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,})?"
+                        pattern="^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$"
                         maxlength="255"
                       />
                     </div>

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Country } from 'src/app/models/address/ICountry';
 import { State } from 'src/app/models/address/IState';
+import { Image } from 'src/app/models/common/IImage';
 import { Industry } from 'src/app/models/supplier/IIndustry';
 import { Supplier } from 'src/app/models/supplier/ISupplier';
 import { VatCondition } from 'src/app/models/supplier/IVatCondition';
@@ -12,6 +13,7 @@ import { VatCondition } from 'src/app/models/supplier/IVatCondition';
 import { AddressService } from 'src/app/services/address/address.service';
 import { CountryService } from 'src/app/services/address/country.service';
 import { StateService } from 'src/app/services/address/state.service';
+import { ImageService } from 'src/app/services/common/image.service';
 import { ToastService } from 'src/app/services/common/toast.service';
 import { ContactDetailService } from 'src/app/services/supplier/contact-detail.service';
 import { IndustryService } from 'src/app/services/supplier/industry.service';
@@ -32,6 +34,7 @@ export class SuppliersFormComponent implements OnInit {
     website: '',
     email: '',
     phone: '',
+    image: {},
     address: {
       state: {
         country: {},
@@ -55,6 +58,9 @@ export class SuppliersFormComponent implements OnInit {
   newContactDetailId: number | null = null;
   isEditView: boolean = false;
 
+  placeholder: string =
+    'https://res.cloudinary.com/dadsbmqwh/image/upload/v1706758794/asj/suppliers/supplier-placeholder_zhufia.png';
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -67,7 +73,8 @@ export class SuppliersFormComponent implements OnInit {
     private vatConditionService: VatConditionService,
     private contactDetailService: ContactDetailService,
     private industryService: IndustryService,
-    private location: Location
+    private location: Location,
+    private imageService: ImageService
   ) {}
 
   ngOnInit() {
@@ -155,6 +162,10 @@ export class SuppliersFormComponent implements OnInit {
       contactDetails: {},
     };
 
+    const image: Image = {
+      url: formData.image || this.placeholder,
+    };
+
     if (this.isEditRoute()) {
       // Update address
       this.addressService
@@ -180,22 +191,32 @@ export class SuppliersFormComponent implements OnInit {
                 .subscribe((res) => {
                   this.newContactDetailId = res.id!;
 
-                  // Update supplier
-                  supplier.address = { id: this.newAddressId! };
-                  supplier.taxInformation = { id: this.newTaxInformationId! };
-                  supplier.contactDetails = { id: this.newContactDetailId };
-
-                  this.supplierService
-                    .updateSupplier(this.supplierId!, supplier)
+                  // Update logo
+                  this.imageService
+                    .updateImage(this.supplier.image?.id!, image)
                     .subscribe((res) => {
-                      this.toastService.showSuccessToast(
-                        'Proveedor modificado correctamente!'
-                      );
-                      form.reset();
-                      this.newAddressId = null;
-                      this.newTaxInformationId = null;
-                      this.newContactDetailId = null;
-                      this.navigateToSuppliers();
+                      // Update supplier
+                      supplier.address = { id: this.newAddressId! };
+                      supplier.taxInformation = {
+                        id: this.newTaxInformationId!,
+                      };
+                      supplier.contactDetails = {
+                        id: this.newContactDetailId!,
+                      };
+                      supplier.image = { id: res.id };
+
+                      this.supplierService
+                        .updateSupplier(this.supplierId!, supplier)
+                        .subscribe((res) => {
+                          this.toastService.showSuccessToast(
+                            'Proveedor modificado correctamente!'
+                          );
+                          form.reset();
+                          this.newAddressId = null;
+                          this.newTaxInformationId = null;
+                          this.newContactDetailId = null;
+                          this.navigateToSuppliers();
+                        });
                     });
                 });
             });
@@ -217,23 +238,27 @@ export class SuppliersFormComponent implements OnInit {
               .subscribe((res) => {
                 this.newContactDetailId = res.id!;
 
-                // Add supplier
-                supplier.address = { id: this.newAddressId! };
-                supplier.taxInformation = { id: this.newTaxInformationId! };
-                supplier.contactDetails = { id: this.newContactDetailId };
+                // Add image
+                this.imageService.createImage(image).subscribe((res) => {
+                  supplier.address = { id: this.newAddressId! };
+                  supplier.taxInformation = { id: this.newTaxInformationId! };
+                  supplier.contactDetails = { id: this.newContactDetailId! };
+                  supplier.image = { id: res.id };
 
-                this.supplierService
-                  .createSupplier(supplier)
-                  .subscribe((res) => {
-                    this.toastService.showSuccessToast(
-                      'Proveedor agregado correctamente!'
-                    );
-                    form.reset();
-                    this.newAddressId = null;
-                    this.newTaxInformationId = null;
-                    this.newContactDetailId = null;
-                    this.navigateToSuppliers();
-                  });
+                  // Add supplier
+                  this.supplierService
+                    .createSupplier(supplier)
+                    .subscribe((res) => {
+                      this.toastService.showSuccessToast(
+                        'Proveedor agregado correctamente!'
+                      );
+                      form.reset();
+                      this.newAddressId = null;
+                      this.newTaxInformationId = null;
+                      this.newContactDetailId = null;
+                      this.navigateToSuppliers();
+                    });
+                });
               });
           });
       });

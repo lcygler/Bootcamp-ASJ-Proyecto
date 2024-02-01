@@ -172,34 +172,37 @@
                 <!-- Imagen -->
                 <div class="col-md-12">
                   <div class="mb-3">
-                    <label for="image" class="form-label"> Imagen </label>
-                    <div class="input-group">
-                      <span class="input-group-text">
-                        <span class="material-icons" style="font-size: 16px">
-                          link
+                    <label for="image" class="form-label">Imagen</label>
+                    <div class="d-flex align-items-center">
+                      <div class="input-group">
+                        <span class="input-group-text">
+                          <span class="material-icons" style="font-size: 16px">
+                            link
+                          </span>
                         </span>
-                      </span>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="image"
-                        name="image"
-                        [ngClass]="{
-                                    'is-invalid': image.touched && image.errors,
-                                    'is-valid': image.touched && !image.errors,
-                                  }"
-                        [(ngModel)]="product.image!.url"
-                        #image="ngModel"
-                        required
-                        pattern="(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,})?"
-                        maxlength="255"
-                      />
-                    </div>
-                    <div
-                      *ngIf="image.touched && image.errors?.['required']"
-                      class="col-auto"
-                    >
-                      <span class="form-text text-danger">Ingrese una URL</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="image"
+                          name="image"
+                          [ngClass]="{
+                          'is-invalid': image.touched && image.errors,
+                          'is-valid': product.image!.url && image.touched && !image.errors,
+                        }"
+                          [(ngModel)]="product.image!.url"
+                          #image="ngModel"
+                          pattern="^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$"
+                          maxlength="255"
+                        />
+                      </div>
+                      <div *ngIf="product.image!.url" class="ms-2">
+                        <img
+                          src="{{ product.image!.url }}"
+                          class="img-fluid rounded image-zoom"
+                          alt="..."
+                          style="object-fit: contain; width: 47px; height: 100%"
+                        />
+                      </div>
                     </div>
                     <div
                       *ngIf="image.touched && image.errors?.['pattern']"
