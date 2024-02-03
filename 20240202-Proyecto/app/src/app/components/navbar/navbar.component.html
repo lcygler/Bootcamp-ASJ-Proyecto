@@ -2,7 +2,7 @@
   <div class="container-fluid mx-2">
     <a class="navbar-brand" routerLink="/home">
       <img
-        src="../../../assets/img/logo.png"
+        src="../../../assets/img/logo/logo.png"
         alt="Logo"
         style="max-height: 35px"
       />
@@ -21,22 +21,17 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <!-- Home -->
-        <!-- <li class="nav-item me-2">
+        <li class="nav-item me-2">
           <a
             class="nav-link d-flex align-items-center hover-effect"
             aria-current="page"
-            routerLink="/"
-            [ngClass]="{ 'active active-link': isCurrentRoute('/') }"
+            routerLink="/home"
+            [ngClass]="{ 'active active-link': isCurrentRoute('/home') }"
           >
-            <span
-              class="material-icons"
-              style="font-size: 16px; margin-right: 10px"
-            >
-              home
-            </span>
+            <fa-icon [icon]="faHouse" style="margin-right: 10px"></fa-icon>
             Inicio
           </a>
-        </li> -->
+        </li>
 
         <!-- Suppliers -->
         <li class="nav-item me-2">
@@ -45,12 +40,6 @@
             routerLink="/suppliers"
             [ngClass]="{ 'active active-link': isCurrentRoute('/suppliers') }"
           >
-            <!-- <span
-              class="material-icons"
-              style="font-size: 16px; margin-right: 10px"
-            >
-              supervisor_account
-            </span> -->
             <fa-icon [icon]="faUsers" style="margin-right: 10px"></fa-icon>
             Proveedores
           </a>
@@ -63,12 +52,6 @@
             routerLink="/products"
             [ngClass]="{ 'active active-link': isCurrentRoute('/products') }"
           >
-            <!-- <span
-              class="material-icons"
-              style="font-size: 16px; margin-right: 10px"
-            >
-              inventory_2
-            </span> -->
             <fa-icon [icon]="faTags" style="margin-right: 10px"></fa-icon>
             Productos
           </a>
@@ -81,18 +64,12 @@
             routerLink="/orders"
             [ngClass]="{ 'active active-link': isCurrentRoute('/orders') }"
           >
-            <!-- <span
-              class="material-icons"
-              style="font-size: 16px; margin-right: 10px"
-            >
-              shopping_cart
-            </span> -->
             <fa-icon [icon]="faFileLines" style="margin-right: 10px"></fa-icon>
             Ordenes
           </a>
         </li>
 
-        <!-- Panel -->
+        <!-- Management -->
         <li class="nav-item me-2">
           <a
             class="nav-link d-flex align-items-center hover-effect"

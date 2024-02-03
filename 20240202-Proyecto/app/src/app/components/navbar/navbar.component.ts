@@ -4,6 +4,7 @@ import {
   faBuilding,
   faFileLines,
   faGear,
+  faHouse,
   faTags,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
@@ -19,6 +20,7 @@ export class NavbarComponent {
   faTags = faTags;
   faFileLines = faFileLines;
   faGear = faGear;
+  faHouse = faHouse;
 
   constructor(private router: Router) {}
 

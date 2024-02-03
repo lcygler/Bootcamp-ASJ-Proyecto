@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AboutComponent } from './components/main/about/about.component';
 import { HomeComponent } from './components/main/home/home.component';
 import { ManagementComponent } from './components/main/management/management.component';
 import { OrdersFormComponent } from './components/main/orders/orders-form/orders-form.component';
@@ -42,7 +41,6 @@ const managementRoutes: Routes = [
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'about', component: AboutComponent },
   { path: 'suppliers', children: suppliersRoutes },
   { path: 'products', children: productsRoutes },
   { path: 'orders', children: ordersRoutes },

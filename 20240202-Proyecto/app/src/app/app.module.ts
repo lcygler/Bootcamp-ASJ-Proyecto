@@ -7,7 +7,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { AboutComponent } from './components/main/about/about.component';
 import { MainComponent } from './components/main/main.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
@@ -21,6 +20,10 @@ import { DeleteModalComponent } from './components/shared/modals/delete-modal/de
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from './components/main/home/home.component';
+import { ManagementComponent } from './components/main/management/management.component';
+import { OrdersDetailComponent } from './components/main/orders/orders-detail/orders-detail.component';
+import { ProductsDetailComponent } from './components/main/products/products-detail/products-detail.component';
+import { SuppliersDetailComponent } from './components/main/suppliers/suppliers-detail/suppliers-detail.component';
 import { CategoryFilterPipe } from './pipes/filter/category-filter.pipe';
 import { DeleteFilterPipe } from './pipes/filter/delete-filter.pipe';
 import { SearchFilterPipe } from './pipes/filter/search-filter.pipe';
@@ -29,10 +32,6 @@ import { SlicePipe } from './pipes/slice.pipe';
 import { LocationSortPipe } from './pipes/sort/location-sort.pipe';
 import { PriceSortPipe } from './pipes/sort/price-sort.pipe';
 import { SupplierSortPipe } from './pipes/sort/supplier-sort.pipe';
-import { OrdersDetailComponent } from './components/main/orders/orders-detail/orders-detail.component';
-import { ProductsDetailComponent } from './components/main/products/products-detail/products-detail.component';
-import { SuppliersDetailComponent } from './components/main/suppliers/suppliers-detail/suppliers-detail.component';
-import { ManagementComponent } from './components/main/management/management.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +39,6 @@ import { ManagementComponent } from './components/main/management/management.com
     MainComponent,
     NavbarComponent,
     FooterComponent,
-    AboutComponent,
     SuppliersFormComponent,
     SuppliersListComponent,
     ProductsFormComponent,
