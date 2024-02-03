@@ -72,7 +72,7 @@ export class OrdersFormComponent implements OnInit {
     private statusService: StatusService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     const id = this.route.snapshot.paramMap.get('orderId');
 
     if (id) {

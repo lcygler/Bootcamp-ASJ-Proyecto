@@ -4,5 +4,24 @@
 
 .card:hover {
   cursor: pointer;
-  transform: scale(1.05);
+  transform: scale(1.03);
+}
+
+.custom-btn {
+  border: 1px solid #393e46;
+}
+
+.custom-btn:hover {
+  background-color: #393e46;
+  color: white;
+}
+
+.custom-btn-fill {
+  background-color: #393e46;
+  color: white;
+}
+
+.custom-btn-fill:hover {
+  background-color: #494e56;
+  color: white;
 }
