@@ -54,6 +54,7 @@ export class OrdersFormComponent implements OnInit {
   selectedProductId: number | null = null;
   selectedQuantity: number | null = null;
   productToDeleteId: number | null = null;
+  selectedProductPrice: number | null = null;
   supplierImageUrl: string = '';
   productImageUrl: string = '';
   deleteMessage: string = '';
@@ -251,6 +252,7 @@ export class OrdersFormComponent implements OnInit {
           this.isSupplierSelectDisabled = true;
           this.selectedProductId = null;
           this.selectedQuantity = null;
+          this.selectedProductPrice = null;
           this.productImageUrl = '';
         }
       });
@@ -284,6 +286,7 @@ export class OrdersFormComponent implements OnInit {
   resetForm(form: NgForm) {
     this.selectedSupplierId = null;
     this.selectedProductId = null;
+    this.selectedProductPrice = null;
     this.selectedQuantity = null;
     this.isSupplierSelectDisabled = false;
     this.orderDetailList = [];
@@ -323,6 +326,7 @@ export class OrdersFormComponent implements OnInit {
     }
 
     this.productImageUrl = '';
+    this.selectedProductPrice = null;
   }
 
   onProductChange(selectedProductId: number) {
@@ -333,13 +337,16 @@ export class OrdersFormComponent implements OnInit {
 
       if (selectedProduct) {
         this.productImageUrl = selectedProduct.image?.url!;
+        this.selectedProductPrice = selectedProduct.price;
       } else {
         this.productImageUrl = '';
+        this.selectedProductPrice = null;
       }
 
       this.selectedQuantity = 1;
     } else {
       this.productImageUrl = '';
+      this.selectedProductPrice = null;
     }
   }
 

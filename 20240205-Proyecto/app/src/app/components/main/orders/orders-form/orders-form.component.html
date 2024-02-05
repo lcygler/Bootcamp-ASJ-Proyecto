@@ -372,6 +372,12 @@
                       </div>
                     </div>
 
+                    <div *ngIf="selectedProductPrice" class="col-auto mt-1">
+                      <span class="form-text">
+                        {{ "Precio: " + (selectedProductPrice | currency) }}
+                      </span>
+                    </div>
+
                     <div
                       *ngIf="product.touched && !selectedSupplierId"
                       class="col-auto"
