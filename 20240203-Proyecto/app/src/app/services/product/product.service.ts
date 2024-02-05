@@ -14,11 +14,7 @@ export class ProductService {
 
   public getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.API_URL}`).pipe(
-      map((products) =>
-        products
-          // .filter((product) => !product.isDeleted)
-          .sort((a, b) => a.name.localeCompare(b.name))
-      ),
+      map((products) => products.sort((a, b) => a.name.localeCompare(b.name))),
       catchError((error) => {
         console.error('Error fetching product list:', error);
         return throwError(() => error);

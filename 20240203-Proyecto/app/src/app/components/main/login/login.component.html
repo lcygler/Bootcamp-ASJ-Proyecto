@@ -1,0 +1,131 @@
+<div class="container m-4" style="width: 35vw">
+  <!-- Form -->
+  <div class="row m-4">
+    <form #UserForm="ngForm" (ngSubmit)="onSubmit(UserForm)">
+      <div class="row my-3">
+        <fieldset>
+          <legend class="mb-3">Iniciar sesión</legend>
+
+          <!-- Email -->
+          <div class="col-md">
+            <div class="mb-3">
+              <label for="email" class="form-label">
+                Email <span class="text-danger">*</span>
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="email"
+                name="email"
+                [ngClass]="{
+                    'is-invalid': email.touched && (email.errors || !isValid),
+                    'is-valid': email.touched && !email.errors,
+                  }"
+                [(ngModel)]="user.email"
+                #email="ngModel"
+                required
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                maxlength="255"
+              />
+              <div
+                *ngIf="email.touched && email.errors?.['required']"
+                class="col-auto"
+              >
+                <span class="form-text text-danger">Ingrese un email</span>
+              </div>
+              <div
+                *ngIf="email.touched && email.errors?.['pattern']"
+                class="col-auto"
+              >
+                <span class="form-text text-danger"
+                  >Ingrese un email válido</span
+                >
+              </div>
+              <div
+                *ngIf="email.touched && email.errors?.['maxlength']"
+                class="col-auto"
+              >
+                <span class="form-text text-danger"
+                  >El email no debe superar los 255 caracteres</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="col-md">
+            <div class="mb-3">
+              <label for="password" class="form-label">
+                Contraseña <span class="text-danger">*</span>
+              </label>
+              <div class="input-group">
+                <input
+                  type="{{ showPassword ? 'text' : 'password' }}"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  [ngClass]="{
+                  'is-invalid': password.touched && (password.errors || !isValid),
+                  'is-valid': password.touched && !password.errors,
+                }"
+                  [(ngModel)]="user.password"
+                  #password="ngModel"
+                  required
+                  minlength="8"
+                  maxlength="255"
+                />
+                <div class="input-group-append">
+                  <button
+                    type="button"
+                    class="input-group-text"
+                    style="text-decoration: none"
+                    (click)="toggleShowPassword()"
+                  >
+                    {{ showPassword ? "Ocultar" : "Mostrar" }}
+                  </button>
+                </div>
+              </div>
+              <div
+                *ngIf="password.touched && password.errors?.['required']"
+                class="col-auto"
+              >
+                <span class="form-text text-danger"
+                  >Ingrese una contraseña</span
+                >
+              </div>
+              <div
+                *ngIf="password.touched && password.errors?.['minlength']"
+                class="col-auto"
+              >
+                <span class="form-text text-danger"
+                  >La contraseña debe tener al menos 8 caracteres</span
+                >
+              </div>
+              <div
+                *ngIf="password.touched && password.errors?.['maxlength']"
+                class="col-auto"
+              >
+                <span class="form-text text-danger"
+                  >La contraseña no debe superar los 255 caracteres</span
+                >
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="row">
+        <!-- Acciones -->
+        <div class="d-flex justify-content-center">
+          <button
+            type="submit"
+            class="btn custom-btn-fill"
+            [disabled]="UserForm.invalid"
+          >
+            Iniciar sesión
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

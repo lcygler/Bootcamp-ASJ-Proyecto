@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './components/main/home/home.component';
+import { LoginComponent } from './components/main/login/login.component';
 import { ManagementComponent } from './components/main/management/management.component';
 import { OrdersFormComponent } from './components/main/orders/orders-form/orders-form.component';
 import { OrdersListComponent } from './components/main/orders/orders-list/orders-list.component';
@@ -11,6 +12,7 @@ import { ProductsListComponent } from './components/main/products/products-list/
 import { SuppliersDetailComponent } from './components/main/suppliers/suppliers-detail/suppliers-detail.component';
 import { SuppliersFormComponent } from './components/main/suppliers/suppliers-form/suppliers-form.component';
 import { SuppliersListComponent } from './components/main/suppliers/suppliers-list/suppliers-list.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const suppliersRoutes: Routes = [
   { path: '', component: SuppliersListComponent },
@@ -40,11 +42,12 @@ const managementRoutes: Routes = [
 ];
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'suppliers', children: suppliersRoutes },
-  { path: 'products', children: productsRoutes },
-  { path: 'orders', children: ordersRoutes },
-  { path: 'management', children: managementRoutes },
+  { path: 'home', canActivate: [AuthGuard], component: HomeComponent },
+  { path: 'suppliers', canActivate: [AuthGuard], children: suppliersRoutes },
+  { path: 'products', canActivate: [AuthGuard], children: productsRoutes },
+  { path: 'orders', canActivate: [AuthGuard], children: ordersRoutes },
+  { path: 'management', canActivate: [AuthGuard], children: managementRoutes },
+  { path: 'login', component: LoginComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
 ];
 

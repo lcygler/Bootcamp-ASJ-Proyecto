@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { UserDTO } from 'src/app/models/user/IUserDTO';
 import { User } from '../../models/user/IUser';
 
 @Injectable({
@@ -25,6 +26,15 @@ export class UserService {
     return this.http.get<User>(`${this.API_URL}/${id}`).pipe(
       catchError((error) => {
         console.error('Error fetching user by ID:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  public loginUser(user: UserDTO): Observable<User> {
+    return this.http.post<User>(`${this.API_URL}/login`, user).pipe(
+      catchError((error) => {
+        console.error('Error logging user:', error);
         return throwError(() => error);
       })
     );

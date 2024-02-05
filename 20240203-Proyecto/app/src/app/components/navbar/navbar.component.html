@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
   <div class="container-fluid mx-2">
-    <a class="navbar-brand" routerLink="/home">
+    <a class="navbar-brand">
       <img
         src="../../../assets/img/logo/logo.png"
         alt="Logo"
@@ -21,7 +21,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <!-- Home -->
-        <li class="nav-item me-2">
+        <li class="nav-item me-2" *ngIf="isAuthenticated()">
           <a
             class="nav-link d-flex align-items-center hover-effect"
             aria-current="page"
@@ -34,7 +34,7 @@
         </li>
 
         <!-- Suppliers -->
-        <li class="nav-item me-2">
+        <li class="nav-item me-2" *ngIf="isAuthenticated()">
           <a
             class="nav-link d-flex align-items-center hover-effect"
             routerLink="/suppliers"
@@ -46,7 +46,7 @@
         </li>
 
         <!-- Products -->
-        <li class="nav-item me-2">
+        <li class="nav-item me-2" *ngIf="isAuthenticated()">
           <a
             class="nav-link d-flex align-items-center hover-effect"
             routerLink="/products"
@@ -58,7 +58,7 @@
         </li>
 
         <!-- Orders -->
-        <li class="nav-item me-2">
+        <li class="nav-item me-2" *ngIf="isAuthenticated()">
           <a
             class="nav-link d-flex align-items-center hover-effect"
             routerLink="/orders"
@@ -70,7 +70,7 @@
         </li>
 
         <!-- Management -->
-        <li class="nav-item me-2">
+        <li class="nav-item me-2" *ngIf="isAuthenticated()">
           <a
             class="nav-link d-flex align-items-center hover-effect"
             routerLink="/management"
