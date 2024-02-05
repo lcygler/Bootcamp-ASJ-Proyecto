@@ -1,0 +1,114 @@
+<div class="container m-4" style="width: 100vw">
+  <div class="row" style="margin-top: 35px">
+    <div class="d-flex justify-content-center align-items-center">
+      <h2 class="text-center me-4">Sistema de Gestión de Compras</h2>
+      <img src="../../../../assets/img/logo/logo.png" style="width: 200px" />
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 35px">
+    <div class="card-group">
+      <!-- Suppliers -->
+      <div class="col-md d-flex justify-content-center align-items-center">
+        <div class="card" style="width: 20rem" routerLink="/suppliers">
+          <img
+            src="../../../../assets/img/home/suppliers/suppliers.jpg"
+            class="card-img-top"
+            alt="..."
+            style="height: 250px; object-fit: cover"
+          />
+          <div class="card-body d-flex flex-column align-items-center">
+            <h5 class="card-title my-2">
+              Proveedores
+              <span
+                class="badge text-bg-secondary ms-2"
+                style="padding: 10px 15px"
+              >
+                {{ supplierList.length }}
+                <fa-icon [icon]="faUsers" style="margin-left: 10px"></fa-icon>
+              </span>
+            </h5>
+
+            <div class="d-flex my-2">
+              <a routerLink="/suppliers/add" class="btn custom-btn me-2">
+                Nuevo
+              </a>
+              <a routerLink="/suppliers" class="btn custom-btn-fill">
+                Ver listado
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products -->
+      <div class="col-md d-flex justify-content-center align-items-center">
+        <div class="card" style="width: 20rem" routerLink="/products">
+          <img
+            src="../../../../assets/img/home/products/products.jpg"
+            class="card-img-top"
+            alt="..."
+            style="height: 250px; object-fit: cover"
+          />
+          <div class="card-body d-flex flex-column align-items-center">
+            <h5 class="card-title my-2">
+              Productos
+              <span
+                class="badge text-bg-secondary ms-2"
+                style="padding: 10px 15px"
+              >
+                {{ productList.length }}
+                <fa-icon [icon]="faTags" style="margin-left: 10px"></fa-icon>
+              </span>
+            </h5>
+
+            <div class="d-flex my-2">
+              <a routerLink="/products/add" class="btn custom-btn me-2">
+                Nuevo
+              </a>
+              <a routerLink="/products" class="btn custom-btn-fill">
+                Ver listado
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orders -->
+      <div class="col-md d-flex justify-content-center align-items-center">
+        <div class="card" style="width: 20rem" routerLink="/orders">
+          <img
+            src="../../../../assets/img/home/orders/orders.jpg"
+            class="card-img-top"
+            alt="..."
+            style="height: 250px; object-fit: cover"
+          />
+          <div class="card-body d-flex flex-column align-items-center">
+            <h5 class="card-title my-2">
+              Ordenes
+              <span
+                class="badge text-bg-secondary ms-2"
+                style="padding: 10px 15px"
+              >
+                {{ orderList.length }}
+                <fa-icon
+                  [icon]="faFileLines"
+                  style="margin-left: 10px"
+                ></fa-icon>
+              </span>
+            </h5>
+
+            <div class="d-flex my-2">
+              <a routerLink="/orders/add" class="btn me-2 custom-btn">
+                Nuevo
+              </a>
+              <a routerLink="/orders" class="btn custom-btn-fill">
+                Ver listado
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
