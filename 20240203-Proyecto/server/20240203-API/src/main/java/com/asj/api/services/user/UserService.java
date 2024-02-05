@@ -11,6 +11,7 @@ import com.asj.api.exceptions.AssociatedEntitiesException;
 import com.asj.api.exceptions.EntityNotFoundException;
 import com.asj.api.exceptions.InvalidIdentifierException;
 import com.asj.api.exceptions.UniqueViolationException;
+import com.asj.api.models.user.UserCredentialModel;
 import com.asj.api.models.user.UserModel;
 import com.asj.api.repositories.user.UserCredentialRepository;
 import com.asj.api.repositories.user.UserRepository;
@@ -48,6 +49,16 @@ public class UserService {
 		return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
 	}
 
+	public UserModel getUserByEmail(String email) {
+		UserModel user = userRepository.findByEmail(email);
+
+		if (user == null) {
+			throw new EntityNotFoundException("User not found");
+		}
+
+		return user;
+	}
+
 	@Transactional
 	public UserModel createUser(UserModel user) {
 		if (!isDniUnique(user.getDni())) {
@@ -65,7 +76,7 @@ public class UserService {
 		user.setCreatedAt(LocalDateTime.now());
 		user.setUpdatedAt(LocalDateTime.now());
 		user.setIsDeleted(false);
-		
+
 		UserModel createdUser = userRepository.save(user);
 		entityManager.refresh(createdUser);
 
@@ -205,6 +216,27 @@ public class UserService {
 		if (!roleService.isIdValid(id)) {
 			throw new InvalidIdentifierException("Role is not valid");
 		}
+	}
+
+	public boolean validateUserCredentials(String email, String password) {
+		UserModel user = userRepository.findByEmail(email);
+
+		if (user != null) {
+			String storedPassword = getPasswordByUserId(user.getId());
+			return password.equals(storedPassword);
+		}
+
+		return false;
+	}
+
+	public String getPasswordByUserId(Integer userId) {
+		UserCredentialModel userCredential = userCredentialRepository.findByUserId(userId);
+
+		if (userCredential != null) {
+			return userCredential.getPassword();
+		}
+
+		return null;
 	}
 
 }

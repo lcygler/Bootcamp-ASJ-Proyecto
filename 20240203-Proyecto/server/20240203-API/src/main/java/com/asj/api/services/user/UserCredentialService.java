@@ -43,7 +43,7 @@ public class UserCredentialService {
 		userCredential.setCreatedAt(LocalDateTime.now());
 		userCredential.setUpdatedAt(LocalDateTime.now());
 		userCredential.setIsDeleted(false);
-		
+
 		UserCredentialModel createdUserCredential = userCredentialRepository.save(userCredential);
 		entityManager.refresh(createdUserCredential);
 
@@ -105,4 +105,5 @@ public class UserCredentialService {
 			throw new InvalidIdentifierException("User is not valid");
 		}
 	}
+
 }

@@ -5,31 +5,23 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+
 public class ValidationErrorResponse {
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-	private static final Map<Integer, String> STATUS_CODES = new HashMap<>();
-
-	static {
-		STATUS_CODES.put(400, "Bad Request");
-		STATUS_CODES.put(401, "Unauthorized");
-		STATUS_CODES.put(403, "Forbidden");
-		STATUS_CODES.put(404, "Not Found");
-		STATUS_CODES.put(409, "Conflict");
-		STATUS_CODES.put(500, "Internal Server Error");
-	}
 
 	private String timestamp;
-	private int statusCode;
-	private String status;
+	private int status;
+	private String error;
 	private String message;
-	private Map<String, String> errors;
+	private Map<String, String> fieldErrors;
 
-	public ValidationErrorResponse(int statusCode, String message, Map<String, String> errors) {
+	public ValidationErrorResponse(int status, String message, Map<String, String> fieldErrors) {
 		this.timestamp = LocalDateTime.now().format(FORMATTER);
-		this.statusCode = statusCode;
-		this.status = STATUS_CODES.getOrDefault(statusCode, "Unknown Error");
+		this.status = status;
+		this.error = HttpStatus.valueOf(status).getReasonPhrase();
 		this.message = message;
-		this.errors = errors;
+		this.fieldErrors = fieldErrors;
 	}
 
 	public String getTimestamp() {
@@ -40,20 +32,20 @@ public class ValidationErrorResponse {
 		this.timestamp = timestamp;
 	}
 
-	public int getStatusCode() {
-		return statusCode;
-	}
-
-	public void setStatusCode(int statusCode) {
-		this.statusCode = statusCode;
-	}
-
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
 	}
 
 	public String getMessage() {
@@ -64,18 +56,18 @@ public class ValidationErrorResponse {
 		this.message = message;
 	}
 
-	public Map<String, String> getErrors() {
-		return errors;
+	public Map<String, String> getFieldErrors() {
+		return fieldErrors;
 	}
 
-	public void setErrors(Map<String, String> errors) {
-		this.errors = errors;
+	public void setFieldErrors(Map<String, String> fieldErrors) {
+		this.fieldErrors = fieldErrors;
 	}
 
 	@Override
 	public String toString() {
-		return "ValidationErrorResponse [timestamp=" + timestamp + ", statusCode=" + statusCode + ", status=" + status
-				+ ", message=" + message + ", errors=" + errors + "]";
+		return "ValidationErrorResponse [timestamp=" + timestamp + ", status=" + status + ", error=" + error
+				+ ", message=" + message + ", fieldErrors=" + fieldErrors + "]";
 	}
 
 }

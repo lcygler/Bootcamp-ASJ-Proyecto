@@ -18,6 +18,8 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 
 	boolean existsByEmailAndIdNot(String email, Integer id);
 	
+	UserModel findByEmail(String email);
+	
 	@Query(value = "SELECT COUNT(*) FROM users u WHERE u.genre_id = :id", nativeQuery = true)
 	int countByGenre(@Param("id") Integer id);
 	

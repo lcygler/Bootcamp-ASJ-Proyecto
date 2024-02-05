@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.asj.api.dto.UserDTO;
 import com.asj.api.exceptions.AssociatedEntitiesException;
+import com.asj.api.exceptions.InvalidCredentialsException;
 import com.asj.api.exceptions.InvalidIdentifierException;
 import com.asj.api.exceptions.UniqueViolationException;
 import com.asj.api.exceptions.ValidationErrorException;
@@ -62,6 +64,23 @@ public class UserController {
 
 		UserModel createdUser = userService.createUser(user);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+	}
+
+	@PostMapping("/login")
+	public ResponseEntity<UserModel> loginUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
+			throw new ValidationErrorException(errors);
+		}
+		
+		boolean isValidCredentials = userService.validateUserCredentials(userDTO.getEmail(), userDTO.getPassword());
+
+		if (!isValidCredentials) {
+			throw new InvalidCredentialsException("Invalid credentials");
+		}
+
+		UserModel user = userService.getUserByEmail(userDTO.getEmail());
+		return ResponseEntity.ok(user);
 	}
 
 	@PutMapping("/{id}")
