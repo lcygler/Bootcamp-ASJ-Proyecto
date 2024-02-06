@@ -44,7 +44,7 @@ export class LoginComponent {
       (res) => {
         this.isValid = true;
         this.showErrorMessage = false;
-        this.toastService.showSuccessToast('Inicio de sesión correcto!');
+        this.toastService.showSuccessToast('Inicio de sesión exitoso!');
         this.authService.login();
         this.router.navigate(['/home']);
       },

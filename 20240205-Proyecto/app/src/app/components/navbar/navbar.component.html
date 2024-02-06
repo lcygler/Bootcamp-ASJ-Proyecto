@@ -82,19 +82,34 @@
         </li>
 
         <!-- Login -->
-        <li class="nav-item me-2" *ngIf="isAuthenticated()">
-          <a
-            class="nav-link btn d-flex align-items-center hover-effect"
-            (click)="confirmLogout()"
-            data-bs-toggle="modal"
-            data-bs-target="#logoutModal"
-          >
-            <fa-icon
-              [icon]="faRightToBracket"
-              style="margin-right: 10px"
-            ></fa-icon>
-            Cerrar sesión
-          </a>
+        <li class="nav-item" *ngIf="isAuthenticated()">
+          <div class="dropdown">
+            <button
+              class="btn dropdown-toggle custom-dropdown"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <fa-icon [icon]="faUser" style="margin-right: 10px"></fa-icon>
+              Perfil
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a
+                  class="nav-link btn d-flex align-items-center hover-effect"
+                  (click)="confirmLogout()"
+                  data-bs-toggle="modal"
+                  data-bs-target="#logoutModal"
+                >
+                  <fa-icon
+                    [icon]="faRightToBracket"
+                    style="margin-right: 10px"
+                  ></fa-icon>
+                  Cerrar sesión
+                </a>
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
     </div>

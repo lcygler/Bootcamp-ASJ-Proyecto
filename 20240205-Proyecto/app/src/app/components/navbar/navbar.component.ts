@@ -7,6 +7,7 @@ import {
   faHouse,
   faRightToBracket,
   faTags,
+  faUser,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -26,6 +27,7 @@ export class NavbarComponent {
   faGear = faGear;
   faHouse = faHouse;
   faRightToBracket = faRightToBracket;
+  faUser = faUser;
 
   constructor(private router: Router, private authService: AuthService) {}
 

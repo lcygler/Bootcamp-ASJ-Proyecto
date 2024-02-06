@@ -7,3 +7,8 @@
 .active-link {
   border: 1px solid #393e46;
 }
+
+.custom-dropdown {
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+}
