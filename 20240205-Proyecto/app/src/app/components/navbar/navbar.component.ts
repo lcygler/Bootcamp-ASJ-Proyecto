@@ -35,6 +35,10 @@ export class NavbarComponent {
     return route === this.router.url;
   }
 
+  isRouteActive(route: string): boolean {
+    return this.router.url.includes(route);
+  }
+
   isAuthenticated() {
     return this.authService.isAuthenticated();
   }

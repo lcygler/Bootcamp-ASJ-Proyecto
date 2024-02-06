@@ -3,16 +3,46 @@
   <div class="row">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
+        <!-- Home -->
         <li class="breadcrumb-item"><a routerLink="/home">Inicio</a></li>
+
+        <!-- Management -->
         <li
           class="breadcrumb-item active"
           aria-current="page"
-          *ngIf="!isCategoryEdit && !isIndustryEdit"
+          *ngIf="!isCategoryRoute() && !isIndustryRoute()"
         >
           Gestión
         </li>
-        <li class="breadcrumb-item" *ngIf="isCategoryEdit || isIndustryEdit">
+        <li
+          class="breadcrumb-item"
+          *ngIf="isCategoryRoute() || isIndustryRoute()"
+        >
           <a routerLink="/management">Gestión</a>
+        </li>
+
+        <!-- List -->
+        <li
+          class="breadcrumb-item"
+          *ngIf="isCategoryRoute() && !isCategoryEdit"
+          [ngClass]="{ active: isCategoryRoute() }"
+        >
+          Categorías
+        </li>
+        <li
+          class="breadcrumb-item"
+          *ngIf="isIndustryRoute() && !isIndustryEdit"
+          [ngClass]="{ active: isIndustryRoute() }"
+        >
+          Rubros
+        </li>
+
+        <!-- Edit -->
+        <li class="breadcrumb-item" *ngIf="isCategoryEdit">
+          <a routerLink="/management/categories">Categorías</a>
+        </li>
+        <li class="breadcrumb-item" *ngIf="isIndustryEdit">
+          <a routerLink="/management/industries">Rubros</a>
         </li>
         <li
           class="breadcrumb-item active"
@@ -25,10 +55,35 @@
     </nav>
   </div>
 
-  <div class="container mt-3" style="width: 75vw">
-    <div class="row d-flex">
+  <!-- Nav Tabs -->
+  <div class="container mt-3" style="width: 60%">
+    <div class="row">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            aria-current="page"
+            routerLink="/management/categories"
+            [ngClass]="{ active: isCategoryRoute() }"
+            >Categorías</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/management/industries"
+            [ngClass]="{ active: isIndustryRoute() }"
+            >Rubros</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container mt-5" style="width: 100%">
+    <div class="row d-flex justify-content-center">
       <!-- Categorías -->
-      <div class="col-md-6" style="padding-right: 50px">
+      <div class="col-md-6" *ngIf="isCategoryRoute()">
         <!-- Title -->
         <div class="row">
           <h2 class="mb-4">Categorías</h2>
@@ -199,7 +254,7 @@
       </div>
 
       <!-- Rubros -->
-      <div class="col-md-6">
+      <div class="col-md-6" *ngIf="isIndustryRoute()">
         <!-- Title -->
         <div class="row">
           <h2 class="mb-4">Rubros</h2>

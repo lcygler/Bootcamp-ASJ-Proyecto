@@ -36,9 +36,11 @@ const ordersRoutes: Routes = [
 ];
 
 const managementRoutes: Routes = [
-  { path: '', component: ManagementComponent },
+  { path: 'categories', component: ManagementComponent },
   { path: 'categories/:id', component: ManagementComponent },
+  { path: 'industries', component: ManagementComponent },
   { path: 'industries/:id', component: ManagementComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'categories' },
 ];
 
 const routes: Routes = [
