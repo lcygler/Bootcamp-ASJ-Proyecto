@@ -1,7 +1,6 @@
 package com.asj.api.controllers.address;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asj.api.exceptions.ValidationErrorException;
 import com.asj.api.models.address.AddressModel;
 import com.asj.api.services.address.AddressService;
 import com.asj.api.utils.ValidationUtils;
@@ -51,11 +49,7 @@ public class AddressController {
 	@PostMapping
 	public ResponseEntity<AddressModel> createAddress(@Valid @RequestBody AddressModel address,
 			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		AddressModel createdAddress = addressService.createAddress(address);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdAddress);
 	}
@@ -63,17 +57,15 @@ public class AddressController {
 	@PutMapping("/{id}")
 	public ResponseEntity<AddressModel> updateAddress(@PathVariable Integer id,
 			@Valid @RequestBody AddressModel address, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		AddressModel updatedAddress = addressService.updateAddress(id, address);
 		return ResponseEntity.ok(updatedAddress);
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<Object> patchAddress(@PathVariable Integer id, @RequestBody AddressModel address) {
+	public ResponseEntity<Object> patchAddress(@PathVariable Integer id, @Valid @RequestBody AddressModel address,
+			BindingResult bindingResult) {
+		ValidationUtils.handlePartialErrors(bindingResult, address);
 		AddressModel patchedAddress = addressService.patchAddress(id, address);
 		return ResponseEntity.ok(patchedAddress);
 	}

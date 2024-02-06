@@ -176,13 +176,13 @@ public class OrderService {
 
 	private void validateStatus(Integer id) {
 		if (!statusService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Status is not valid");
+			throw new InvalidIdentifierException("Status ID is not valid");
 		}
 	}
 
 	private void validateSupplier(Integer id) {
 		if (!supplierService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Supplier is not valid");
+			throw new InvalidIdentifierException("Supplier ID is not valid");
 		}
 	}
 

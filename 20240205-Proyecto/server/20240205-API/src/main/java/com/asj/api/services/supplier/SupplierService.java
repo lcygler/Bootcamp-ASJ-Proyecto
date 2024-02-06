@@ -224,31 +224,31 @@ public class SupplierService {
 
 	private void validateIndustry(Integer id) {
 		if (!industryService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Industry is not valid");
+			throw new InvalidIdentifierException("Industry ID is not valid");
 		}
 	}
 
 	private void validateImage(Integer id) {
 		if (!imageService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Image is not valid");
+			throw new InvalidIdentifierException("Image ID is not valid");
 		}
 	}
 
 	private void validateAddress(Integer id) {
 		if (!addressService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Address is not valid");
+			throw new InvalidIdentifierException("Address ID is not valid");
 		}
 	}
 
 	private void validateTaxInformation(Integer id) {
 		if (!taxInformationService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Tax information is not valid");
+			throw new InvalidIdentifierException("Tax information ID is not valid");
 		}
 	}
 
 	private void validateContactDetails(Integer id) {
 		if (!contactDetailService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Contact detail is not valid");
+			throw new InvalidIdentifierException("Contact detail ID is not valid");
 		}
 	}
 

@@ -1,7 +1,6 @@
 package com.asj.api.controllers.supplier;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asj.api.exceptions.ValidationErrorException;
 import com.asj.api.models.supplier.IndustryModel;
 import com.asj.api.services.supplier.IndustryService;
 import com.asj.api.utils.ValidationUtils;
@@ -51,11 +49,7 @@ public class IndustryController {
 	@PostMapping
 	public ResponseEntity<IndustryModel> createIndustry(@Valid @RequestBody IndustryModel industry,
 			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		IndustryModel createdIndustry = industryService.createIndustry(industry);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdIndustry);
 	}
@@ -63,17 +57,15 @@ public class IndustryController {
 	@PutMapping("/{id}")
 	public ResponseEntity<IndustryModel> updateIndustry(@PathVariable Integer id,
 			@Valid @RequestBody IndustryModel industry, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		IndustryModel updatedIndustry = industryService.updateIndustry(id, industry);
 		return ResponseEntity.ok(updatedIndustry);
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<IndustryModel> patchIndustry(@PathVariable Integer id, @RequestBody IndustryModel industry) {
+	public ResponseEntity<IndustryModel> patchIndustry(@PathVariable Integer id,
+			@Valid @RequestBody IndustryModel industry, BindingResult bindingResult) {
+		ValidationUtils.handlePartialErrors(bindingResult, industry);
 		IndustryModel patchedIndustry = industryService.patchIndustry(id, industry);
 		return ResponseEntity.ok(patchedIndustry);
 	}

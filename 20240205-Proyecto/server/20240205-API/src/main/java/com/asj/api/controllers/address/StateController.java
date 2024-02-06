@@ -1,7 +1,6 @@
 package com.asj.api.controllers.address;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asj.api.exceptions.ValidationErrorException;
 import com.asj.api.models.address.StateModel;
 import com.asj.api.services.address.StateService;
 import com.asj.api.utils.ValidationUtils;
@@ -57,11 +55,7 @@ public class StateController {
 
 	@PostMapping
 	public ResponseEntity<StateModel> createState(@Valid @RequestBody StateModel state, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		StateModel createdState = stateService.createState(state);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdState);
 	}
@@ -69,17 +63,15 @@ public class StateController {
 	@PutMapping("/{id}")
 	public ResponseEntity<StateModel> updateState(@PathVariable Integer id, @Valid @RequestBody StateModel state,
 			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		StateModel updatedState = stateService.updateState(id, state);
 		return ResponseEntity.ok(updatedState);
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<StateModel> patchState(@PathVariable Integer id, @RequestBody StateModel state) {
+	public ResponseEntity<StateModel> patchState(@PathVariable Integer id, @Valid @RequestBody StateModel state,
+			BindingResult bindingResult) {
+		ValidationUtils.handlePartialErrors(bindingResult, state);
 		StateModel patchedState = stateService.patchState(id, state);
 		return ResponseEntity.ok(patchedState);
 	}

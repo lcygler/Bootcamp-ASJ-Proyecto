@@ -1,7 +1,6 @@
 package com.asj.api.controllers.user;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asj.api.exceptions.ValidationErrorException;
 import com.asj.api.models.user.UserCredentialModel;
 import com.asj.api.services.user.UserCredentialService;
 import com.asj.api.utils.ValidationUtils;
@@ -51,11 +49,7 @@ public class UserCredentialController {
 	@PostMapping
 	public ResponseEntity<UserCredentialModel> createUserCredential(
 			@Valid @RequestBody UserCredentialModel userCredential, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		UserCredentialModel createdUserCredential = userCredentialService.createUserCredential(userCredential);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdUserCredential);
 	}
@@ -63,18 +57,15 @@ public class UserCredentialController {
 	@PutMapping("/{id}")
 	public ResponseEntity<UserCredentialModel> updateUserCredential(@PathVariable Integer id,
 			@Valid @RequestBody UserCredentialModel userCredential, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		UserCredentialModel updatedUserCredential = userCredentialService.updateUserCredential(id, userCredential);
 		return ResponseEntity.ok(updatedUserCredential);
 	}
 
 	@PatchMapping("/{id}")
 	public ResponseEntity<UserCredentialModel> patchUserCredential(@PathVariable Integer id,
-			@RequestBody UserCredentialModel userCredential) {
+			@Valid @RequestBody UserCredentialModel userCredential, BindingResult bindingResult) {
+		ValidationUtils.handlePartialErrors(bindingResult, userCredential);
 		UserCredentialModel patchedUserCredential = userCredentialService.patchUserCredential(id, userCredential);
 		return ResponseEntity.ok(patchedUserCredential);
 	}

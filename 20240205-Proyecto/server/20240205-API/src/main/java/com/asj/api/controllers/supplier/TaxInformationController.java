@@ -1,7 +1,6 @@
 package com.asj.api.controllers.supplier;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asj.api.exceptions.ValidationErrorException;
 import com.asj.api.models.supplier.TaxInformationModel;
 import com.asj.api.services.supplier.TaxInformationService;
 import com.asj.api.utils.ValidationUtils;
@@ -51,11 +49,7 @@ public class TaxInformationController {
 	@PostMapping
 	public ResponseEntity<TaxInformationModel> createTaxInformation(
 			@Valid @RequestBody TaxInformationModel taxInformation, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		TaxInformationModel createdTaxInformation = taxInformationService.createTaxInformation(taxInformation);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdTaxInformation);
 	}
@@ -63,18 +57,15 @@ public class TaxInformationController {
 	@PutMapping("/{id}")
 	public ResponseEntity<TaxInformationModel> updateTaxInformation(@PathVariable Integer id,
 			@Valid @RequestBody TaxInformationModel taxInformation, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		TaxInformationModel updatedTaxInformation = taxInformationService.updateTaxInformation(id, taxInformation);
 		return ResponseEntity.ok(updatedTaxInformation);
 	}
 
 	@PatchMapping("/{id}")
 	public ResponseEntity<TaxInformationModel> patchTaxInformation(@PathVariable Integer id,
-			@RequestBody TaxInformationModel taxInformation) {
+			@Valid @RequestBody TaxInformationModel taxInformation, BindingResult bindingResult) {
+		ValidationUtils.handlePartialErrors(bindingResult, taxInformation);
 		TaxInformationModel patchedTaxInformation = taxInformationService.patchTaxInformation(id, taxInformation);
 		return ResponseEntity.ok(patchedTaxInformation);
 	}

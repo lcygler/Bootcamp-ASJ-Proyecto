@@ -1,7 +1,6 @@
 package com.asj.api.controllers.order;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asj.api.exceptions.ValidationErrorException;
 import com.asj.api.models.order.OrderDetailModel;
 import com.asj.api.services.order.OrderDetailService;
 import com.asj.api.utils.ValidationUtils;
@@ -58,11 +56,7 @@ public class OrderDetailController {
 	@PostMapping
 	public ResponseEntity<OrderDetailModel> createOrderDetail(@Valid @RequestBody OrderDetailModel orderDetail,
 			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		OrderDetailModel createdOrderDetail = orderDetailService.createOrderDetail(orderDetail);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdOrderDetail);
 	}
@@ -70,11 +64,7 @@ public class OrderDetailController {
 	@PostMapping("/bulk-create")
 	public ResponseEntity<List<OrderDetailModel>> createOrderDetails(
 			@Valid @RequestBody List<OrderDetailModel> orderDetails, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		List<OrderDetailModel> createdOrderDetails = orderDetailService.createOrderDetails(orderDetails);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdOrderDetails);
 	}
@@ -82,18 +72,15 @@ public class OrderDetailController {
 	@PutMapping("/{id}")
 	public ResponseEntity<OrderDetailModel> updateOrderDetail(@PathVariable Integer id,
 			@Valid @RequestBody OrderDetailModel orderDetail, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		OrderDetailModel updatedOrderDetail = orderDetailService.updateOrderDetail(id, orderDetail);
 		return ResponseEntity.ok(updatedOrderDetail);
 	}
 
 	@PatchMapping("/{id}")
 	public ResponseEntity<OrderDetailModel> patchOrderDetail(@PathVariable Integer id,
-			@RequestBody OrderDetailModel orderDetail) {
+			@Valid @RequestBody OrderDetailModel orderDetail, BindingResult bindingResult) {
+		ValidationUtils.handlePartialErrors(bindingResult, orderDetail);
 		OrderDetailModel patchedOrderDetail = orderDetailService.patchOrderDetail(id, orderDetail);
 		return ResponseEntity.ok(patchedOrderDetail);
 	}

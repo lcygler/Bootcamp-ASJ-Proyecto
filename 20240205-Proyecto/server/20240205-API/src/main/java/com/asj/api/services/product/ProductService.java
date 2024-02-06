@@ -193,19 +193,19 @@ public class ProductService {
 
 	private void validateCategory(Integer id) {
 		if (!categoryService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Category is not valid");
+			throw new InvalidIdentifierException("Category ID is not valid");
 		}
 	}
 
 	private void validateImage(Integer id) {
 		if (!imageService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Image is not valid");
+			throw new InvalidIdentifierException("Image ID is not valid");
 		}
 	}
 
 	private void validateSupplier(Integer id) {
 		if (!supplierService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Supplier is not valid");
+			throw new InvalidIdentifierException("Supplier ID is not valid");
 		}
 	}
 

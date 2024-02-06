@@ -1,7 +1,6 @@
 package com.asj.api.controllers.order;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asj.api.exceptions.ValidationErrorException;
 import com.asj.api.models.order.StatusModel;
 import com.asj.api.services.order.StatusService;
 import com.asj.api.utils.ValidationUtils;
@@ -51,29 +49,23 @@ public class StatusController {
 	@PostMapping
 	public ResponseEntity<StatusModel> createStatus(@Valid @RequestBody StatusModel status,
 			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		StatusModel createdStatus = statusService.createStatus(status);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdStatus);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<StatusModel> updateStatus(@PathVariable Integer id,
-			@Valid @RequestBody StatusModel status, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+	public ResponseEntity<StatusModel> updateStatus(@PathVariable Integer id, @Valid @RequestBody StatusModel status,
+			BindingResult bindingResult) {
+		ValidationUtils.handleErrors(bindingResult);
 		StatusModel updatedStatus = statusService.updateStatus(id, status);
 		return ResponseEntity.ok(updatedStatus);
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<StatusModel> patchStatus(@PathVariable Integer id, @RequestBody StatusModel status) {
+	public ResponseEntity<StatusModel> patchStatus(@PathVariable Integer id, @Valid @RequestBody StatusModel status,
+			BindingResult bindingResult) {
+		ValidationUtils.handlePartialErrors(bindingResult, status);
 		StatusModel patchedStatus = statusService.patchStatus(id, status);
 		return ResponseEntity.ok(patchedStatus);
 	}

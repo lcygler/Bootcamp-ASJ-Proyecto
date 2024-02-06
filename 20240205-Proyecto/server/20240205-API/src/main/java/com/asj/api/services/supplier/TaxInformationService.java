@@ -53,7 +53,7 @@ public class TaxInformationService {
 		taxInformation.setCreatedAt(LocalDateTime.now());
 		taxInformation.setUpdatedAt(LocalDateTime.now());
 		taxInformation.setIsDeleted(false);
-		
+
 		TaxInformationModel createdTaxInformation = taxInformationRepository.save(taxInformation);
 		entityManager.refresh(createdTaxInformation);
 
@@ -136,7 +136,7 @@ public class TaxInformationService {
 
 	private void validateVatCondition(Integer id) {
 		if (!vatConditionService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Vat condition is not valid");
+			throw new InvalidIdentifierException("Vat condition ID is not valid");
 		}
 	}
 

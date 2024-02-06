@@ -119,7 +119,7 @@ public class StateService {
 
 	private void validateCountry(Integer id) {
 		if (!countryService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Country is not valid");
+			throw new InvalidIdentifierException("Country ID is not valid");
 		}
 	}
 

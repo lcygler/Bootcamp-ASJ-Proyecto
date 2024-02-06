@@ -127,7 +127,7 @@ public class AddressService {
 
 	private void validateState(Integer id) {
 		if (!stateService.isIdValid(id)) {
-			throw new InvalidIdentifierException("State is not valid");
+			throw new InvalidIdentifierException("State ID is not valid");
 		}
 	}
 

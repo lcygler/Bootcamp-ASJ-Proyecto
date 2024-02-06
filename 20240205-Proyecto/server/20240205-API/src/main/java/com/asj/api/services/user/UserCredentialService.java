@@ -102,7 +102,7 @@ public class UserCredentialService {
 
 	private void validateUser(Integer id) {
 		if (!userService.isIdValid(id)) {
-			throw new InvalidIdentifierException("User is not valid");
+			throw new InvalidIdentifierException("User ID is not valid");
 		}
 	}
 

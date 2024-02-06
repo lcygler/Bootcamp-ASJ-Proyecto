@@ -1,7 +1,6 @@
 package com.asj.api.controllers.address;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asj.api.exceptions.ValidationErrorException;
 import com.asj.api.models.address.CountryModel;
 import com.asj.api.services.address.CountryService;
 import com.asj.api.utils.ValidationUtils;
@@ -51,11 +49,7 @@ public class CountryController {
 	@PostMapping
 	public ResponseEntity<CountryModel> createCountry(@Valid @RequestBody CountryModel country,
 			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		CountryModel createdCountry = countryService.createCountry(country);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdCountry);
 	}
@@ -63,17 +57,15 @@ public class CountryController {
 	@PutMapping("/{id}")
 	public ResponseEntity<CountryModel> updateCountry(@PathVariable Integer id,
 			@Valid @RequestBody CountryModel country, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		CountryModel updatedCountry = countryService.updateCountry(id, country);
 		return ResponseEntity.ok(updatedCountry);
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<CountryModel> patchCountry(@PathVariable Integer id, @RequestBody CountryModel country) {
+	public ResponseEntity<CountryModel> patchCountry(@PathVariable Integer id, @Valid @RequestBody CountryModel country,
+			BindingResult bindingResult) {
+		ValidationUtils.handlePartialErrors(bindingResult, country);
 		CountryModel patchedCountry = countryService.patchCountry(id, country);
 		return ResponseEntity.ok(patchedCountry);
 	}

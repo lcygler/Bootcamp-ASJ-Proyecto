@@ -1,7 +1,6 @@
 package com.asj.api.controllers.supplier;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asj.api.exceptions.ValidationErrorException;
 import com.asj.api.models.supplier.SupplierModel;
 import com.asj.api.services.supplier.SupplierService;
 import com.asj.api.utils.ValidationUtils;
@@ -57,11 +55,7 @@ public class SupplierController {
 	@PostMapping
 	public ResponseEntity<SupplierModel> createSupplier(@Valid @RequestBody SupplierModel supplier,
 			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		SupplierModel createdSupplier = supplierService.createSupplier(supplier);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdSupplier);
 	}
@@ -69,17 +63,15 @@ public class SupplierController {
 	@PutMapping("/{id}")
 	public ResponseEntity<SupplierModel> updateSupplier(@PathVariable Integer id,
 			@Valid @RequestBody SupplierModel supplier, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		SupplierModel updatedSupplier = supplierService.updateSupplier(id, supplier);
 		return ResponseEntity.ok(updatedSupplier);
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<SupplierModel> patchSupplier(@PathVariable Integer id, @RequestBody SupplierModel supplier) {
+	public ResponseEntity<SupplierModel> patchSupplier(@PathVariable Integer id,
+			@Valid @RequestBody SupplierModel supplier, BindingResult bindingResult) {
+		ValidationUtils.handlePartialErrors(bindingResult, supplier);
 		SupplierModel patchedSupplier = supplierService.patchSupplier(id, supplier);
 		return ResponseEntity.ok(patchedSupplier);
 	}

@@ -1,7 +1,6 @@
 package com.asj.api.controllers.product;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asj.api.exceptions.ValidationErrorException;
 import com.asj.api.models.product.ProductModel;
 import com.asj.api.services.product.ProductService;
 import com.asj.api.utils.ValidationUtils;
@@ -64,11 +62,7 @@ public class ProductController {
 	@PostMapping
 	public ResponseEntity<ProductModel> createProduct(@Valid @RequestBody ProductModel product,
 			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		ProductModel createdProduct = productService.createProduct(product);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
 	}
@@ -76,17 +70,15 @@ public class ProductController {
 	@PutMapping("/{id}")
 	public ResponseEntity<ProductModel> updateProduct(@PathVariable Integer id,
 			@Valid @RequestBody ProductModel product, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		ProductModel updatedProduct = productService.updateProduct(id, product);
 		return ResponseEntity.ok(updatedProduct);
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<ProductModel> patchProduct(@PathVariable Integer id, @RequestBody ProductModel product) {
+	public ResponseEntity<ProductModel> patchProduct(@PathVariable Integer id, @Valid @RequestBody ProductModel product,
+			BindingResult bindingResult) {
+		ValidationUtils.handlePartialErrors(bindingResult, product);
 		ProductModel patchedProduct = productService.patchProduct(id, product);
 		return ResponseEntity.ok(patchedProduct);
 	}

@@ -1,7 +1,6 @@
 package com.asj.api.controllers.user;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asj.api.exceptions.ValidationErrorException;
 import com.asj.api.models.user.GenreModel;
 import com.asj.api.services.user.GenreService;
 import com.asj.api.utils.ValidationUtils;
@@ -50,11 +48,7 @@ public class GenreController {
 
 	@PostMapping
 	public ResponseEntity<GenreModel> createGenre(@Valid @RequestBody GenreModel genre, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		GenreModel createdGenre = genreService.createGenre(genre);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdGenre);
 	}
@@ -62,17 +56,15 @@ public class GenreController {
 	@PutMapping("/{id}")
 	public ResponseEntity<GenreModel> updateGenre(@PathVariable Integer id, @Valid @RequestBody GenreModel genre,
 			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		GenreModel updatedGenre = genreService.updateGenre(id, genre);
 		return ResponseEntity.ok(updatedGenre);
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<GenreModel> patchGenre(@PathVariable Integer id, @RequestBody GenreModel genre) {
+	public ResponseEntity<GenreModel> patchGenre(@PathVariable Integer id, @Valid @RequestBody GenreModel genre,
+			BindingResult bindingResult) {
+		ValidationUtils.handlePartialErrors(bindingResult, genre);
 		GenreModel patchedGenre = genreService.patchGenre(id, genre);
 		return ResponseEntity.ok(patchedGenre);
 	}

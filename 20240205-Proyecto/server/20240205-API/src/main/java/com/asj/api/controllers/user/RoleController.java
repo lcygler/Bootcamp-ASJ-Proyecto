@@ -1,7 +1,6 @@
 package com.asj.api.controllers.user;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asj.api.exceptions.ValidationErrorException;
 import com.asj.api.models.user.RoleModel;
 import com.asj.api.services.user.RoleService;
 import com.asj.api.utils.ValidationUtils;
@@ -50,11 +48,7 @@ public class RoleController {
 
 	@PostMapping
 	public ResponseEntity<RoleModel> createRole(@Valid @RequestBody RoleModel role, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		RoleModel createdRole = roleService.createRole(role);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdRole);
 	}
@@ -62,17 +56,15 @@ public class RoleController {
 	@PutMapping("/{id}")
 	public ResponseEntity<RoleModel> updateRole(@PathVariable Integer id, @Valid @RequestBody RoleModel role,
 			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		RoleModel updatedRole = roleService.updateRole(id, role);
 		return ResponseEntity.ok(updatedRole);
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<RoleModel> patchRole(@PathVariable Integer id, @RequestBody RoleModel role) {
+	public ResponseEntity<RoleModel> patchRole(@PathVariable Integer id, @Valid @RequestBody RoleModel role,
+			BindingResult bindingResult) {
+		ValidationUtils.handlePartialErrors(bindingResult, role);
 		RoleModel patchedRole = roleService.patchRole(id, role);
 		return ResponseEntity.ok(patchedRole);
 	}

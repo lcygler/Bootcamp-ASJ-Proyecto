@@ -1,5 +1,7 @@
 package com.asj.api.repositories.user;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +20,7 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 
 	boolean existsByEmailAndIdNot(String email, Integer id);
 	
-	UserModel findByEmail(String email);
+	Optional<UserModel> findByEmail(String email);
 	
 	@Query(value = "SELECT COUNT(*) FROM users u WHERE u.genre_id = :id", nativeQuery = true)
 	int countByGenre(@Param("id") Integer id);

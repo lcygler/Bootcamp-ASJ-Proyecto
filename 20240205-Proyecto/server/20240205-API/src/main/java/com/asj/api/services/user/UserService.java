@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.asj.api.exceptions.AssociatedEntitiesException;
 import com.asj.api.exceptions.EntityNotFoundException;
+import com.asj.api.exceptions.InvalidCredentialsException;
 import com.asj.api.exceptions.InvalidIdentifierException;
 import com.asj.api.exceptions.UniqueViolationException;
 import com.asj.api.models.user.UserCredentialModel;
@@ -50,13 +51,7 @@ public class UserService {
 	}
 
 	public UserModel getUserByEmail(String email) {
-		UserModel user = userRepository.findByEmail(email);
-
-		if (user == null) {
-			throw new EntityNotFoundException("User not found");
-		}
-
-		return user;
+		return userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
 	}
 
 	@Transactional
@@ -202,41 +197,34 @@ public class UserService {
 
 	private void validateGenre(Integer id) {
 		if (!genreService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Genre is not valid");
+			throw new InvalidIdentifierException("Genre ID is not valid");
 		}
 	}
 
 	private void validateAddress(Integer id) {
 		if (!addressService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Address is not valid");
+			throw new InvalidIdentifierException("Address ID is not valid");
 		}
 	}
 
 	private void validateRole(Integer id) {
 		if (!roleService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Role is not valid");
+			throw new InvalidIdentifierException("Role ID is not valid");
 		}
 	}
 
-	public boolean validateUserCredentials(String email, String password) {
-		UserModel user = userRepository.findByEmail(email);
+	public void validateUserCredentials(String email, String password) {
+		UserModel user = getUserByEmail(email);
+		String storedPassword = getPasswordByUserId(user.getId());
 
-		if (user != null) {
-			String storedPassword = getPasswordByUserId(user.getId());
-			return password.equals(storedPassword);
+		if (storedPassword == null || !password.equals(storedPassword)) {
+			throw new InvalidCredentialsException("Invalid credentials");
 		}
-
-		return false;
 	}
 
-	public String getPasswordByUserId(Integer userId) {
+	private String getPasswordByUserId(Integer userId) {
 		UserCredentialModel userCredential = userCredentialRepository.findByUserId(userId);
-
-		if (userCredential != null) {
-			return userCredential.getPassword();
-		}
-
-		return null;
+		return (userCredential != null) ? userCredential.getPassword() : null;
 	}
 
 }

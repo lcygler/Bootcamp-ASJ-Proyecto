@@ -1,7 +1,6 @@
 package com.asj.api.controllers.common;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asj.api.exceptions.ValidationErrorException;
 import com.asj.api.models.common.ImageModel;
 import com.asj.api.services.common.ImageService;
 import com.asj.api.utils.ValidationUtils;
@@ -50,11 +48,7 @@ public class ImageController {
 
 	@PostMapping
 	public ResponseEntity<ImageModel> createImage(@Valid @RequestBody ImageModel image, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		ImageModel createdImage = imageService.createImage(image);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdImage);
 	}
@@ -62,17 +56,15 @@ public class ImageController {
 	@PutMapping("/{id}")
 	public ResponseEntity<ImageModel> updateImage(@PathVariable Integer id, @Valid @RequestBody ImageModel image,
 			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		ImageModel updatedImage = imageService.updateImage(id, image);
 		return ResponseEntity.ok(updatedImage);
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<ImageModel> patchImage(@PathVariable Integer id, @RequestBody ImageModel image) {
+	public ResponseEntity<ImageModel> patchImage(@PathVariable Integer id, @Valid @RequestBody ImageModel image,
+			BindingResult bindingResult) {
+		ValidationUtils.handlePartialErrors(bindingResult, image);
 		ImageModel patchedImage = imageService.patchImage(id, image);
 		return ResponseEntity.ok(patchedImage);
 	}

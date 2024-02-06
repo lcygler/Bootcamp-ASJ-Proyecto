@@ -1,7 +1,6 @@
 package com.asj.api.controllers.product;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asj.api.exceptions.ValidationErrorException;
 import com.asj.api.models.product.CategoryModel;
 import com.asj.api.services.product.CategoryService;
 import com.asj.api.utils.ValidationUtils;
@@ -51,11 +49,7 @@ public class CategoryController {
 	@PostMapping
 	public ResponseEntity<CategoryModel> createCategory(@Valid @RequestBody CategoryModel category,
 			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		CategoryModel createdCategory = categoryService.createCategory(category);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdCategory);
 	}
@@ -63,17 +57,15 @@ public class CategoryController {
 	@PutMapping("/{id}")
 	public ResponseEntity<CategoryModel> updateCategory(@PathVariable Integer id,
 			@Valid @RequestBody CategoryModel category, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		CategoryModel updatedCategory = categoryService.updateCategory(id, category);
 		return ResponseEntity.ok(updatedCategory);
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<CategoryModel> patchCategory(@PathVariable Integer id, @RequestBody CategoryModel category) {
+	public ResponseEntity<CategoryModel> patchCategory(@PathVariable Integer id,
+			@Valid @RequestBody CategoryModel category, BindingResult bindingResult) {
+		ValidationUtils.handlePartialErrors(bindingResult, category);
 		CategoryModel patchedCategory = categoryService.patchCategory(id, category);
 		return ResponseEntity.ok(patchedCategory);
 	}

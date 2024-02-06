@@ -1,7 +1,6 @@
 package com.asj.api.controllers.user;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.asj.api.dto.UserDTO;
-import com.asj.api.exceptions.InvalidCredentialsException;
-import com.asj.api.exceptions.ValidationErrorException;
 import com.asj.api.models.user.UserModel;
 import com.asj.api.services.user.UserService;
 import com.asj.api.utils.ValidationUtils;
@@ -52,28 +49,15 @@ public class UserController {
 
 	@PostMapping
 	public ResponseEntity<UserModel> createUser(@Valid @RequestBody UserModel user, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		UserModel createdUser = userService.createUser(user);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
 	}
 
 	@PostMapping("/login")
 	public ResponseEntity<UserModel> loginUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-		
-		boolean isValid = userService.validateUserCredentials(userDTO.getEmail(), userDTO.getPassword());
-
-		if (!isValid) {
-			throw new InvalidCredentialsException("Invalid credentials");
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
+		userService.validateUserCredentials(userDTO.getEmail(), userDTO.getPassword());
 		UserModel user = userService.getUserByEmail(userDTO.getEmail());
 		return ResponseEntity.ok(user);
 	}
@@ -81,17 +65,15 @@ public class UserController {
 	@PutMapping("/{id}")
 	public ResponseEntity<UserModel> updateUser(@PathVariable Integer id, @Valid @RequestBody UserModel user,
 			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		UserModel updatedUser = userService.updateUser(id, user);
 		return ResponseEntity.ok(updatedUser);
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<UserModel> patchUser(@PathVariable Integer id, @RequestBody UserModel user) {
+	public ResponseEntity<UserModel> patchUser(@PathVariable Integer id, @Valid @RequestBody UserModel user,
+			BindingResult bindingResult) {
+		ValidationUtils.handlePartialErrors(bindingResult, user);
 		UserModel patchedUser = userService.patchUser(id, user);
 		return ResponseEntity.ok(patchedUser);
 	}

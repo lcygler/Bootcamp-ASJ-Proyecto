@@ -134,13 +134,13 @@ public class OrderDetailService {
 
 	private void validateOrder(Integer id) {
 		if (!orderService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Order is not valid");
+			throw new InvalidIdentifierException("Order ID is not valid");
 		}
 	}
 
 	private void validateProduct(Integer id) {
 		if (!productService.isIdValid(id)) {
-			throw new InvalidIdentifierException("Product is not valid");
+			throw new InvalidIdentifierException("Product ID is not valid");
 		}
 	}
 

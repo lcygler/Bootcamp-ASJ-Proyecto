@@ -1,7 +1,6 @@
 package com.asj.api.controllers.order;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asj.api.exceptions.ValidationErrorException;
 import com.asj.api.models.order.OrderDetailModel;
 import com.asj.api.models.order.OrderModel;
 import com.asj.api.services.order.OrderDetailService;
@@ -67,11 +65,7 @@ public class OrderController {
 
 	@PostMapping
 	public ResponseEntity<OrderModel> createOrder(@Valid @RequestBody OrderModel order, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		OrderModel createdOrder = orderService.createOrder(order);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdOrder);
 	}
@@ -79,17 +73,15 @@ public class OrderController {
 	@PutMapping("/{id}")
 	public ResponseEntity<OrderModel> updateOrder(@PathVariable Integer id, @Valid @RequestBody OrderModel order,
 			BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = ValidationUtils.handleErrors(bindingResult);
-			throw new ValidationErrorException(errors);
-		}
-
+		ValidationUtils.handleErrors(bindingResult);
 		OrderModel updatedOrder = orderService.updateOrder(id, order);
 		return ResponseEntity.ok(updatedOrder);
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<OrderModel> patchOrder(@PathVariable Integer id, @RequestBody OrderModel order) {
+	public ResponseEntity<OrderModel> patchOrder(@PathVariable Integer id, @Valid @RequestBody OrderModel order,
+			BindingResult bindingResult) {
+		ValidationUtils.handlePartialErrors(bindingResult, order);
 		OrderModel patchedOrder = orderService.patchOrder(id, order);
 		return ResponseEntity.ok(patchedOrder);
 	}
