@@ -80,7 +80,7 @@
     </div>
   </div>
 
-  <div class="container mt-5" style="width: 100%">
+  <div class="container" style="width: 100%; margin-top: 40px">
     <div class="row d-flex justify-content-center">
       <!-- Categorías -->
       <div class="col-md-6" *ngIf="isCategoryRoute()">
@@ -127,7 +127,7 @@
                       <button
                         type="button"
                         class="btn btn-outline-secondary ms-2 d-flex align-items-center justify-content-center"
-                        (click)="navigateToManagement()"
+                        (click)="navigateToCategories()"
                         *ngIf="isCategoryEdit"
                       >
                         <span>Cancelar</span>
@@ -186,7 +186,40 @@
             <thead class="table-light">
               <tr>
                 <th>ID</th>
-                <th>Nombre</th>
+                <th class="position-relative">
+                  <div class="d-flex justify-content-center align-items-center">
+                    Nombre
+                    <div class="position-absolute" style="right: 10px">
+                      <button
+                        class="btn btn-outline-secondary rounded-circle d-flex justify-content-center align-items-center custom-dark"
+                        style="width: 25px; height: 25px"
+                        (click)="updateCategorySort()"
+                      >
+                        <span
+                          class="material-icons"
+                          style="font-size: 16px"
+                          *ngIf="categorySort === 'Default'"
+                        >
+                          sort
+                        </span>
+                        <span
+                          class="material-icons"
+                          style="font-size: 16px"
+                          *ngIf="categorySort === 'Ascending'"
+                        >
+                          keyboard_arrow_up
+                        </span>
+                        <span
+                          class="material-icons"
+                          style="font-size: 16px"
+                          *ngIf="categorySort === 'Descending'"
+                        >
+                          keyboard_arrow_down
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </th>
                 <th>Estado</th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
@@ -196,7 +229,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let category of categoryList">
+              <tr
+                *ngFor="let category of categoryList | nameSort : categorySort"
+              >
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
                 <td>{{ category.isDeleted ? "Inactivo" : "Activo" }}</td>
@@ -294,7 +329,7 @@
                       <button
                         type="button"
                         class="btn btn-outline-secondary ms-2 d-flex align-items-center justify-content-center"
-                        (click)="navigateToManagement()"
+                        (click)="navigateToIndustries()"
                         *ngIf="isIndustryEdit"
                       >
                         <span>Cancelar</span>
@@ -353,7 +388,41 @@
             <thead class="table-light">
               <tr>
                 <th>ID</th>
-                <th>Nombre</th>
+                <th class="position-relative">
+                  <div class="d-flex justify-content-center align-items-center">
+                    Nombre
+                    <div class="position-absolute" style="right: 10px">
+                      <button
+                        class="btn btn-outline-secondary rounded-circle d-flex justify-content-center align-items-center custom-dark"
+                        style="width: 25px; height: 25px"
+                        (click)="updateIndustrySort()"
+                      >
+                        <span
+                          class="material-icons"
+                          style="font-size: 16px"
+                          *ngIf="industrySort === 'Default'"
+                        >
+                          sort
+                        </span>
+                        <span
+                          class="material-icons"
+                          style="font-size: 16px"
+                          *ngIf="industrySort === 'Ascending'"
+                        >
+                          keyboard_arrow_up
+                        </span>
+                        <span
+                          class="material-icons"
+                          style="font-size: 16px"
+                          *ngIf="industrySort === 'Descending'"
+                        >
+                          keyboard_arrow_down
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </th>
+
                 <th>Estado</th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
@@ -363,7 +432,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let industry of industryList">
+              <tr
+                *ngFor="let industry of industryList | nameSort : industrySort"
+              >
                 <td>{{ industry.id }}</td>
                 <td>{{ industry.name }}</td>
                 <td>{{ industry.isDeleted ? "Inactivo" : "Activo" }}</td>

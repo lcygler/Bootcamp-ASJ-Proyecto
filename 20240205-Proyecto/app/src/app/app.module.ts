@@ -34,6 +34,7 @@ import { SlicePipe } from './pipes/slice.pipe';
 import { LocationSortPipe } from './pipes/sort/location-sort.pipe';
 import { PriceSortPipe } from './pipes/sort/price-sort.pipe';
 import { SupplierSortPipe } from './pipes/sort/supplier-sort.pipe';
+import { NameSortPipe } from './pipes/sort/name-sort.pipe';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { SupplierSortPipe } from './pipes/sort/supplier-sort.pipe';
     SuppliersDetailComponent,
     ManagementComponent,
     LoginComponent,
+    NameSortPipe,
   ],
   imports: [
     AppRoutingModule,

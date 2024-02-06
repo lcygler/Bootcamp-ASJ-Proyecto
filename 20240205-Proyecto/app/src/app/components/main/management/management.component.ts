@@ -37,6 +37,9 @@ export class ManagementComponent implements OnInit {
   idToDelete: number | null = null;
   idToRestore: number | null = null;
 
+  categorySort: string = 'Default';
+  industrySort: string = 'Default';
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -107,7 +110,7 @@ export class ManagementComponent implements OnInit {
       name: formData.categoryName.trim(),
     };
 
-    if (this.isCategoryRoute()) {
+    if (this.isCategoryEdit) {
       // Update category
       this.categoryService
         .updateCategory(this.id!, category)
@@ -117,7 +120,7 @@ export class ManagementComponent implements OnInit {
           );
           form.reset();
           this.getCategories();
-          this.navigateToManagement();
+          this.navigateToCategories();
         });
     } else {
       // Add category
@@ -141,7 +144,7 @@ export class ManagementComponent implements OnInit {
       name: formData.industryName.trim(),
     };
 
-    if (this.isIndustryRoute()) {
+    if (this.isIndustryEdit) {
       // Update industry
       this.industryService
         .updateIndustry(this.id!, industry)
@@ -149,7 +152,7 @@ export class ManagementComponent implements OnInit {
           this.toastService.showSuccessToast('Rubro modificado correctamente!');
           form.reset();
           this.getIndustries();
-          this.navigateToManagement();
+          this.navigateToIndustries();
         });
     } else {
       // Add industry
@@ -167,6 +170,14 @@ export class ManagementComponent implements OnInit {
 
   navigateToManagement() {
     this.router.navigate([`/management`]);
+  }
+
+  navigateToCategories() {
+    this.router.navigate([`/management/categories`]);
+  }
+
+  navigateToIndustries() {
+    this.router.navigate([`/management/industries`]);
   }
 
   editCategory(id: number) {
@@ -283,6 +294,34 @@ export class ManagementComponent implements OnInit {
           this.idToRestore = null;
           this.toastService.showSuccessToast('Rubro restaurado correctamente!');
         });
+    }
+  }
+
+  updateCategorySort() {
+    switch (this.categorySort) {
+      case 'Default':
+        this.categorySort = 'Ascending';
+        break;
+      case 'Ascending':
+        this.categorySort = 'Descending';
+        break;
+      default:
+        this.categorySort = 'Default';
+        break;
+    }
+  }
+
+  updateIndustrySort() {
+    switch (this.industrySort) {
+      case 'Default':
+        this.industrySort = 'Ascending';
+        break;
+      case 'Ascending':
+        this.industrySort = 'Descending';
+        break;
+      default:
+        this.industrySort = 'Default';
+        break;
     }
   }
 }

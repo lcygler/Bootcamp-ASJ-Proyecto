@@ -1,0 +1,9 @@
+.custom-dark {
+  border-color: #393e46;
+  color: #393e46;
+}
+
+.custom-dark:hover {
+  background-color: #393e46;
+  color: white;
+}

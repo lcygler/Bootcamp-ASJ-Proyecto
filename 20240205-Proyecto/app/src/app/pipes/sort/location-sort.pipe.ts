@@ -5,10 +5,10 @@ import { Supplier } from '../../models/supplier/ISupplier';
   name: 'locationSort',
 })
 export class LocationSortPipe implements PipeTransform {
-  transform(array: Supplier[], filter: string): Supplier[] {
-    if (!filter) return array;
+  transform(array: Supplier[], sort: string): Supplier[] {
+    if (!sort) return array;
 
-    if (filter === 'Ascending') {
+    if (sort === 'Ascending') {
       // Order by country and state ascending
       return array
         .slice()
@@ -21,7 +21,7 @@ export class LocationSortPipe implements PipeTransform {
               .toLowerCase()
               .localeCompare(b.address.state.name.toLowerCase())
         );
-    } else if (filter === 'Descending') {
+    } else if (sort === 'Descending') {
       // Order by country and state descending
       return array
         .slice()
