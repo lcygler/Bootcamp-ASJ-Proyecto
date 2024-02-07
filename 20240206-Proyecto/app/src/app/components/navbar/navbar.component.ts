@@ -8,6 +8,7 @@ import {
   faList,
   faRightToBracket,
   faTable,
+  faTableList,
   faTags,
   faUser,
   faUsers,
@@ -22,16 +23,17 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class NavbarComponent {
   logoutMessage: string = '';
 
-  faUsers = faUsers;
   faBuilding = faBuilding;
-  faTags = faTags;
   faFileLines = faFileLines;
   faGear = faGear;
   faHouse = faHouse;
-  faRightToBracket = faRightToBracket;
-  faUser = faUser;
   faList = faList;
+  faRightToBracket = faRightToBracket;
   faTable = faTable;
+  faTableList = faTableList;
+  faTags = faTags;
+  faUser = faUser;
+  faUsers = faUsers;
 
   constructor(private router: Router, private authService: AuthService) {}
 

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +39,9 @@ public class UserService {
 
 	@Autowired
 	UserCredentialRepository userCredentialRepository;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -217,7 +221,7 @@ public class UserService {
 		UserModel user = getUserByEmail(email);
 		String storedPassword = getPasswordByUserId(user.getId());
 
-		if (storedPassword == null || !password.equals(storedPassword)) {
+		if (storedPassword == null || !(passwordEncoder.matches(password, storedPassword))) {
 			throw new InvalidCredentialsException("Invalid credentials");
 		}
 	}

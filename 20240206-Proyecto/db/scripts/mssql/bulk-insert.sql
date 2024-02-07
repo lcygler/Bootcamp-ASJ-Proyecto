@@ -5664,7 +5664,7 @@ VALUES
     10, '$2a$12$KSa/4xwufTK1x9MF52vTbOqZnMjj2.QTRmouzGEojvC6YDwKo/fPK', 0, GETDATE(), GETDATE()
   ),
   (
-    11, 'admin', 0, GETDATE(), GETDATE()
+    11, '$2a$10$7vlCB2EB/Ikyvc2Qvp3gDOCVFB9syWz11Tfj7lsRTvQ0SGTkWShcG', 0, GETDATE(), GETDATE()
   );
 
 -- Suppliers

@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,9 @@ public class UserCredentialService {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -40,6 +45,7 @@ public class UserCredentialService {
 	public UserCredentialModel createUserCredential(UserCredentialModel userCredential) {
 		validateUser(userCredential.getUser().getId());
 
+		userCredential.setPassword(passwordEncoder.encode(userCredential.getPassword()));
 		userCredential.setCreatedAt(LocalDateTime.now());
 		userCredential.setUpdatedAt(LocalDateTime.now());
 		userCredential.setIsDeleted(false);
@@ -52,12 +58,14 @@ public class UserCredentialService {
 
 	@Transactional
 	public UserCredentialModel updateUserCredential(Integer id, UserCredentialModel userCredential) {
-		if (!userCredentialRepository.existsById(id)) {
-			throw new EntityNotFoundException("User credential not found");
-		}
-
+		UserCredentialModel existingUserCredential = getUserCredentialById(id);
 		validateUser(userCredential.getUser().getId());
 
+		if (!passwordEncoder.matches(userCredential.getPassword(), existingUserCredential.getPassword())) {
+			userCredential.setPassword(passwordEncoder.encode(userCredential.getPassword()));
+		}
+
+		userCredential.setPassword(new BCryptPasswordEncoder().encode(userCredential.getPassword()));
 		userCredential.setUpdatedAt(LocalDateTime.now());
 
 		UserCredentialModel updatedUserCredential = userCredentialRepository.save(userCredential);
@@ -76,7 +84,7 @@ public class UserCredentialService {
 		}
 
 		if (userCredential.getPassword() != null) {
-			existingUserCredential.setPassword(userCredential.getPassword());
+			existingUserCredential.setPassword(passwordEncoder.encode(userCredential.getPassword()));
 		}
 
 		if (userCredential.getIsDeleted() != null) {
