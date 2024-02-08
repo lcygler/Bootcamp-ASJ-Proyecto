@@ -39,6 +39,8 @@ export class ManagementComponent implements OnInit {
 
   categorySort: string = 'Default';
   industrySort: string = 'Default';
+  deleteCategoryFilter: boolean = false;
+  deleteIndustryFilter: boolean = false;
 
   constructor(
     private router: Router,
@@ -276,11 +278,18 @@ export class ManagementComponent implements OnInit {
       this.categoryService
         .restoreCategory(this.idToRestore)
         .subscribe((res) => {
-          this.getCategories();
           this.idToRestore = null;
           this.toastService.showSuccessToast(
             'Categoría restaurada correctamente!'
           );
+
+          this.categoryService.getCategories().subscribe((res) => {
+            this.categoryList = res;
+
+            if (!this.hasDeletedCategories()) {
+              this.deleteCategoryFilter = false;
+            }
+          });
         });
     }
   }
@@ -290,9 +299,16 @@ export class ManagementComponent implements OnInit {
       this.industryService
         .restoreIndustry(this.idToRestore)
         .subscribe((res) => {
-          this.getIndustries();
           this.idToRestore = null;
           this.toastService.showSuccessToast('Rubro restaurado correctamente!');
+
+          this.industryService.getIndustries().subscribe((res) => {
+            this.industryList = res;
+
+            if (!this.hasDeletedIndustries()) {
+              this.deleteIndustryFilter = false;
+            }
+          });
         });
     }
   }
@@ -323,5 +339,33 @@ export class ManagementComponent implements OnInit {
         this.industrySort = 'Default';
         break;
     }
+  }
+
+  onCategoryCheckboxChange(event: any) {
+    const checked = event.target.checked;
+
+    if (checked) {
+      this.deleteCategoryFilter = true;
+    } else {
+      this.deleteCategoryFilter = false;
+    }
+  }
+
+  onIndustryCheckboxChange(event: any) {
+    const checked = event.target.checked;
+
+    if (checked) {
+      this.deleteIndustryFilter = true;
+    } else {
+      this.deleteIndustryFilter = false;
+    }
+  }
+
+  hasDeletedCategories() {
+    return this.categoryList.some((category) => category.isDeleted);
+  }
+
+  hasDeletedIndustries() {
+    return this.industryList.some((industry) => industry.isDeleted);
   }
 }

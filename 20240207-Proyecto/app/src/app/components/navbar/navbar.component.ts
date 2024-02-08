@@ -5,6 +5,7 @@ import {
   faFileLines,
   faGear,
   faHouse,
+  faKey,
   faList,
   faRightToBracket,
   faTable,
@@ -27,6 +28,7 @@ export class NavbarComponent {
   faFileLines = faFileLines;
   faGear = faGear;
   faHouse = faHouse;
+  faKey = faKey;
   faList = faList;
   faRightToBracket = faRightToBracket;
   faTable = faTable;

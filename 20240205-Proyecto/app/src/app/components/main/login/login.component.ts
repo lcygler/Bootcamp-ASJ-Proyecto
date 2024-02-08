@@ -8,7 +8,7 @@ import { ToastService } from 'src/app/services/common/toast.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-login-form',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })

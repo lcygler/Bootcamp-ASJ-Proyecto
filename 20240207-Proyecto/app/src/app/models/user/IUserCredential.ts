@@ -1,7 +1,7 @@
 import { User } from './IUser';
 
 export interface UserCredential {
-  id: number;
+  id?: number;
   user: Partial<User>;
   password: string;
 }

@@ -110,11 +110,7 @@ export class ProductsListComponent implements OnInit {
               (product) => !product.supplier.isDeleted
             );
 
-            const hasDeletedProducts = this.productList.some(
-              (product) => product.isDeleted
-            );
-
-            if (!hasDeletedProducts) {
+            if (!this.hasDeletedProducts()) {
               this.deleteFilter = false;
             }
 

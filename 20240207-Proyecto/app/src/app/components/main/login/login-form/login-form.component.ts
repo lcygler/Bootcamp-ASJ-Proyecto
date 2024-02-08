@@ -8,11 +8,11 @@ import { ToastService } from 'src/app/services/common/toast.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  selector: 'app-login-form',
+  templateUrl: './login-form.component.html',
+  styleUrls: ['./login-form.component.css'],
 })
-export class LoginComponent {
+export class LoginFormComponent {
   user: UserDTO = {
     email: '',
     password: '',
@@ -45,7 +45,7 @@ export class LoginComponent {
         this.isValid = true;
         this.showErrorMessage = false;
         this.toastService.showSuccessToast('Inicio de sesión exitoso!');
-        this.authService.login();
+        this.authService.login(res);
         this.router.navigate(['/home']);
       },
       (error) => {

@@ -20,14 +20,19 @@ import { DeleteModalComponent } from './components/shared/modals/delete-modal/de
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from './components/main/home/home.component';
-import { LoginComponent } from './components/main/login/login.component';
+import { LoginFormComponent } from './components/main/login/login-form/login-form.component';
 import { ManagementComponent } from './components/main/management/management.component';
 import { NotFoundComponent } from './components/main/not-found/not-found.component';
 import { OrdersDetailComponent } from './components/main/orders/orders-detail/orders-detail.component';
 import { ProductsDetailComponent } from './components/main/products/products-detail/products-detail.component';
 import { SuppliersDetailComponent } from './components/main/suppliers/suppliers-detail/suppliers-detail.component';
-import { AuthGuard } from './guards/auth.guard';
-import { NumberGuard } from './guards/number.guard';
+
+import { BarChartComponent } from './components/main/charts/bar-chart/bar-chart.component';
+import { LineChartComponent } from './components/main/charts/line-chart/line-chart.component';
+import { OrdersChartComponent } from './components/main/charts/orders-chart/orders-chart.component';
+import { ProductsChartComponent } from './components/main/charts/products-chart/products-chart.component';
+import { SuppliersChartComponent } from './components/main/charts/suppliers-chart/suppliers-chart.component';
+
 import { CategoryFilterPipe } from './pipes/filter/category-filter.pipe';
 import { DeleteFilterPipe } from './pipes/filter/delete-filter.pipe';
 import { SearchFilterPipe } from './pipes/filter/search-filter.pipe';
@@ -39,11 +44,10 @@ import { LocationSortPipe } from './pipes/sort/location-sort.pipe';
 import { NameSortPipe } from './pipes/sort/name-sort.pipe';
 import { PriceSortPipe } from './pipes/sort/price-sort.pipe';
 import { SupplierSortPipe } from './pipes/sort/supplier-sort.pipe';
-import { BarChartComponent } from './components/main/charts/bar-chart/bar-chart.component';
-import { LineChartComponent } from './components/main/charts/line-chart/line-chart.component';
-import { SuppliersChartComponent } from './components/main/charts/suppliers-chart/suppliers-chart.component';
-import { ProductsChartComponent } from './components/main/charts/products-chart/products-chart.component';
-import { OrdersChartComponent } from './components/main/charts/orders-chart/orders-chart.component';
+
+import { AuthGuard } from './guards/auth.guard';
+import { NumberGuard } from './guards/number.guard';
+import { LoginPassComponent } from './components/main/login/login-pass/login-pass.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +75,7 @@ import { OrdersChartComponent } from './components/main/charts/orders-chart/orde
     ProductsDetailComponent,
     SuppliersDetailComponent,
     ManagementComponent,
-    LoginComponent,
+    LoginFormComponent,
     NameSortPipe,
     IssueDateSortPipe,
     DeliveryDateSortPipe,
@@ -81,6 +85,7 @@ import { OrdersChartComponent } from './components/main/charts/orders-chart/orde
     SuppliersChartComponent,
     ProductsChartComponent,
     OrdersChartComponent,
+    LoginPassComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './components/main/home/home.component';
-import { LoginComponent } from './components/main/login/login.component';
+import { LoginFormComponent } from './components/main/login/login-form/login-form.component';
 import { ManagementComponent } from './components/main/management/management.component';
 import { NotFoundComponent } from './components/main/not-found/not-found.component';
 import { OrdersFormComponent } from './components/main/orders/orders-form/orders-form.component';
@@ -15,6 +15,7 @@ import { SuppliersFormComponent } from './components/main/suppliers/suppliers-fo
 import { SuppliersListComponent } from './components/main/suppliers/suppliers-list/suppliers-list.component';
 import { AuthGuard } from './guards/auth.guard';
 import { NumberGuard } from './guards/number.guard';
+import { LoginPassComponent } from './components/main/login/login-pass/login-pass.component';
 
 const suppliersRoutes: Routes = [
   { path: '', component: SuppliersListComponent },
@@ -45,13 +46,18 @@ const managementRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'categories' },
 ];
 
+const loginRoutes: Routes = [
+  { path: '', component: LoginFormComponent },
+  { path: 'pass', component: LoginPassComponent, canActivate: [AuthGuard] },
+];
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'suppliers', children: suppliersRoutes, canActivate: [AuthGuard] },
   { path: 'products', children: productsRoutes, canActivate: [AuthGuard] },
   { path: 'orders', children: ordersRoutes, canActivate: [AuthGuard] },
   { path: 'management', children: managementRoutes, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', children: loginRoutes },
   { path: 'not-found', component: NotFoundComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', pathMatch: 'full', redirectTo: 'not-found' },

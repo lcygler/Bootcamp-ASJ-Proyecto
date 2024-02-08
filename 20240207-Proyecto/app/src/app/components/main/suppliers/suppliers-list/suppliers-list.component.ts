@@ -97,11 +97,7 @@ export class SuppliersListComponent implements OnInit {
           this.supplierService.getSuppliers().subscribe((res) => {
             this.supplierList = res;
 
-            const hasDeletedSuppliers = this.supplierList.some(
-              (supplier) => supplier.isDeleted
-            );
-
-            if (!hasDeletedSuppliers) {
+            if (!this.hasDeletedSuppliers()) {
               this.deleteFilter = false;
             }
 

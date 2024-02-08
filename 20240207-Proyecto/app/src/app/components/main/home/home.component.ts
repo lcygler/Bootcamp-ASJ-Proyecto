@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit {
 
   getOrders() {
     this.orderService.getOrders().subscribe((res) => {
-      this.orderList = res;
+      this.orderList = res.filter((o) => o.status?.name !== 'Cancelado');
     });
   }
 

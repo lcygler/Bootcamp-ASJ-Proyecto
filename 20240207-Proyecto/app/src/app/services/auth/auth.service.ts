@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { User } from 'src/app/models/user/IUser';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +11,10 @@ export class AuthService {
     this.loadAuthState();
   }
 
-  login() {
+  login(user: User) {
     this.isLoggedIn = true;
     this.saveAuthState();
+    this.saveUser(user);
   }
 
   logout() {
@@ -31,5 +33,14 @@ export class AuthService {
   private loadAuthState() {
     const storedAuthState = localStorage.getItem('isLoggedIn');
     this.isLoggedIn = storedAuthState ? JSON.parse(storedAuthState) : false;
+  }
+
+  private saveUser(user: User) {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  loadUser() {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
   }
 }

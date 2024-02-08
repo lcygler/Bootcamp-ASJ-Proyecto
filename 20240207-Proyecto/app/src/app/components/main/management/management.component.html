@@ -230,7 +230,11 @@
             </thead>
             <tbody>
               <tr
-                *ngFor="let category of categoryList | nameSort : categorySort"
+                *ngFor="
+                  let category of categoryList
+                    | deleteFilter : deleteCategoryFilter
+                    | nameSort : categorySort
+                "
               >
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
@@ -284,6 +288,38 @@
                 </td>
               </tr>
             </tbody>
+            <tfoot *ngIf="hasDeletedCategories()">
+              <tr style="border: none">
+                <td
+                  colspan="12"
+                  class="text-muted text-center small"
+                  style="border: none"
+                >
+                  <div class="d-flex justify-content-center position-relative">
+                    <!-- Checkbox -->
+                    <div
+                      class="form-check position-absolute"
+                      style="right: 10px"
+                      [ngClass]="
+                        !hasDeletedCategories() ? 'd-none' : 'd-inline'
+                      "
+                    >
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckDefault1"
+                        [(ngModel)]="deleteCategoryFilter"
+                        (change)="onCategoryCheckboxChange($event)"
+                      />
+                      <label class="form-check-label" for="flexCheckDefault1">
+                        Ver categorías eliminadas
+                      </label>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
@@ -433,7 +469,11 @@
             </thead>
             <tbody>
               <tr
-                *ngFor="let industry of industryList | nameSort : industrySort"
+                *ngFor="
+                  let industry of industryList
+                    | deleteFilter : deleteIndustryFilter
+                    | nameSort : industrySort
+                "
               >
                 <td>{{ industry.id }}</td>
                 <td>{{ industry.name }}</td>
@@ -487,6 +527,38 @@
                 </td>
               </tr>
             </tbody>
+            <tfoot *ngIf="hasDeletedIndustries()">
+              <tr style="border: none">
+                <td
+                  colspan="12"
+                  class="text-muted text-center small"
+                  style="border: none"
+                >
+                  <div class="d-flex justify-content-center position-relative">
+                    <!-- Checkbox -->
+                    <div
+                      class="form-check position-absolute"
+                      style="right: 10px"
+                      [ngClass]="
+                        !hasDeletedIndustries() ? 'd-none' : 'd-inline'
+                      "
+                    >
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckDefault2"
+                        [(ngModel)]="deleteIndustryFilter"
+                        (change)="onIndustryCheckboxChange($event)"
+                      />
+                      <label class="form-check-label" for="flexCheckDefault2">
+                        Ver rubros eliminados
+                      </label>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>

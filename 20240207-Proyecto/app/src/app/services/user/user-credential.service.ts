@@ -30,6 +30,15 @@ export class UserCredentialService {
     );
   }
 
+  public getUserCredentialByUserId(id: number): Observable<UserCredential> {
+    return this.http.get<UserCredential>(`${this.API_URL}/user/${id}`).pipe(
+      catchError((error) => {
+        console.error('Error fetching user credential by user ID:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
   public createUserCredential(
     userCredential: UserCredential
   ): Observable<UserCredential> {

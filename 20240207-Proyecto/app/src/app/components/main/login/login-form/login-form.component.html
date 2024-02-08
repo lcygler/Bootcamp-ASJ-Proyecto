@@ -38,9 +38,9 @@
                         id="email"
                         name="email"
                         [ngClass]="{
-                      'is-invalid': email.touched && (email.errors || !isValid),
-                      'is-valid': email.touched && !email.errors,
-                    }"
+                          'is-invalid': email.touched && (email.errors || !isValid),
+                          'is-valid': email.touched && !email.errors,
+                        }"
                         [(ngModel)]="user.email"
                         #email="ngModel"
                         required
