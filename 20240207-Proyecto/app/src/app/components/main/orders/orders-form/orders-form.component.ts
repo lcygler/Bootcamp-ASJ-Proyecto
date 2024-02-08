@@ -366,8 +366,9 @@ export class OrdersFormComponent implements OnInit {
   }
 
   getMinDate(): string {
+    const minDays = 2;
     const currentDate = new Date(this.todayDate);
-    currentDate.setDate(currentDate.getDate() + 2);
+    currentDate.setDate(currentDate.getDate() + minDays);
 
     const year = currentDate.getFullYear();
     const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
@@ -377,8 +378,9 @@ export class OrdersFormComponent implements OnInit {
   }
 
   getMaxDate(): string {
+    const maxDays = 365;
     const currentDate = new Date(this.todayDate);
-    currentDate.setDate(currentDate.getDate() + 365);
+    currentDate.setDate(currentDate.getDate() + maxDays);
 
     const year = currentDate.getFullYear();
     const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);

@@ -39,6 +39,11 @@ import { LocationSortPipe } from './pipes/sort/location-sort.pipe';
 import { NameSortPipe } from './pipes/sort/name-sort.pipe';
 import { PriceSortPipe } from './pipes/sort/price-sort.pipe';
 import { SupplierSortPipe } from './pipes/sort/supplier-sort.pipe';
+import { BarChartComponent } from './components/main/charts/bar-chart/bar-chart.component';
+import { LineChartComponent } from './components/main/charts/line-chart/line-chart.component';
+import { SuppliersChartComponent } from './components/main/charts/suppliers-chart/suppliers-chart.component';
+import { ProductsChartComponent } from './components/main/charts/products-chart/products-chart.component';
+import { OrdersChartComponent } from './components/main/charts/orders-chart/orders-chart.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +76,11 @@ import { SupplierSortPipe } from './pipes/sort/supplier-sort.pipe';
     IssueDateSortPipe,
     DeliveryDateSortPipe,
     NotFoundComponent,
+    BarChartComponent,
+    LineChartComponent,
+    SuppliersChartComponent,
+    ProductsChartComponent,
+    OrdersChartComponent,
   ],
   imports: [
     AppRoutingModule,

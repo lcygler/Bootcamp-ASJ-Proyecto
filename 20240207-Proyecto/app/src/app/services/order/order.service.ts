@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Status } from 'src/app/models/order/IStatus';
+import { MonthTotal } from 'src/app/types/TMonthTotal';
+import { TopSupplier } from 'src/app/types/TTopSupplier';
 import { Order } from '../../models/order/IOrder';
 import { OrderDetail } from '../../models/order/IOrderDetail';
 
@@ -77,6 +79,24 @@ export class OrderService {
           return throwError(() => error);
         })
       );
+  }
+
+  public getTopSuppliers(): Observable<TopSupplier[]> {
+    return this.http.get<TopSupplier[]>(`${this.API_URL}/top-suppliers`).pipe(
+      catchError((error) => {
+        console.error('Error fetching top suppliers:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  public getMonthsTotal(): Observable<MonthTotal[]> {
+    return this.http.get<MonthTotal[]>(`${this.API_URL}/months-total`).pipe(
+      catchError((error) => {
+        console.error('Error fetching months total:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
   public createOrder(order: Order): Observable<Order> {
