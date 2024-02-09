@@ -558,6 +558,7 @@
                       #number="ngModel"
                       required
                       maxlength="5"
+                      pattern="[0-9]*"
                     />
                     <div
                       *ngIf="number.touched && number.errors?.['required']"
@@ -565,6 +566,14 @@
                     >
                       <span class="form-text text-danger"
                         >Ingrese un número</span
+                      >
+                    </div>
+                    <div
+                      *ngIf="number.touched && number.errors?.['pattern']"
+                      class="col-auto"
+                    >
+                      <span class="form-text text-danger"
+                        >Ingrese sólo números</span
                       >
                     </div>
                     <div
