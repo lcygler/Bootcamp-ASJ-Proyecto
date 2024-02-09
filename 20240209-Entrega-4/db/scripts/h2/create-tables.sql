@@ -1,7 +1,3 @@
--- Create Database
-CREATE DATABASE IF NOT EXISTS project;
-USE project;
-
 -- Create Tables
 -- Addresses
 CREATE TABLE countries (

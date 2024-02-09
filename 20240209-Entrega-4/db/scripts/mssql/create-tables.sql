@@ -1,10 +1,3 @@
--- Create Database
-CREATE DATABASE project;
-GO
-
-USE project;
-GO
-
 -- Create Tables
 -- Addresses
 CREATE TABLE countries (
