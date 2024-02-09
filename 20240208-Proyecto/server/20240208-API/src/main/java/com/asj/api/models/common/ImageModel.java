@@ -24,7 +24,7 @@ public class ImageModel {
 
 	@Column(nullable = false, length = 255)
 	@NotBlank(message = "URL cannot be blank")
-	@Pattern(message = "URL is not valid", regexp = "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()!@:%_\\+.~#?&\\/\\/=]*)")
+	@Pattern(message = "URL is not valid", regexp = "https?:\\/\\/(www\\.)?[\\-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([\\-a-zA-Z0-9()!@:%_\\+.~#?&\\/\\/=]*)")
 	@Size(max = 255, message = "URL must be less than {max} characters")
 	private String url;
 

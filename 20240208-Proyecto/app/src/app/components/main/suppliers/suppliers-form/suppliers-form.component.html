@@ -172,7 +172,7 @@
                           }"
                           [(ngModel)]="supplier.image!.url"
                           #image="ngModel"
-                          pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)"
+                          pattern="https?:\/\/(www\.)?[\-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([\-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)"
                           maxlength="255"
                           (input)="resetImageError()"
                         />
@@ -350,7 +350,7 @@
                         [(ngModel)]="supplier.website"
                         #website="ngModel"
                         required
-                        pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)"
+                        pattern="https?:\/\/(www\.)?[\-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([\-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)"
                         maxlength="255"
                       />
                     </div>
