@@ -415,9 +415,9 @@ Pasos necesarios para correr el proyecto localmente:
   PATCH /user-credentials/${id}
 ```
 
-| Parámetro | Tipo      | Descripción                                     |
-| :-------- | :-------- | :---------------------------------------------- |
-| `id`      | `Integer` | **Obligatorio**. ID del credencial a actualizar |
+| Parámetro | Tipo      | Descripción                                       |
+| :-------- | :-------- | :------------------------------------------------ |
+| `id`      | `Integer` | **Obligatorio**. ID de la credencial a actualizar |
 
 #### Eliminar credencial
 
@@ -425,9 +425,9 @@ Pasos necesarios para correr el proyecto localmente:
   DELETE /user-credentials/${id}
 ```
 
-| Parámetro | Tipo      | Descripción                                   |
-| :-------- | :-------- | :-------------------------------------------- |
-| `id`      | `Integer` | **Obligatorio**. ID del credencial a eliminar |
+| Parámetro | Tipo      | Descripción                                     |
+| :-------- | :-------- | :---------------------------------------------- |
+| `id`      | `Integer` | **Obligatorio**. ID de la credencial a eliminar |
 
 ## Desarrollado por
 
