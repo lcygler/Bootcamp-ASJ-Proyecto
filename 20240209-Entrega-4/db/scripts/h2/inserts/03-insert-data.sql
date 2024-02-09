@@ -377,43 +377,43 @@ INSERT INTO contact_details (
 ) 
 VALUES 
   (
-    'Luis', 'Fernández', '234567890', 
+    'Luis', 'Fernández', '+54 234567890', 
     'luis.fernandez@gmail.com', 'Gerente', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
   ), 
   (
-    'María', 'Martínez', '456789012', 
+    'María', 'Martínez', '+54 456789012', 
     'maria.martinez@gmail.com', 'Supervisor', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
   ), 
   (
-    'Carlos', 'Gómez', '567890123', 'carlos.gomez@hotmail.com', 
+    'Carlos', 'Gómez', '+54 567890123', 'carlos.gomez@hotmail.com', 
     'Empleado', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
   ), 
   (
-    'Laura', 'Rodríguez', '678901234', 
+    'Laura', 'Rodríguez', '+54 678901234', 
     'laura.rodriguez@yahoo.com', 'Empleado', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
   ), 
   (
-    'Diego', 'Sánchez', '789012345', 
+    'Diego', 'Sánchez', '+54 789012345', 
     'diego.sanchez@gmail.com', 'Empleado', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
   ), 
   (
-    'Ana', 'Fernández', '890123456', 
+    'Ana', 'Fernández', '+54 890123456', 
     'ana.fernandez@outlook.com', 'Gerente', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
   ), 
   (
-    'Sofía', 'García', '901234567', 
+    'Sofía', 'García', '+54 901234567', 
     'sofia.garcia@gmail.com', 'Asistente', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
   ), 
   (
-    'Pablo', 'Pérez', '012345678', 'pablo.perez@gmail.com', 
+    'Pablo', 'Pérez', '+54 012345678', 'pablo.perez@gmail.com', 
     'Supervisor', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
   ), 
   (
-    'Marta', 'Hernández', '123456789', 
+    'Marta', 'Hernández', '+54 123456789', 
     'marta.hernandez@gmail.com', 'Empleado', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
   ), 
   (
-    'Lucas', 'Díaz', '234567890', 'lucas.diaz@gmail.com', 
+    'Lucas', 'Díaz', '+54 234567890', 'lucas.diaz@gmail.com', 
     'Empleado', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
   );
 
