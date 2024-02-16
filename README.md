@@ -1,1 +1,1 @@
-# Sistema de Gestión de Compras
+# Proyecto Integrador
