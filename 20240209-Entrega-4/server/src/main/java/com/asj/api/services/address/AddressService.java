@@ -65,6 +65,7 @@ public class AddressService {
 		address.setUpdatedAt(LocalDateTime.now());
 
 		AddressModel updatedAddress = addressRepository.save(address);
+		entityManager.flush();
 		entityManager.refresh(updatedAddress);
 
 		return updatedAddress;

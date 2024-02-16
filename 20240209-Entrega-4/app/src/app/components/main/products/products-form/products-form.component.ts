@@ -99,13 +99,13 @@ export class ProductsFormComponent implements OnInit {
 
   getSuppliers() {
     this.supplierService.getSuppliers().subscribe((res) => {
-      this.supplierList = res;
+      this.supplierList = res.filter((s) => !s.isDeleted);
     });
   }
 
   getCategories() {
     this.categoryService.getCategories().subscribe((res) => {
-      this.categoryList = res;
+      this.categoryList = res.filter((c) => !c.isDeleted);
     });
   }
 

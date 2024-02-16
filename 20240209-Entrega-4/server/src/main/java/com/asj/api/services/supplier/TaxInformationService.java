@@ -75,6 +75,7 @@ public class TaxInformationService {
 		taxInformation.setUpdatedAt(LocalDateTime.now());
 
 		TaxInformationModel updatedTaxInformation = taxInformationRepository.save(taxInformation);
+		entityManager.flush();
 		entityManager.refresh(updatedTaxInformation);
 
 		return updatedTaxInformation;

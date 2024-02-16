@@ -89,6 +89,7 @@ public class OrderService {
 		order.setUpdatedAt(LocalDateTime.now());
 
 		OrderModel updatedOrder = orderRepository.save(order);
+		entityManager.flush();
 		entityManager.refresh(updatedOrder);
 
 		return updatedOrder;

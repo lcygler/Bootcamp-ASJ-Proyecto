@@ -66,6 +66,7 @@ public class RoleService {
 		role.setUpdatedAt(LocalDateTime.now());
 
 		RoleModel updatedRole = roleRepository.save(role);
+		entityManager.flush();
 		entityManager.refresh(updatedRole);
 
 		return updatedRole;

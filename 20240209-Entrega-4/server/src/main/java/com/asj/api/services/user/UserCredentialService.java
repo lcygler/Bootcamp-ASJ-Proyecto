@@ -79,6 +79,7 @@ public class UserCredentialService {
 		userCredential.setUpdatedAt(LocalDateTime.now());
 
 		UserCredentialModel updatedUserCredential = userCredentialRepository.save(userCredential);
+		entityManager.flush();
 		entityManager.refresh(updatedUserCredential);
 
 		return updatedUserCredential;

@@ -97,6 +97,7 @@ public class ProductService {
 		product.setUpdatedAt(LocalDateTime.now());
 
 		ProductModel updatedProduct = productRepository.save(product);
+		entityManager.flush();
 		entityManager.refresh(updatedProduct);
 
 		return updatedProduct;

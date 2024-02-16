@@ -66,6 +66,7 @@ public class CategoryService {
 		category.setUpdatedAt(LocalDateTime.now());
 
 		CategoryModel updatedCategory = categoryRepository.save(category);
+		entityManager.flush();
 		entityManager.refresh(updatedCategory);
 
 		return updatedCategory;

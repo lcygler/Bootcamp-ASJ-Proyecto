@@ -66,6 +66,7 @@ public class CountryService {
 		country.setUpdatedAt(LocalDateTime.now());
 
 		CountryModel updatedCountry = countryRepository.save(country);
+		entityManager.flush();
 		entityManager.refresh(updatedCountry);
 
 		return updatedCountry;

@@ -103,6 +103,7 @@ public class UserService {
 		user.setUpdatedAt(LocalDateTime.now());
 
 		UserModel updatedUser = userRepository.save(user);
+		entityManager.flush();
 		entityManager.refresh(updatedUser);
 
 		return updatedUser;

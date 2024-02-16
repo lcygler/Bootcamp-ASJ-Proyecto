@@ -66,6 +66,7 @@ public class IndustryService {
 		industry.setUpdatedAt(LocalDateTime.now());
 
 		IndustryModel updatedIndustry = industryRepository.save(industry);
+		entityManager.flush();
 		entityManager.refresh(updatedIndustry);
 
 		return updatedIndustry;

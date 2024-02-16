@@ -107,6 +107,7 @@ public class SupplierService {
 		supplier.setUpdatedAt(LocalDateTime.now());
 
 		SupplierModel updatedSupplier = supplierRepository.save(supplier);
+		entityManager.flush();
 		entityManager.refresh(updatedSupplier);
 
 		return updatedSupplier;

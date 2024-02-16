@@ -66,6 +66,7 @@ public class GenreService {
 		genre.setUpdatedAt(LocalDateTime.now());
 
 		GenreModel updatedGenre = genreRepository.save(genre);
+		entityManager.flush();
 		entityManager.refresh(updatedGenre);
 
 		return updatedGenre;

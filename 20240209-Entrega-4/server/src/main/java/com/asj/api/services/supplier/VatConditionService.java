@@ -67,6 +67,7 @@ public class VatConditionService {
 		vatCondition.setUpdatedAt(LocalDateTime.now());
 
 		VatConditionModel updatedVatCondition = vatConditionRepository.save(vatCondition);
+		entityManager.flush();
 		entityManager.refresh(updatedVatCondition);
 
 		return updatedVatCondition;

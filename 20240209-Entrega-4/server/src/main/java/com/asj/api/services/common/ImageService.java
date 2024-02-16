@@ -61,6 +61,7 @@ public class ImageService {
 		image.setUpdatedAt(LocalDateTime.now());
 
 		ImageModel updatedImage = imageRepository.save(image);
+		entityManager.flush();
 		entityManager.refresh(updatedImage);
 
 		return updatedImage;

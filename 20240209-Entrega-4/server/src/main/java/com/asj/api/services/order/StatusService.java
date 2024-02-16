@@ -66,6 +66,7 @@ public class StatusService {
 		status.setUpdatedAt(LocalDateTime.now());
 
 		StatusModel updatedStatus = statusRepository.save(status);
+		entityManager.flush();
 		entityManager.refresh(updatedStatus);
 
 		return updatedStatus;

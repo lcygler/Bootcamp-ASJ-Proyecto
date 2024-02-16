@@ -69,6 +69,7 @@ public class StateService {
 		state.setUpdatedAt(LocalDateTime.now());
 
 		StateModel updatedState = stateRepository.save(state);
+		entityManager.flush();
 		entityManager.refresh(updatedState);
 
 		return updatedState;

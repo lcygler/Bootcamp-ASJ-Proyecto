@@ -138,7 +138,7 @@ export class SuppliersFormComponent implements OnInit {
 
   getIndustries() {
     this.industryService.getIndustries().subscribe((res) => {
-      this.industryList = res;
+      this.industryList = res.filter((i) => !i.isDeleted);
     });
   }
 
@@ -312,6 +312,7 @@ export class SuppliersFormComponent implements OnInit {
     } else {
       this.filteredStates = [];
     }
+    this.supplier.address.state!.id = null;
   }
 
   formatCuit(event: any) {

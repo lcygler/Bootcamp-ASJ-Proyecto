@@ -236,3 +236,16 @@ SET
   is_deleted = 1 
 WHERE 
   id = 1;
+
+-- 12. Mostrar los países que no tienen provincias
+SELECT 
+  c.id, 
+  c.name 
+FROM 
+  countries c 
+  LEFT JOIN states s ON c.id = s.country_id 
+WHERE 
+  s.id IS NULL 
+ORDER BY 
+  c.name ASC;
+  

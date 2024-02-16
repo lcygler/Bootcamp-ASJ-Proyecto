@@ -88,6 +88,7 @@ public class OrderDetailService {
 		orderDetail.setUpdatedAt(LocalDateTime.now());
 
 		OrderDetailModel updatedOrderDetail = orderDetailRepository.save(orderDetail);
+		entityManager.flush();
 		entityManager.refresh(updatedOrderDetail);
 
 		return updatedOrderDetail;

@@ -58,6 +58,7 @@ public class ContactDetailService {
 		contactDetail.setUpdatedAt(LocalDateTime.now());
 
 		ContactDetailModel updatedContactDetail = contactDetailRepository.save(contactDetail);
+		entityManager.flush();
 		entityManager.refresh(updatedContactDetail);
 
 		return updatedContactDetail;

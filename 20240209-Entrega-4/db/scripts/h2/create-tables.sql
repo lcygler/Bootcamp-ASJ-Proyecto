@@ -1,193 +1,193 @@
 -- Create Tables
 -- Addresses
 CREATE TABLE countries (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  name varchar(255) NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 CREATE TABLE states (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  name varchar(255) NOT NULL,
-  country_id int NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  country_id INT NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 CREATE TABLE addresses (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  street varchar(255) NOT NULL,
-  number varchar(20) NOT NULL,
-  postal_code varchar(20) NOT NULL,
-  city varchar(255) NOT NULL,
-  state_id int NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  street VARCHAR(255) NOT NULL,
+  number VARCHAR(20) NOT NULL,
+  postal_code VARCHAR(20) NOT NULL,
+  city VARCHAR(255) NOT NULL,
+  state_id INT NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 -- Images
 CREATE TABLE images (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  url varchar(255) NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  url VARCHAR(255) NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 -- Users
 CREATE TABLE genres (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  name varchar(255) NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 CREATE TABLE roles (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  name varchar(255) NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 CREATE TABLE users (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  first_name varchar(255) NOT NULL,
-  last_name varchar(255) NOT NULL,
-  dni varchar(255) UNIQUE NOT NULL,
-  email varchar(255) UNIQUE NOT NULL,
-  phone varchar(255) NOT NULL,
-  genre_id int NOT NULL,
-  address_id int NOT NULL,
-  role_id int NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  dni VARCHAR(255) UNIQUE NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  phone VARCHAR(255) NOT NULL,
+  genre_id INT NOT NULL,
+  address_id INT NOT NULL,
+  role_id INT NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 CREATE TABLE user_credentials (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  user_id int NOT NULL,
-  password varchar(255) NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 -- Suppliers
 CREATE TABLE industries (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  name varchar(255) NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 CREATE TABLE vat_conditions (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  name varchar(255) NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 CREATE TABLE tax_information (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  cuit varchar(255) UNIQUE NOT NULL,
-  vat_condition_id int NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  cuit VARCHAR(255) UNIQUE NOT NULL,
+  vat_condition_id INT NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 CREATE TABLE contact_details (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  first_name varchar(255) NOT NULL,
-  last_name varchar(255) NOT NULL,
-  phone varchar(255) NOT NULL,
-  email varchar(255) NOT NULL,
-  role varchar(255) NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  phone VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  role VARCHAR(255) NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 CREATE TABLE suppliers (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  code varchar(255) UNIQUE NOT NULL,
-  business_name varchar(255) NOT NULL,
-  industry_id int NOT NULL,
-  website varchar(255) NOT NULL,
-  email varchar(255) NOT NULL,
-  phone varchar(255) NOT NULL,
-  image_id int,
-  address_id int NOT NULL,
-  tax_information_id int NOT NULL,
-  contact_detail_id int NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  code VARCHAR(255) UNIQUE NOT NULL,
+  business_name VARCHAR(255) NOT NULL,
+  industry_id INT NOT NULL,
+  website VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  phone VARCHAR(255) NOT NULL,
+  image_id INT,
+  address_id INT NOT NULL,
+  tax_information_id INT NOT NULL,
+  contact_detail_id INT NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 -- Products
 CREATE TABLE categories (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  name varchar(255) NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 CREATE TABLE products (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  sku varchar(255) UNIQUE NOT NULL,
-  name varchar(255) NOT NULL,
-  description varchar(255) NOT NULL,
-  price float NOT NULL,
-  image_id int,
-  category_id int NOT NULL,
-  supplier_id int NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  sku VARCHAR(255) UNIQUE NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  price FLOAT NOT NULL,
+  image_id INT,
+  category_id INT NOT NULL,
+  supplier_id INT NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 -- Orders
 CREATE TABLE statuses (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  name varchar(255) NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 CREATE TABLE orders (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  number varchar(255) UNIQUE NOT NULL,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  number VARCHAR(255) UNIQUE NOT NULL,
   issue_date datetime DEFAULT (CURRENT_TIMESTAMP),
   delivery_date datetime NOT NULL,
-  comments varchar(255) NOT NULL,
-  total float NOT NULL,
-  status_id int NOT NULL,
-  supplier_id int NOT NULL,
-  user_id int,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  comments VARCHAR(255) NOT NULL,
+  total FLOAT NOT NULL,
+  status_id INT NOT NULL,
+  supplier_id INT NOT NULL,
+  user_id INT,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 CREATE TABLE order_details (
-  id int AUTO_INCREMENT PRIMARY KEY,
-  order_id int NOT NULL,
-  product_id int NOT NULL,
-  quantity int NOT NULL,
-  price float NOT NULL,
-  is_deleted boolean NOT NULL DEFAULT FALSE,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  order_id INT NOT NULL,
+  product_id INT NOT NULL,
+  quantity INT NOT NULL,
+  price FLOAT NOT NULL,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
